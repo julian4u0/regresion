@@ -1,0 +1,26 @@
+Para impulsar la industria de vinos y su crecimiento se invierte en tecnología para el proceso de producción y venta.
+
+Los datos fueron recolectados por un sistema computarizado (iLab), que gestiona automáticamente el proceso de elaboración del vino, de las solicitudes de muestreo de pruebas del productor y análisis sensorial y al laboratorio.
+
+
+
+- Acidez fija [fixed acidity] (g (tartaric acid)/dm3)
+- Acidez volátil [volatile acidity] (g (acetic acid) /dm3)
+- Ácido cítrico [citric acid] (g/dm3)
+- Azúcar residual [residual sugar] (g/dm3)
+- Cloruros [chlorides] (g (sodium chloride)/dm3)
+- Calidad [quality] (value 0-10)
+
+#descripción 
+
+1 - fixed acidity: la mayoría de los ácidos relacionados con el vino, fijos o no volátiles (no se evaporan fácilmente).
+
+2 - volatile acidity: la cantidad de ácido acético en el vino, que en niveles demasiado altos puede provocar un sabor desagradable a vinagre.
+
+3 - citric acid: Encontrado en pequeñas cantidades, el ácido cítrico puede agregar "frescura" y sabor a los vinos.
+
+4 - residual sugar: la cantidad de azúcar que queda después de que se detiene la fermentación; es raro encontrar vinos con menos de 1 gramo/litro y los vinos con más de 45 gramos/litro se consideran dulces.
+
+5 - chlorides: la cantidad de sal en el vino
+
+Variable de respuesta (basada en datos sensoriales): quality (puntaje discreto entre 0 y 10)
