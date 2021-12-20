@@ -1,0 +1,75 @@
+---
+title: "Taller RLM 1"
+author: "-"
+date: "3/12/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Librerías aquí.
+library(readr)
+library("tidyverse")
+library("summarytools")
+library("car")
+library("rsm")
+library("rgl")
+library("GGally")
+library("DT")
+library("scales")
+```
+
+```{r}
+datos <- read_csv("archivos/winequality-red.csv")
+#datos=read.table(file.choose(),header=T,sep=",",dec=".")
+datos1<-datos[1:100,c(1:5,12)]
+
+datos <- datos1 %>% 
+  rename(Fija = `fixed acidity`) %>% 
+  rename(Volatil = `volatile acidity`) %>% 
+  rename(Citrico = `citric acid`) %>% 
+  rename(Azucar = `residual sugar`) %>% 
+  rename(Cloruros = chlorides) %>% 
+  rename(Calidad = quality)
+
+rm(datos1)
+```
+
+
+```{r}
+attach(datos)
+modelo = lm(Calidad~Fija+Volatil+Citrico+Azucar+Cloruros, datos)
+summary(modelo)
+```
+
+# Punto siete. Sumas de cuadrados secuenciales (tipo I) y sumas de cuadrados parciales (tipo II).
+
+
+```{r}
+anova(modelo)
+```
+Como podemos observar en la tabla anterior los menores valores para las sumas de cuadrados de tipo I son:
+1. $\text{SS1}_{X_4} = 0.000$
+2. $\text{SS1}_{X_5} = 0.262$
+3. $\text{SS1}_{X_1} = 0.474$
+Nuestra tabla anova tambien nos dice que:
+$\text{SSR}(X_4 | X_1, X_2, X_3) = 0.000$
+$\text{SSR}(X_5 | X_1, X_2, X_3, X_4) = 0.262$
+$\text{SSR}(X_1) = 0.474$, lo que quiere decir que las sumas de las diferencias entre la estimación y el valor medio de la variable de respuesta es mínima, por lo que el modelo propuesto no es suficientemente útil, también podemos verlo con el p-value; rechazamos la hipótesis y concluimos que el la variable no es significativa para cada modelo planteado. 
+
+```{r}
+Anova(modelo)
+```
+Como podemos observar en la tabla anterior los menores valores para las sumas de cuadrados de tipo II son:
+1. $\text{SS2}_{X_4} = 0.001$
+2. $\text{SS2}_{X_5} = 0.262$
+3. $\text{SS2}_{X_1} = 0.793$
+
+Cada valor nos dice el SSR de cada variable en el modelo completo dadas las demás (ej. $\text{SSR}(X_4 | X_1, X_2, X_3, X_4) = 0.001$), lo que quiere decir que las sumas de las diferencias entre la estimación y el valor medio de la variable de respuesta es mínima, por lo que el modelo propuesto no es suficientemente útil, también podemos verlo con el p-value; recordemos que rechazamos la siguiente hipótesis nula cuando el p-value es pequeño, como podemos ver para $X_1, X_4, X_5$ los p-values son demasiado grandes si fijamos un $\alpha$ de 0.05, por lo que concluimos que estas variables no son significativa para cada el modelo ajustado.
+
+
+$$
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} +\beta_3X_{i3} +\beta_4X_{i4} + \beta_5X_{i5} + E_i\ , \text{con} \ E \sim N(0, \sigma^2) \\\ 
+\text{H}_0 : \beta_j = 0 \text{ vs. }\text{H}_1 :  \beta \neq 0
+$$
