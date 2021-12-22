@@ -384,3 +384,67 @@ resul
 miscoeficientes(modelo, datos)
 ```
 De la tabla anterior se puede extraer que $|\beta_2| > |\beta_3| > |\beta_1| > |\beta_5| > |\beta_4|$, lo que significa que es la concentración de ácidos cítricos la variable que tiene mayor efecto en la calidad de los vinos según el modelo de regresión lineal múltiple planteado en [2]. 
+
+# Punto 5. Significancia individual.
+
+Queremos probar la significancia individual de cada uno de los parámetros del modelo (excepto intercepto) para ello usaremos la prueba t; los resultados son los siguientes:
+
+```{r}
+#summary(modelo)
+```
+\begin{table}[!htb]
+\begin{tabular}{|c|c|c|c|c|l|}
+\hline
+\multicolumn{1}{|l|}{Parámetro} & \multicolumn{1}{l|}{Estimación} & \multicolumn{1}{l|}{Std. Error} & \multicolumn{1}{l|}{$T_{0}$} & \multicolumn{1}{l|}{P(|t|>|$T_{0}$|)} & Test asociado                                                                                         \\ \hline
+$\beta_{1}$    & 0.096393                        & 0.066284                        & 1.454                         & 0.14921                                                  & $H_{0}$: $\beta_{1}=0$ vs $H_{A}:\beta_{1} \neq 0$\\ \hline
+$\beta_{2}$     & -2.087519                       & 0.494974                        & -4.217                        & 5.68e-05                                                 & $H_{0}$: $\beta_{2}=0$ vs $H_{A}:\beta_{2} \neq 0$                                                                                                      \\ \hline
+$\beta_{3}$     & -1.686348                       & 0.510522                        & -3.303                        & 0.00135                                                  &  $H_{0}$: $\beta_{3}=0$ vs $H_{A}:\beta_{3} \neq 0$                                                                                                     \\ \hline
+$\beta_{4}$     & 0.001826                        & 0.045415                        & 0.040                         & 0.96801                                                  & $H_{0}$: $\beta_{4}=0$ vs $H_{A}:\beta_{4} \neq 0$                                                                                                      \\ \hline
+$\beta_{5}$    & 0.786835                        & 0.940631                        & 0.836                         & 0.40500                                                  &   $H_{0}$: $\beta_{5}=0$ vs $H_{A}:\beta_{5} \neq 0$                                                                                                    \\ \hline
+\end{tabular}
+\end{table}
+
+Usando el hecho de que si el valor P es menor al nivel de significancia que establecimos como $\alpha=0.05$, el estadístico de prueba t cae en la región de rechazo decretamos como criterio de rechazo el valor P.
+
+* __Significancia de $\beta_{1}$:__ No hay evidencia suficiente para rechazara la hipótesis nula, por lo tanto el ácido fijo __no es__ signifcativo para explicar la calidad del vino dado que las otras covariables están en el modelo.
+
+* __Significancia de $\beta_{2}$:__ Hay evidencia suficiente para rechazara la hipótesis nula, por lo tanto el ácido volátil __es__ signifcativo para explicar la calidad del vino dado que las otras covariables están en el modelo.
+
+* __Significancia de $\beta_{3}$:__ Hay evidencia suficiente para rechazara la hipótesis nula, por lo tanto la ácido cítrico __es__ signifcativo para explicar la calidad del vino dado que las otras covariables están en el modelo.
+
+* __Significancia de $\beta_{4}$:__ No hay evidencia suficiente para rechazara la hipótesis nula, por lo tanto la azúcar residual __no es__ signifcativa para explicar la calidad del vino dado que las otras covariables están en el modelo.
+
+* __Significancia de $\beta_{5}$:__ No hay evidencia suficiente para rechazara la hipótesis nula, por lo tanto los cloruros  __no son__ signifcativos para explicar la calidad del vino dado que las otras covariables están en el modelo.
+
+# Punto 6. Prueba significancia simultánea.
+
+Como en el numeral anterior llegamos a la conclusión de que $\beta_1$, $\beta_4$ y $\beta_5$ no eran signiticativas de manera individual para explicar la calidad del vino, queremos probar si de manera conjunta siguen sin ser significativas y con esta información podemos considerar postular un nuevo modelo que contenga menos párametros, esto puede ser conveniente ya que preferimos modelos parsimoniosos.
+
+* Modelo reducido: $Y_{i}=\beta_{0}+\beta_{2}X_{2}+\beta_{3}X_{3}+E_{i}, \  E_{i} \sim N(0, \sigma^2)$
+* Modelo completo: $Y_{i}=\beta_{0}+\beta_{1}X_{1}+\beta_{2}X_{2}+\beta_{3}X_{3}+\beta_{4}X_{4}+\beta_{5}X_{5}+E_{i}, \  E_{i} \sim N(0, \sigma^2)$
+* $H_{0} =  \left\lbrace\begin{array}{c} \beta_{1}=0 \\ \beta_{4}=0\\ \beta_{5}=0 \end{array}\right.$   vs   $H_{A} =  \left\lbrace\begin{array}{c} \beta_{1}\neq0  \   ó\\\beta_{4}\neq0   \ ó\\\beta_{5}\neq0 \end{array}\right.$ 
+
+```{r}
+#linearHypothesis(modelo,c("Fija=0","Azucar=0", "Cloruros=0"))
+```
+\begin{table}[!htb]
+\begin{tabular}{|lccllll|}
+\hline
+Fuente               & \multicolumn{1}{l}{DF errores} & \multicolumn{1}{l|}{SC residuos} & Df(SSR parcial)       & SSR parcial                & $F_{0}$                    & Pr($f_{3,94}$\textgreater{}$F_{0}$) \\ \hline
+Modelo Reducido (MR) & 97                             & \multicolumn{1}{c|}{36.287}      & \multicolumn{4}{l|}{}                                                                                                 \\
+Modelo Completo (MF) & 94                             & \multicolumn{1}{c|}{35.255}      & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{1.0326} & \multicolumn{1}{c}{0.9177} & \multicolumn{1}{c|}{0.4355}         \\ \hline
+\multicolumn{7}{|l|}{SSR parcial = SSE(MR)-SSE(MF)}                                                                                                                                                              \\ \hline
+\end{tabular}
+\end{table}
+
+* El estadístico de prueba lo construimos así:
+$$F_{0}=\frac{SSR \ parcial}{MSE(MF)}=\frac{SSE(MR)-SSE(MF)/g.l[SSE(MR)]-g.l[SSE(MF)]}{SSE(MF)/g.l[SSE(MF)]}$$
+$$F_{0}=\frac{36.287-35.255/97-94}{35.255/94}=\frac{1.0326/3}{35.255/94}=0.9177$$
+Recordemos que la distribución del estadístico es 
+$F_{0} \sim f_{g.l[SSE(MR)]-g.l[SSE(MF)],n-k-1}$, que en nuestro caso equivale a $F_{0} \sim f_{3,94}$
+
+* Calcularemos el valor P, con la ayuda de R así:
+```{r echo=TRUE}
+pf(0.9177,3,94, lower.tail = F)
+```
+el valor P es mayor que el nivel de significancia que fijamos como $\alpha=0.05$, por tanto el valor de nuestro estadístico de prueba no cae en la región de rechazo; no hay evidencia suficiente para rechazar $H_{0}$, por lo tanto podemos decir que las variables *acidez fija*, *azúcar residual* y *cloruros* no ayudan a explicar la calidad de los vinos, dado que en el modelo estan las variables *acidez volátil* y *ácido cítrico*.
