@@ -9,9 +9,46 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+#LEER DATOS EN archivo asignado a su grupo, así
+library(readr)
+datos <- read_csv("archivos/winequality-red.csv")
+#datos=read.table(file.choose(),header=T,sep=",",dec=".")
+datos1<-datos[1:100,c(1:5,12)]
+```
+
+
 **11.** Ajuste el modelo de regresión sin las observaciones 17 y 34, suponga que se establece que hay un error de digitación con estas dos observaciones, presente sólo la tabla de parámetros ajustados resultante ¿Cambian notoriamente las estimaciones de los parámetros, sus errores estándar y/o la significancia? ¿Qué concluye al respecto? Evalúe el gráfico de normalidad para los residuales estudentizados para este ajuste ¿mejoró la normalidad? Concluya sobre los efectos de este par de observaciones.
 
 **RTA:**
+
+```{r}
+# Se elimina las observaciones 17 y 34
+datos2 = datos1[-c(17,34),]
+attach(datos2)
+```
+
+```{r}
+datos2 <- datos2 %>% 
+  rename(Fija = `fixed acidity`) %>% 
+  rename(Volatil = `volatile acidity`) %>% 
+  rename(Citrico = `citric acid`) %>% 
+  rename(Azucar = `residual sugar`) %>% 
+  rename(Cloruros = chlorides) %>% 
+  rename(Calidad = quality)
+```
+
+
+```{r}
+# Se ajusta el modelo para datos 2 con todas las variables
+mod2 = lm(Calidad ~., data = datos2)
+# Tabla de parámetros ajustados
+summary(mod2)
+# ¿Cambian notoriamente las estimaciones de los parámetros, sus errores estándar y/o la significancia? ¿Qué concluye al respecto?
+```
+¿Cambian notoriamente las estimaciones de los parámetros, sus errores estándar y/o la significancia? ¿Qué concluye al respecto?
+
+En la anterior tabla se puede observar que, la estimación de los parámetros $\beta_j$ no presentan cambios notorios, excepto para $\beta_4$, pasa de 0.001826 (signo positivo) considerando las observaciones 17 y 34, a -0.04494 (signo negativo) sin considerar las observaciones 17 y 34. Ahora, para los errores estándar se puede observar que no cambian notoriamente sin considerar las observaciones 17 y 34, sin embargo, para la significancia, si se toma un nivel de significancia de 10%, $\alpha = 0.1$, se tiene que $\beta_1$ es significativo, pues $0.094535 < 0.1$, mientras que considerando las observaciones 17 y 34 esto no pasa, pues $0.14921 > 0.1$.
 
 **12.** Para el modelo con todas las variables y sin las observaciones 17 y 24, realice diagnósticos de multicolinealidad mediante
 
