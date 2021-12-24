@@ -1,0 +1,38 @@
+---
+title: "Punto 11 a 14"
+author: "Deivid Zhang Figueroa"
+date: "24/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**11.** Ajuste el modelo de regresión sin las observaciones 17 y 34, suponga que se establece que hay un error de digitación con estas dos observaciones, presente sólo la tabla de parámetros ajustados resultante ¿Cambian notoriamente las estimaciones de los parámetros, sus errores estándar y/o la significancia? ¿Qué concluye al respecto? Evalúe el gráfico de normalidad para los residuales estudentizados para este ajuste ¿mejoró la normalidad? Concluya sobre los efectos de este par de observaciones.
+
+**RTA:**
+
+**12.** Para el modelo con todas las variables y sin las observaciones 17 y 24, realice diagnósticos de multicolinealidad mediante
+
+**a)** Matriz de correlación de las variables predictoras
+
+**b)** VIF´s
+
+**c)** Proporciones de varianza
+
+**13.** Sin las observaciones 17 y 34, construya modelos de regresión utilizando los métodos de selección (muestre de cada método sólo la tabla de resumen de este y la tabla ANOVA y la de parámetros estimados del modelo finalmente resultante):
+
+**a)** Selección según el $R_{adj}^2$
+
+**b)** Selección según el estadístico $C_p$
+
+**c)** Stepwise
+
+**d)** Selección hacia adelante o forward
+
+**e)** Selección hacia atrás o backward
+
+**14.** Con base en los anteriores numerales, ¿Cuál modelo sugiere para la variable respuesta? ¿por qué?
+
+**RTA:** 
