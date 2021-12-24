@@ -6,10 +6,10 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 
 # Librerías aquí.
-library(readr)
+library("readr")
 library("tidyverse")
 library("summarytools")
 library("car")
@@ -18,6 +18,7 @@ library("rgl")
 library("GGally")
 library("DT")
 library("scales")
+library("stargazer")
 ```
 
 ```{r}
@@ -39,9 +40,10 @@ rm(datos1)
 
 ```{r}
 attach(datos)
-modelo = lm(Calidad~Fija+Volatil+Citrico+Azucar+Cloruros, datos)
+modelo = lm(Calidad ~ Fija + Volatil + Citrico + Azucar + Cloruros, datos)
 summary(modelo)
 ```
+
 
 # Punto siete. Sumas de cuadrados secuenciales (tipo I) y sumas de cuadrados parciales (tipo II).
 
@@ -56,11 +58,12 @@ Como podemos observar en la tabla anterior los menores valores para las sumas de
 Nuestra tabla anova tambien nos dice que:
 $\text{SSR}(X_4 | X_1, X_2, X_3) = 0.000$
 $\text{SSR}(X_5 | X_1, X_2, X_3, X_4) = 0.262$
-$\text{SSR}(X_1) = 0.474$, lo que quiere decir que las sumas de las diferencias entre la estimación y el valor medio de la variable de respuesta es mínima, por lo que el modelo propuesto no es suficientemente útil, también podemos verlo con el p-value; rechazamos la hipótesis y concluimos que el la variable no es significativa para cada modelo planteado. 
-
+$\text{SSR}(X_1) = 0.474$, lo que quiere decir que las sumas de las diferencias entre la estimación y el valor medio de la variable de respuesta es mínima, por lo que el modelo propuesto no es suficientemente útil, también podemos verlo con el p-value; rechazamos la hipótesis y concluimos que la variable no es significativa para cada modelo planteado. 
 ```{r}
 Anova(modelo)
 ```
+
+
 Como podemos observar en la tabla anterior los menores valores para las sumas de cuadrados de tipo II son:
 1. $\text{SS2}_{X_4} = 0.001$
 2. $\text{SS2}_{X_5} = 0.262$
@@ -73,3 +76,94 @@ $$
 Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} +\beta_3X_{i3} +\beta_4X_{i4} + \beta_5X_{i5} + E_i\ , \text{con} \ E \sim N(0, \sigma^2) \\\ 
 \text{H}_0 : \beta_j = 0 \text{ vs. }\text{H}_1 :  \beta \neq 0
 $$
+
+# Punto ocho. Gráficos de los residuales estudentizados vs. Valores ajustados y contra las variables de regresión utilizadas.
+
+
+```{r, fig.width=10, fig.height=5}
+par(mfrow = c(1, 2))
+
+plot(
+  datos$Calidad ,
+  rstudent(modelo),
+  ylim = c(
+    min(rstudent(modelo),-2 * summary(modelo)$sigma),
+    max(rstudent(modelo), 2 * summary(modelo)$sigma)
+  ),
+  cex = 1.2,
+  xlab = "Valores de Calidad presentes",
+  ylab = "Residuales estudentizados"
+)
+abline(h = c(-2, 0, 2), col = 2)
+
+plot(
+  fitted(modelo),
+  rstudent(modelo),
+  ylim = c(
+    min(rstudent(modelo),-2 * summary(modelo)$sigma),
+    max(rstudent(modelo), 2 * summary(modelo)$sigma)
+  ),
+  xlab = "Valores de Calidad ajustada",
+  ylab = "Residuales estudentizados",
+  cex = 1.2
+)
+abline(h = c(-2, 0, 2), col = 2)
+
+
+```
+
+Como podemos ver en las gráficas anteriores los residuales estudentizados tienen ciertos patrones, en la primera gráfica observamos que entre más alta sea la calidad estos tienden a pasar de negativos a positivos (modelo lineal entre $x$ y $y$ no es adecuado) y, además, que cuando el valor es de calidad es $4$ la varianza está mucho más dispersa que cuando el valor de la calidad es $7$, haciendo que la varianza no sea constante.
+
+Un motivo de esto puede ser que no se cuenta con un número considerable de observaciones, por lo que el modelo puede ser susceptible a observaciones atípicas o influcienciadoras.
+
+En la gráfica de valores de la calidad ajustada por el modelo vs. residuales estudentizados podemos ver que tiene un efecto similar, pero en este los residuales están un poco más centrados.  
+
+```{r, fig.width=9, fig.height=8}
+residualPlots(
+  modelo,
+  tests = FALSE,
+  type = "rstudent",
+  quadratic = FALSE,
+  fitted = FALSE,
+  col = 2,
+  cex = 1.5,
+  cex.lab = 1.5, cex.axis = 1.5
+)
+```
+En esta gráfica podemos observar el comportamiento de las variables utilizadas para la regresión vs. los residuales, al parecer no hay ningún indicio de que alguna variable afecte el comportamiento de la varianza.
+
+# Punto nueve. Gráfica de probabilidad normal para los residuales estudentizados. ¿Existen razones para dudar de la hipótesis de normalidad sobre los errores en este modelo?
+
+```{r, fig.width=9, fig.height=9}
+test = shapiro.test(rstudent(modelo)) #Test de normalidad sobre residuales estudentizados
+qqPlot(rstudent(modelo))#, envelope=list(level=0.95))
+legend("topleft", legend = rbind(c("Statistic W", "p.value"), round(c(
+  test$statistic, test$p.value
+), digits = 5)), cex = 1.2)
+```
+
+Como podemos en el gráfico hay datos que se desvían demasiado de los cuantiles teóricos de la distribución normal, lo cual es una señal grande para dudar de la normalidad de los residuales.
+
+Además, realizamos el test de Shapiro-Wilk donde la hipótesis nula es que nuestros datos provienen de una distribución normal, podemos ver que el p-value es igual a $0.00003$, muchísimo menor a cualquier valor de $\alpha$ que podamos fijar, por lo que rechazamos la hipótesis nula y afirmamos que hay suficiente evidencia para decir que los residuales no siguen una distribución normal.
+
+
+# Punto diez. Presencia de observaciones atípicas, de balanceo y/o influenciales.
+
+TO-DO
+
+```{r, echo=FALSE}
+####MEDIDAS DE INFLUENCIA 
+influence.measures(modelo)
+influence.measures(modelo)$is.inf 
+```
+
+```{r, fig.width=10, fig.height=10}
+
+infIndexPlot(modelo)
+influencePlot(modelo, xlim = c(0, 0.5), ylim = c(-4, 4))
+
+dfbetaPlots(modelo,
+            intercept = T,
+            cex = 2,
+            col = 2)
+```
