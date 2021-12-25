@@ -10,6 +10,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+library(car)
+library(perturb)
+library(leaps)
+library(olsrr)
+```
+
+
+```{r}
 #LEER DATOS EN archivo asignado a su grupo, así
 library(readr)
 datos <- read_csv("archivos/winequality-red.csv")
@@ -66,11 +74,47 @@ En la anterior gráfica se puede observar que, sin considerar las observaciones 
 
 **12.** Para el modelo con todas las variables y sin las observaciones 17 y 34, realice diagnósticos de multicolinealidad mediante
 
+```{r}
+# borrar esto cuando se unan las partes
+miscoeficientes=function(modeloreg,datosreg) {
+coefi=coef(modeloreg)
+datos2=as.data.frame(scale(datosreg))
+coef.std=c(0,coef(lm(update(formula(modeloreg),~.+0),datos2)))
+limites=confint(modeloreg,level=0.95)
+vifs=c(0,vif(modeloreg))
+resul=data.frame("Estimacíon"=coefi,"Límites"=limites,Vif=vifs,Coef.Std=coef.std)
+cat("Coeficientes estimados, sus I.C, Vifs y Coeficientes estimados estandarizados","\n")
+resul
+}
+```
+
 **a)** Matriz de correlación de las variables predictoras
+
+**RTA:**
+
+```{r, out.height=6}
+cor(datos2)
+```
+
+- Matriz de correlaciones: Se detecta una asociación lineal alta entre las variables cítrico y volátil, con un valor de -0.626393071.
 
 **b)** VIF´s
 
+**RTA:**
+
+```{r}
+miscoeficientes(mod2,datos2)
+```
+
+- Con los valores VIFs: no se observa valores superando la cota de 10. Por este método no se detecta multicolinealidad-
+
 **c)** Proporciones de varianza
+
+```{r}
+colldiag(mod2)
+```
+
+- Con las proporciones de descomposición de varianza: se puede observar que, en la quinta fila, $\pi_{52}$ y $\pi_{53}$ superan 0.5, y no existe otra fila i donde 2 $\pi_{ij}$ superen esta cota, luego, con estos índices se detecta que volátil y cítrico están involucradas en una relación de multicolinealidad.
 
 **13.** Sin las observaciones 17 y 34, construya modelos de regresión utilizando los métodos de selección (muestre de cada método sólo la tabla de resumen de este y la tabla ANOVA y la de parámetros estimados del modelo finalmente resultante):
 
