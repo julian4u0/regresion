@@ -44,13 +44,27 @@ datos2 <- datos2 %>%
 mod2 = lm(Calidad ~., data = datos2)
 # Tabla de parámetros ajustados
 summary(mod2)
-# ¿Cambian notoriamente las estimaciones de los parámetros, sus errores estándar y/o la significancia? ¿Qué concluye al respecto?
 ```
-¿Cambian notoriamente las estimaciones de los parámetros, sus errores estándar y/o la significancia? ¿Qué concluye al respecto?
 
 En la anterior tabla se puede observar que, la estimación de los parámetros $\beta_j$ no presentan cambios notorios, excepto para $\beta_4$, pasa de 0.001826 (signo positivo) considerando las observaciones 17 y 34, a -0.04494 (signo negativo) sin considerar las observaciones 17 y 34. Ahora, para los errores estándar se puede observar que no cambian notoriamente sin considerar las observaciones 17 y 34, sin embargo, para la significancia, si se toma un nivel de significancia de 10%, $\alpha = 0.1$, se tiene que $\beta_1$ es significativo, pues $0.094535 < 0.1$, mientras que considerando las observaciones 17 y 34 esto no pasa, pues $0.14921 > 0.1$.
 
-**12.** Para el modelo con todas las variables y sin las observaciones 17 y 24, realice diagnósticos de multicolinealidad mediante
+```{r}
+# Gráfico de normalidad para los residuales estudentizados
+
+residualPlots(mod2,tests=FALSE,type="rstudent",quadratic=FALSE,col=2,cex=1.5)
+test=shapiro.test(rstudent(mod2)) #Test de normalidad sobre residuales estudentizados
+qqnorm(rstudent(mod2),cex=2)
+
+qqline(rstudent(mod2),col=2)
+legend("topleft",legend=rbind(c("Statistic W","p.value"),
+round(c(test$statistic,test$p.value),digits=5)),cex=1.2)
+```
+
+En la anterior gráfica se puede observar que, sin considerar las observaciones 17 y 34, esto no mejora la normalidad para los residuales estudentizados, pues el valor p es muy pequeño < 0.05, por lo que se rechaza la hipótesis nula $H_0:$ los residuales estudentizados se distribuyen como una normal.
+
+¿Cuál sería el efecto de estas 2 observaciones?
+
+**12.** Para el modelo con todas las variables y sin las observaciones 17 y 34, realice diagnósticos de multicolinealidad mediante
 
 **a)** Matriz de correlación de las variables predictoras
 
