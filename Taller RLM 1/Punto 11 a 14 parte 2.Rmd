@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(car)
 library(perturb)
 library(leaps)
+library(dplyr)
 library(olsrr)
 ```
 
