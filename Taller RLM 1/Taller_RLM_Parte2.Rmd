@@ -23,6 +23,7 @@ library("DT")
 library("scales")
 library("stargazer")
 library("olsrr")
+library("xtable")
 ```
 
 ```{r}
@@ -184,9 +185,11 @@ residuales no siguen una distribución normal.
 
 # Punto diez. Presencia de observaciones atípicas, de balanceo y/o influencíales.
 
-```{r, echo=FALSE}
-# MEDIDAS DE INFLUENCIA 
-influence.measures(modelo)$is.inf 
+```{r, echo=FALSE, results='asis'}
+# MEDIDAS DE INFLUENCIA
+tabla <- influence.measures(modelo)$is.inf 
+print(xtable(tabla), type="latex", comment=FALSE)
+
 ```
 
 Como se observa en la tabla anterior los datos influenciables son:
