@@ -3,6 +3,9 @@ title: "Taller RLM 1"
 author: "-"
 date: "3/12/2021"
 output: pdf_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -19,6 +22,7 @@ library("GGally")
 library("DT")
 library("scales")
 library("stargazer")
+library("olsrr")
 ```
 
 ```{r}
@@ -37,40 +41,53 @@ datos <- datos1 %>%
 rm(datos1)
 ```
 
-
 ```{r}
 attach(datos)
 modelo = lm(Calidad ~ Fija + Volatil + Citrico + Azucar + Cloruros, datos)
 summary(modelo)
 ```
 
-
 # Punto siete. Sumas de cuadrados secuenciales (tipo I) y sumas de cuadrados parciales (tipo II).
-
 
 ```{r}
 anova(modelo)
 ```
-Como podemos observar en la tabla anterior los menores valores para las sumas de cuadrados de tipo I son:
-1. $\text{SS1}_{X_4} = 0.000$
-2. $\text{SS1}_{X_5} = 0.262$
-3. $\text{SS1}_{X_1} = 0.474$
-Nuestra tabla anova tambien nos dice que:
-$\text{SSR}(X_4 | X_1, X_2, X_3) = 0.000$
+
+Como podemos observar en la tabla anterior los menores valores para las
+sumas de cuadrados de tipo I son: 1. $\text{SS1}_{X_4} = 0.000$ 2.
+$\text{SS1}_{X_5} = 0.262$ 3. $\text{SS1}_{X_1} = 0.474$ Nuestra tabla
+anova tambien nos dice que: $\text{SSR}(X_4 | X_1, X_2, X_3) = 0.000$
 $\text{SSR}(X_5 | X_1, X_2, X_3, X_4) = 0.262$
-$\text{SSR}(X_1) = 0.474$, lo que quiere decir que las sumas de las diferencias entre la estimación y el valor medio de la variable de respuesta es mínima, por lo que el modelo propuesto no es suficientemente útil, también podemos verlo con el p-value; rechazamos la hipótesis y concluimos que la variable no es significativa para cada modelo planteado. 
+$\text{SSR}(X_1) = 0.474$, lo que quiere decir que las sumas de las
+diferencias entre la estimación y el valor medio de la variable de
+respuesta es mínima, por lo que el modelo propuesto no es
+suficientemente útil, también podemos verlo con el p-value; rechazamos
+la hipótesis y concluimos que la variable no es significativa para cada
+modelo planteado.
+
 ```{r}
 Anova(modelo)
 ```
 
+Como podemos observar en la tabla anterior los menores valores para las
+sumas de cuadrados de tipo II son:
 
-Como podemos observar en la tabla anterior los menores valores para las sumas de cuadrados de tipo II son:
-1. $\text{SS2}_{X_4} = 0.001$
-2. $\text{SS2}_{X_5} = 0.262$
-3. $\text{SS2}_{X_1} = 0.793$
+1\. $\text{SS2}_{X_4} = 0.001$
 
-Cada valor nos dice el SSR de cada variable en el modelo completo dadas las demás (ej. $\text{SSR}(X_4 | X_1, X_2, X_3, X_4) = 0.001$), lo que quiere decir que las sumas de las diferencias entre la estimación y el valor medio de la variable de respuesta es mínima, por lo que el modelo propuesto no es suficientemente útil, también podemos verlo con el p-value; recordemos que rechazamos la siguiente hipótesis nula cuando el p-value es pequeño, como podemos ver para $X_1, X_4, X_5$ los p-values son demasiado grandes si fijamos un $\alpha$ de 0.05, por lo que concluimos que estas variables no son significativa para cada el modelo ajustado.
+2\. $\text{SS2}_{X_5} = 0.262$
 
+3\. $\text{SS2}_{X_1} = 0.793$
+
+Cada valor nos dice el SSR de cada variable en el modelo completo dadas
+las demás (ej. $\text{SSR}(X_4 | X_1, X_2, X_3, X_4) = 0.001$), lo que
+quiere decir que las sumas de las diferencias entre la estimación y el
+valor medio de la variable de respuesta es mínima, por lo que el modelo
+propuesto no es suficientemente útil, también podemos verlo con el
+p-value; recordemos que rechazamos la siguiente hipótesis nula cuando el
+p-value es pequeño, como podemos ver para $X_1, X_4, X_5$ los p-values
+son demasiado grandes si fijamos un $\alpha$ de 0.05, por lo que
+concluimos que estas variables no son significativa para cada el modelo
+ajustado.
 
 $$
 Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} +\beta_3X_{i3} +\beta_4X_{i4} + \beta_5X_{i5} + E_i\ , \text{con} \ E \sim N(0, \sigma^2) \\\ 
@@ -79,8 +96,7 @@ $$
 
 # Punto ocho. Gráficos de los residuales estudentizados vs. Valores ajustados y contra las variables de regresión utilizadas.
 
-
-```{r, fig.width=10, fig.height=5}
+```{r, fig.width=8, fig.height=4}
 par(mfrow = c(1, 2))
 
 plot(
@@ -112,13 +128,23 @@ abline(h = c(-2, 0, 2), col = 2)
 
 ```
 
-Como podemos ver en las gráficas anteriores los residuales estudentizados tienen ciertos patrones, en la primera gráfica observamos que entre más alta sea la calidad estos tienden a pasar de negativos a positivos (modelo lineal entre $x$ y $y$ no es adecuado) y, además, que cuando el valor es de calidad es $4$ la varianza está mucho más dispersa que cuando el valor de la calidad es $7$, haciendo que la varianza no sea constante.
+Como podemos ver en las gráficas anteriores los residuales
+estudentizados tienen ciertos patrones, en la primera gráfica observamos
+que entre más alta sea la calidad estos tienden a pasar de negativos a
+positivos (modelo lineal entre $x$ y $y$ no es adecuado) y, además, que
+cuando el valor es de calidad es $4$ la varianza está mucho más dispersa
+que cuando el valor de la calidad es $7$, haciendo que la varianza no
+sea constante.
 
-Un motivo de esto puede ser que no se cuenta con un número considerable de observaciones, por lo que el modelo puede ser susceptible a observaciones atípicas o influcienciadoras.
+Un motivo de esto puede ser que no se cuenta con un número considerable
+de observaciones, por lo que el modelo puede ser susceptible a
+observaciones atípicas o influcienciadoras.
 
-En la gráfica de valores de la calidad ajustada por el modelo vs. residuales estudentizados podemos ver que tiene un efecto similar, pero en este los residuales están un poco más centrados.  
+En la gráfica de valores de la calidad ajustada por el modelo vs.
+residuales estudentizados podemos ver que tiene un efecto similar, pero
+en este los residuales están un poco más centrados.
 
-```{r, fig.width=9, fig.height=8}
+```{r, fig.width=7, fig.height=6}
 residualPlots(
   modelo,
   tests = FALSE,
@@ -130,7 +156,11 @@ residualPlots(
   cex.lab = 1.5, cex.axis = 1.5
 )
 ```
-En esta gráfica podemos observar el comportamiento de las variables utilizadas para la regresión vs. los residuales, al parecer no hay ningún indicio de que alguna variable afecte el comportamiento de la varianza.
+
+En esta gráfica podemos observar el comportamiento de las variables
+utilizadas para la regresión vs. los residuales, al parecer no hay
+ningún indicio de que alguna variable afecte el comportamiento de la
+varianza.
 
 # Punto nueve. Gráfica de probabilidad normal para los residuales estudentizados. ¿Existen razones para dudar de la hipótesis de normalidad sobre los errores en este modelo?
 
@@ -142,28 +172,114 @@ legend("topleft", legend = rbind(c("Statistic W", "p.value"), round(c(
 ), digits = 5)), cex = 1.2)
 ```
 
-Como podemos en el gráfico hay datos que se desvían demasiado de los cuantiles teóricos de la distribución normal, lo cual es una señal grande para dudar de la normalidad de los residuales.
+Como podemos en el gráfico hay datos que se desvían demasiado de los
+cuantiles teóricos de la distribución normal, lo cual es una señal
+grande para dudar de la normalidad de los residuales.
 
-Además, realizamos el test de Shapiro-Wilk donde la hipótesis nula es que nuestros datos provienen de una distribución normal, podemos ver que el p-value es igual a $0.00003$, muchísimo menor a cualquier valor de $\alpha$ que podamos fijar, por lo que rechazamos la hipótesis nula y afirmamos que hay suficiente evidencia para decir que los residuales no siguen una distribución normal.
+Además, realizamos el test de Shapiro-Wilk donde la hipótesis nula es
+que nuestros errores provienen de una distribución normal, podemos ver
+que el p-value es igual a $0.00003$, muchísimo menor a cualquier valor
+de $\alpha$ que podamos fijar, por lo que rechazamos la hipótesis nula y
+afirmamos que hay suficiente evidencia para decir que los errores
+residuales no siguen una distribución normal.
 
-
-# Punto diez. Presencia de observaciones atípicas, de balanceo y/o influenciales.
-
-TO-DO
+# Punto diez. Presencia de observaciones atípicas, de balanceo y/o influencíales.
 
 ```{r, echo=FALSE}
-####MEDIDAS DE INFLUENCIA 
-influence.measures(modelo)
+# MEDIDAS DE INFLUENCIA 
 influence.measures(modelo)$is.inf 
 ```
 
-```{r, fig.width=10, fig.height=10}
+Como se observa en la tabla anterior los datos influenciables son:
 
-infIndexPlot(modelo)
-influencePlot(modelo, xlim = c(0, 0.5), ylim = c(-4, 4))
+Según la medida DFBetas, los datos influenciables son: 34
 
-dfbetaPlots(modelo,
-            intercept = T,
-            cex = 2,
-            col = 2)
+Según la medida DFFITS, los datos influenciables son: 34, 47
+
+Según la medida COVRATIO, los datos influenciables son: 4, 8, 9, 17, 18,
+19, 20, 34, 38, 39, 43, 63, 82, 84, 95
+
+Según la Distancia de Cook ningún dato es influenciable.
+
+**DFBETAS**
+
+Como podemos ver el dato numero 34 supera el limite fijado en para los
+datos de azúcar, recordemos que una observación es candidata a ser
+influencial si $|DFBETAS_{j(i)}| > 2/\sqrt{n}$, en este caso nuestro
+limite es igual a $2/\sqrt{100} = 0.2$
+
+```{r, fig.width=15, fig.height=8, dpi=500}
+ols_plot_dfbetas(modelo)
+```
+
+**DFFITS**
+
+Como podemos ver en la grifica datos hay varios datos que superan el
+limite fijado, recordemos que una observación es candidata a ser
+influencial si $|DFFITS_{(i)} | > 2\sqrt{\frac{k+1}{n}}$, en este caso
+nuestro limite es igual a $2\sqrt{\frac{5+1}{100}} \approx 0.49$, con
+esto en mente, en orden, los datos mas potencialmente influencíales de
+acuerdo a esta medida son: 34, 47, 17, 46
+
+```{r, fig.width=7, fig.height=5, dpi= 500}
+
+ols_plot_dffits(modelo)
+
+
+```
+
+**COVRATIO**
+
+Como podemos ver los datos numero supera el limite fijado en para los
+datos de azúcar, recordemos que una observación es candidata a ser
+influencial si $|COVRATIO_{i} - 1| > 3(k+1)/n$, en este caso; usamos $R$
+y encontramos los datos que cumplen la condición, a continuación los
+datos potencialmente influencíales y su $COVRATIO$:
+
+```{r}
+covratio(modelo)[abs(covratio(modelo) - 1) > (3*6)/100]
+
+```
+
+**DISTANCIA DE COOK**
+
+Validamos y encontramos que efectivamente ningún valor sobrepasa $1$,
+pero podemos ver que la observación $34$ está demasiado lejos de las
+demás, por lo que la tendremos en cuenta.
+
+```{r}
+#para validar
+#cooks.distance(modelo) > 1
+```
+
+```{r, fig.width=8, fig.height=5}
+ols_plot_cooksd_bar(modelo)
+```
+
+**Residuales estudentizados (internamente estudentizados)**
+
+En este gráfico podemos ver que ninguna observación sobrepasa el limite
+fijado de $|e_i| > 3$, por lo que por este método no encontramos ninguna
+observación atípica.
+
+```{r, fig.width=8, fig.height=4}
+ols_plot_resid_stud(modelo)
+```
+
+En esta gráfica se encuentran los hat-values vs. residuales
+estudentizados, como podemos observar la gráfica usa un limite
+diferente, en esta el limite es 0.12 y hemos visto en clase el limite
+que fijamos es de $\pm3$, pero este otro calculado de una forma
+diferente nos puede dar un indicio a cuales podrían ser atípicas.
+
+Igualmente podemos observar que los puntos de balance pueden ser 34 y
+82, basado en el valor $h_{ii}$
+
+```{r, fig.width=9, dpi=500}
+ols_plot_resid_lev(modelo)
+
+```
+
+```{r, fig.width=8}
+ols_plot_resid_stud_fit(modelo)
 ```
