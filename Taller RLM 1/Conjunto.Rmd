@@ -339,7 +339,9 @@ modelo = lm(Calidad ~ Fija + Volatil + Citrico + Azucar + Cloruros, datos)
 summary(modelo)
 ```
 
+
 # Punto siete.
+
 
 ```{r}
 #anova(modelo)
@@ -451,6 +453,7 @@ Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} +\beta_3X_{i3} +\beta_4X_{i4} + \b
 \text{H}_0 : \beta_j = 0 \text{ vs. }\text{H}_1 :  \beta \neq 0
 $$
 
+
 # Punto ocho. Gráficos de los residuales estudentizados vs. Valores ajustados y contra las variables de regresión utilizadas.
 
 ```{r, fig.width=8, fig.height=4}
@@ -495,7 +498,7 @@ sea constante.
 
 Un motivo de esto puede ser que no se cuenta con un número considerable
 de observaciones, por lo que el modelo puede ser susceptible a
-observaciones atípicas o influcienciadoras.
+observaciones atípicas o influenciadoras.
 
 En la gráfica de valores de la calidad ajustada por el modelo vs.
 residuales estudentizados podemos ver que tiene un efecto similar, pero
@@ -530,21 +533,19 @@ legend("topleft", legend = rbind(c("Statistic W", "p.value"), round(c(
 ```
 
 Como podemos ver en el gráfico hay datos que se desvían demasiado de los
-cuantiles teóricos de la distribución normal, lo cual es una gran señal para dudar de la normalidad de los residuales.
+cuantiles teóricos de la distribución normal, lo cual es una gran señal
+para dudar de la normalidad de los residuales.
 
-Realizamos el test de Shapiro-Wilk donde la hipótesis nula es
-que nuestros errores provienen de una distribución normal, podemos ver
-que el p-value es igual a $0.00003$, muchísimo menor a cualquier valor
-de $\alpha$ que podamos fijar, por lo que rechazamos la hipótesis nula y
+Realizamos el test de Shapiro-Wilk donde la hipótesis nula es que
+nuestros errores provienen de una distribución normal, podemos ver que
+el p-value es igual a $0.00003$, muchísimo menor a cualquier valor de
+$\alpha$ que podamos fijar, por lo que rechazamos la hipótesis nula y
 afirmamos que hay suficiente evidencia para decir que los errores
 residuales no siguen una distribución normal.
 
-# Punto diez. Presencia de observaciones atípicas, de balanceo y/o influencíales.
+# Punto diez. Presencia de observaciones atípicas, de balanceo y/o influenciales.
 
-```{r}
-influence.measures(modelo)$is.inf 
-```
-
+**Tabla de medidas influenciables en el final del archivo**
 
 ```{r, echo=FALSE, results='asis'}
 # MEDIDAS DE INFLUENCIA
@@ -566,24 +567,23 @@ Según la Distancia de Cook ningún dato es influenciable.
 
 **DFBETAS**
 
-
 ```{r, fig.width=15, fig.height=8, dpi=500}
 ols_plot_dfbetas(modelo)
 ```
 
-Como podemos ver el dato numero 34 supera el limite fijado en para los
+Como podemos ver el dato número 34 supera el límite fijado para los
 datos de azúcar, recordemos que una observación es candidata a ser
-influencial mediante este metodo si $|DFBETAS_{j(i)}| > 2/\sqrt{n}$, en este caso nuestro
-limite es igual a $2/\sqrt{100} = 0.2$
+influencial mediante este método si $|DFBETAS_{j(i)}| > 2/\sqrt{n}$, en
+este caso nuestro límite es igual a $2/\sqrt{100} = 0.2$
 
 **DFFITS**
 
-Como podemos ver en la gráfica hay varios datos que superan el
-limite fijado, recordemos que una observación es candidata a ser
-influencial si $|DFFITS_{(i)} | > 2\sqrt{\frac{k+1}{n}}$, en este caso
-nuestro limite es igual a $2\sqrt{\frac{5+1}{100}} \approx 0.49$, con
-esto en mente, los datos mas potencialmente influencíales de
-acuerdo a esta medida, en orden, son: 34, 47, 17, 46
+Como podemos ver en la gráfica hay varios datos que superan el límite
+fijado, recordemos que una observación es candidata a ser influencial si
+$|DFFITS_{(i)} | > 2\sqrt{\frac{k+1}{n}}$, en este caso nuestro límite
+es igual a $2\sqrt{\frac{5+1}{100}} \approx 0.49$, con esto en mente,
+los datos más potencialmente influenciales de acuerdo a esta medida, en
+orden, son: 34, 47, 17, 46
 
 ```{r, fig.width=7, fig.height=5, dpi= 500}
 ols_plot_dffits(modelo)
@@ -591,12 +591,13 @@ ols_plot_dffits(modelo)
 
 **COVRATIO**
 
-Como podemos ver los datos numero supera el limite fijado en para los
-datos de azúcar, recordemos que una observación es candidata a ser
-influencial si $|COVRATIO_{i} - 1| > 3(k+1)/n$, en este caso; usamos $R$
-y encontramos los datos que cumplen la condición, a continuación los
-datos potencialmente influencíales y su $COVRATIO$:
-
+Como podemos ver en la gráfica que hay varios datos que superan el límite fijado, recordemos que una observación es candidata a ser
+influencial si $|COVRATIO_{i} - 1| > 3(k+1)/n$; usamos $R$ y encontramos
+los datos que cumplen la condición, a continuación los datos
+potencialmente influenciales y su $COVRATIO$, destacamos las
+observaciones 34 y 82, ya que, según las medidas DFFITS y DFBetas vistas
+anteriormente, el dato 34 es candidato a ser influenciable y el dato 82
+es el que tiene un valor mayor en la desigualdad:
 
 ```{r}
 
@@ -608,8 +609,8 @@ plot(
   abs(covratio(modelo) - 1),
   xlab = "Index",
   ylab = expression("| COVRATIO "[ (i) ] ~" - 1 |"),
-  col = ifelse(x == 34, "red", "black"),
-  pch = ifelse(x == 34, 19, 1),
+  col = ifelse(x == 34 | x == 82, "red", "black"),
+  pch = ifelse(x == 34 | x == 82, 19, 1),
   main = "COVRATIO", 
   sub = "Limite: 0.18"
 )
@@ -617,7 +618,6 @@ abline(h = (3 * 6) / 100, col = "blue")
 ```
 
 **DISTANCIA DE COOK**
-
 
 ```{r}
 #para validar
@@ -634,37 +634,34 @@ demás, por lo que la tendremos en cuenta.
 
 **Residuales estudentizados (internamente estudentizados)**
 
-
 ```{r, fig.width=8, fig.height=4}
 ols_plot_resid_stud(modelo)
 ```
 
-En este gráfico podemos ver que ninguna observación sobrepasa el limite
+En este gráfico podemos ver que ninguna observación sobrepasa el límite
 fijado de $|e_i| > 3$, por lo que por este método no encontramos ninguna
 observación atípica.
-
-
 
 ```{r, fig.width=9, dpi=500}
 ols_plot_resid_lev(modelo)
 
 ```
+
 En esta gráfica se grafican los hat-values vs. residuales
-estudentizados, como podemos observar la gráfica usa un limite
-diferente, este limite es $0.12$, según hemos visto en clase los limite
-que fijamos son $\pm3$, con el cual obtendiramos que ningún dato es una
-observación atípica, pero este se encuentra calculado de una forma
-diferente, lo cual puede darnos un indicio a cuales podrían ser
-observaciones atípicas.
+estudentizados, como podemos observar la gráfica usa un límite
+diferente, según hemos visto en clase el límite
+que fijamos es $\pm3$, con el cual obtendiramos que ningún dato es una
+observación atípica, pero esta gráfica usa otro límite, que causa que sean varios los datos que podrían ser observaciones atípicas.
 
-En la gráfica anterior también podemos observar que los puntos de balanceo
-pueden ser las observaciones 34, 82, 84, 39, 47, 18, 95, 20, 43, 4
-basándonos en su valor $h_{ii}$ y el limite usado $h_{ii} >2(k+1)/n$, que
-equivale a $h_{ii} > 0.12$, como se puede observar en la gráfica.
+En la gráfica anterior también podemos observar que los puntos de
+balanceo pueden ser las observaciones 34, 82, 84, 39, 47, 18, 95, 20,
+43, 4 basándonos en su valor $h_{ii}$ y el límite utilizado
+$h_{ii} >2(k+1)/n$, que equivale a $h_{ii} > 0.12$, como se puede
+observar en la gráfica.
 
-```{r, fig.width=8}
-ols_plot_resid_stud_fit(modelo)
-```
+Como conclusión podemos decir que las observaciones 82 y 34 son puntos
+de balanceo y además influenciables, de acuerdo a varios diagnósticos
+usados y explicados.
 
 ```{r}
 rm(list = ls())

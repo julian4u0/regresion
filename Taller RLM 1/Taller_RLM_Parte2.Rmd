@@ -51,11 +51,10 @@ summary(modelo)
 
 # Punto siete.
 
+
 ```{r}
 #anova(modelo)
 ```
-
-```{=tex}
 \begin{tabular}{|c|l|c|ccc}
 \hline
 Fuente   & \multicolumn{1}{c|}{SS1}                                      & Df & \multicolumn{1}{c|}{$F_0$}   & \multicolumn{1}{c|}{Pr($f_{1,94}$>$F_0$)} & \multicolumn{1}{c|}{Test asociado}                                      \\ \hline
@@ -66,13 +65,9 @@ Azucar   & $\text{SSR}(X_4 | X_1,X_2,X_3)$=0.000                         & 1  & 
 Cloruros & $\text{SSR}(X_5 | X_1,X_2,X_3,X_4)$=0.262                     & 1  & \multicolumn{1}{c|}{0.6997}  & \multicolumn{1}{c|}{0.404997}             & \multicolumn{1}{c|}{$H_{0}$: $\beta_{5}=0$ vs $H_{A}:\beta_{5} \neq 0$} \\ \hline
 Error    & \multicolumn{1}{c|}{$\text{SSE}(X_1,X_2,X_3,X_4,X_5)$=35.255} & 94 & \multicolumn{3}{c}{}                                                                                                                               \\ \cline{1-3}
 \end{tabular}
-```
-```{=tex}
 \end{table}
-```
-Empezando por las sumas de cuadrados secuenciales (tipo 1), tenemos la
-anterior tabla, como podemos observar los menores valores para las sumas
-de cuadrados de tipo I son:
+
+Empezando por las sumas de cuadrados secuenciales (tipo 1), tenemos la anterior tabla, como podemos observar los menores valores para las sumas de cuadrados de tipo I son:
 
 1\. $\text{SSR}(X_4 | X_1, X_2, X_3) = 0.000$
 
@@ -80,39 +75,20 @@ de cuadrados de tipo I son:
 
 3\. $\text{SS1}_{X_1} = 0.474$
 
-La variable con menor valor en la suma de cuadrados en este caso es
-Azúcar, lo que significa que al añadir la variable Azúcar dado que las
-covariables Acidez fija, Acidez Volátil y Ácido cítrico están en el
-modelo, esta no ayuda a reducir en mayor medida la suma de cuadrados del
-error lo que no es lo mas conveniente, ya que lo que buscamos es que los
-residuales de nuestro nuevo modelo sea cada vez más cercano a cero; lo
-que puede ser un indicio de que la azúcar residual no es significativa
-para explicar la calidad del vino dado que las otras covariables
-mencionadas anteriormente estan en el modelo; de manera similar sucede
-con las covariables Fija y Cloruros.
+La variable con menor valor en la suma de cuadrados en este caso es Azúcar, lo que significa que al añadir la variable Azúcar dado que las covariables Acidez fija, Acidez Volátil y Ácido cítrico están en el modelo, esta no ayuda a reducir en mayor medida la suma de cuadrados del error lo que no es lo mas conveniente, ya que lo que buscamos es que los residuales de nuestro nuevo modelo sea cada vez más cercano a cero; lo que puede ser un indicio de que la azúcar residual no es significativa para explicar la calidad del vino dado que las otras covariables mencionadas anteriormente estan en el modelo; de manera similar sucede con las covariables Fija y Cloruros.
 
-Para comprobar las sospechas la misma tabla anova nos proporciona el P
-valor de las variables, con los cuales podemos concluir que no hay
-evidencia suficiente para rechazar la hipótesis nula:
+Para comprobar las sospechas la misma tabla anova nos proporciona el P valor de las variables, con los cuales podemos concluir que no hay evidencia suficiente para rechazar la hipótesis nula:
 
--   Lo cual en el caso de la variable Fija significa que la Acidez fija
-    no es significativa para explicar la calidad del vino dado que no
-    hay otras covariables en el modelo.
+* Lo cual en el caso de la variable Fija significa que la Acidez fija no es significativa para explicar la calidad del vino dado que no hay otras covariables en el modelo.
 
--   Lo cual en el caso de la variable Azúcar significa que la azúcar
-    residual no es significativa para explicar la calidad del vino dado
-    que Acidez fija, Acidez Volátil y Ácido cítrico están en el modelo .
+* Lo cual en el caso de la variable Azúcar significa que la azúcar residual no es significativa para explicar la calidad del vino dado que Acidez fija, Acidez Volátil y Ácido cítrico están en el modelo .
 
--   En el caso de la variable Cloruros, los cloruros nos son
-    significativos para explicar la calidad del vino dado que las
-    covariables Acidez fija, Acidez Volátil, Ácido cítrico y azúcar
-    estan en el modelo.
+* En el caso de la variable Cloruros, los cloruros nos son significativos para explicar la calidad del vino dado que las covariables Acidez fija, Acidez Volátil, Ácido cítrico y azúcar estan en el modelo.
+
 
 ```{r}
 #Anova(modelo)
 ```
-
-```{=tex}
 \begin{table}[h]
 \begin{tabular}{|c|l|c|ccc}
 \hline
@@ -125,7 +101,6 @@ Cloruros & $\text{SSR}(X_5 | X_1,X_2,X_3,X_4)$=0.262                     & 1  & 
 Error    & \multicolumn{1}{c|}{$\text{SSE}(X_1,X_2,X_3,X_4,X_5)$=35.255} & 94 & \multicolumn{3}{c}{}                                                                                                                               \\ \cline{1-3}
 \end{tabular}
 \end{table}
-```
 Como podemos observar en la tabla anterior los menores valores para las
 sumas de cuadrados de tipo II son:
 
@@ -135,29 +110,13 @@ sumas de cuadrados de tipo II son:
 
 3\. $\text{SS2}_{X_1} = 0.793$
 
-Para la suma de cuadrados parciales el significado es el mismo lo que
-cambia esta vez son las covariables que ya están en el modelo antes de
-agregar la variable de interes, asi las conclusiones que podemos sacar
-usando la tabla Anova son (usando un nivel de significancia de $\alpha$=
-0.05):
+Para la suma de cuadrados parciales el significado es el mismo lo que cambia esta vez son las covariables que ya están en el modelo antes de agregar la variable de interes, asi las conclusiones que podemos sacar usando la tabla Anova son (usando un nivel de significancia de $\alpha$= 0.05):
 
--   Para la variable Fija no hay evidencia suficiente para rechazar la
-    hipótesis nula, lo que implica que Acidez Fija no es significativa
-    para explicar la calidad del vino dado que las covariables Acidez
-    Volátil, Ácido cítrico, azúcar y cloruros estan en el modelo.
+* Para la variable Fija no hay evidencia suficiente para rechazar la hipótesis nula, lo que implica que Acidez Fija no es significativa para explicar la calidad del vino dado que las covariables  Acidez Volátil, Ácido cítrico, azúcar y cloruros estan en el modelo.
 
--   Para la variable Azúcar no hay evidencia suficiente para rechazar la
-    hipótesis nula, lo que implica que la azúcar residual no es
-    significativa para explicar la calidad del vino dado que las
-    covariables Acidez fija, Acidez Volátil, Ácido cítrico, y cloruros
-    estan en el modelo.
+* Para la variable Azúcar no hay evidencia suficiente para rechazar la hipótesis nula, lo que implica que la azúcar residual no es significativa para explicar la calidad del vino dado que las covariables  Acidez fija, Acidez Volátil, Ácido cítrico, y cloruros estan en el modelo.
 
--   Para la variable Cloruros no hay evidencia suficiente para rechazar
-    la hipótesis nula, lo que implica que los cloruros no son
-    significativos para explicar la calidad del vino dado que las
-    covariables Acidez fija, Acidez Volátil, Ácido cítrico, y azúcar
-    estan en el modelo.
-
+* Para la variable Cloruros no hay evidencia suficiente para rechazar la hipótesis nula, lo que implica que los cloruros no son significativos para explicar la calidad del vino dado que las covariables  Acidez fija, Acidez Volátil, Ácido cítrico, y azúcar estan en el modelo.
 ```{r}
 anova(modelo)
 ```
@@ -202,6 +161,7 @@ $$
 Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} +\beta_3X_{i3} +\beta_4X_{i4} + \beta_5X_{i5} + E_i\ , \text{con} \ E \sim N(0, \sigma^2) \\\ 
 \text{H}_0 : \beta_j = 0 \text{ vs. }\text{H}_1 :  \beta \neq 0
 $$
+
 
 # Punto ocho. Gráficos de los residuales estudentizados vs. Valores ajustados y contra las variables de regresión utilizadas.
 
