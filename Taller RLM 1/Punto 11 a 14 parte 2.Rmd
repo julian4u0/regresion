@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r}
@@ -27,9 +27,10 @@ datos1<-datos[1:100,c(1:5,12)]
 ```
 
 
-**11.** Ajuste el modelo de regresión sin las observaciones 17 y 34, suponga que se establece que hay un error de digitación con estas dos observaciones, presente sólo la tabla de parámetros ajustados resultante ¿Cambian notoriamente las estimaciones de los parámetros, sus errores estándar y/o la significancia? ¿Qué concluye al respecto? Evalúe el gráfico de normalidad para los residuales estudentizados para este ajuste ¿mejoró la normalidad? Concluya sobre los efectos de este par de observaciones.
+# Punto 11.
 
-**RTA:**
+- ***Ajuste el modelo de regresión sin las observaciones 17 y 34, suponga que se establece que hay un error de digitación con estas dos observaciones, presente sólo la tabla de parámetros ajustados resultante ¿Cambian notoriamente las estimaciones de los parámetros, sus errores estándar y/o la significancia? ¿Qué concluye al respecto? Evalúe el gráfico de normalidad para los residuales estudentizados para este ajuste ¿mejoró la normalidad? Concluya sobre los efectos de este par de observaciones.***
+
 
 ```{r}
 # Se elimina las observaciones 17 y 34
@@ -73,7 +74,11 @@ round(c(test$statistic,test$p.value),digits=5)),cex=1.2)
 
 - ¿Cuál sería el efecto de estas 2 observaciones?
 
-**12.** Para el modelo con todas las variables y sin las observaciones 17 y 34, realice diagnósticos de multicolinealidad mediante
+El efecto de las observaciones 17 y 34 en el modelo es de tipo ***influenciable***, puesto que cuando estas no se incluyen en el modelo, el valor del coeficiente $\beta_4$, asociado a los cloruros cambia de signo.
+
+# Punto doce. Diagnóstico de multicolinealidad.
+
+- ***Para el modelo con todas las variables y sin las observaciones 17 y 34, realice diagnósticos de multicolinealidad mediante XXXX.***
 
 ```{r}
 # borrar esto cuando se unan las partes
@@ -89,9 +94,7 @@ resul
 }
 ```
 
-**a)** Matriz de correlación de las variables predictoras
-
-**RTA:**
+## Literal A. Matriz de correlación de las variables predictoras
 
 ```{r, out.height=6}
 cor(datos2)
@@ -99,9 +102,7 @@ cor(datos2)
 
 - Matriz de correlaciones: Se detecta una asociación lineal alta entre las variables cítrico y volátil, con un valor de -0.626393071.
 
-**b)** VIF´s
-
-**RTA:**
+## Literal B. VIFs
 
 ```{r}
 miscoeficientes(mod2,datos2)
@@ -109,7 +110,7 @@ miscoeficientes(mod2,datos2)
 
 - Con los valores VIFs: no se observa valores superando la cota de 10. Por este método no se detecta multicolinealidad-
 
-**c)** Proporciones de varianza
+## Literal C. Proporciones de varianza
 
 ```{r}
 colldiag(mod2)
@@ -117,51 +118,51 @@ colldiag(mod2)
 
 - Con las proporciones de descomposición de varianza: se puede observar que, en la quinta fila, $\pi_{52}$ y $\pi_{53}$ superan 0.5, y no existe otra fila i donde 2 $\pi_{ij}$ superen esta cota, luego, con estos índices se detecta que volátil y cítrico están involucradas en una relación de multicolinealidad.
 
-**13.** Sin las observaciones 17 y 34, construya modelos de regresión utilizando los métodos de selección (muestre de cada método sólo la tabla de resumen de este y la tabla ANOVA y la de parámetros estimados del modelo finalmente resultante):
+# Punto trece. Modelos de regresión con métodos de selección.
 
-```{r}
+- ***Sin las observaciones 17 y 34, construya modelos de regresión utilizando los métodos de selección (muestre de cada método sólo la tabla de resumen de este y la tabla ANOVA y la de parámetros estimados del modelo finalmente resultante).***
+
+```{r, warning = FALSE, message = FALSE}
 #Todas las regresiones posibles; da información del Cp, R2, R2adj
 k=ols_step_all_possible(mod2)
-k
+format(k[, c(1:5, 7)], scientific = FALSE, digits = 4)
 plot(k)
 ```
 
 
-**a)** Selección según el $R_{adj}^2$
+## Literal A. Selección según el $R_{adj}^2$
 
-**RTA:** Según el $R_{adj}^2$, los mejores modelos son el 6, 16, 26 y 31, y como estos 3 últimos no muestran un incremento significativo en este estadístico, con respecto al modelo 6, entonces aplicando el principio de parsimonia, se escogería el modelo 6: $$Y_i = \beta_0 + \beta_2X_{i2} + \beta_3X_{i3} + E_i$$,$E_i \overset{\text{iid}}{\sim} N(0,\sigma^2)$.
+Según el $R_{adj}^2$, los mejores modelos son el 6, 16, 26 y 31, y como estos 3 últimos no muestran un incremento significativo en este estadístico, con respecto al modelo 6, entonces aplicando el principio de parsimonia, se escogería el modelo 6: $$Y_i = \beta_0 + \beta_2X_{i2} + \beta_3X_{i3} + E_i$$,$E_i \overset{\text{iid}}{\sim} N(0,\sigma^2)$.
 
-**b)** Selección según el estadístico $C_p$
+## Literal B. Selección según el estadístico $C_p$
 
-**RTA:** teniendo en cuenta que con este estadístico se busca que el modelo con el menor valor $|C_p - p|$, los mejores candidatos son el modelo 6: $|C_p - p| = |4.298177 - 3| = 1.298177$, el modelo 16: $|C_p - p| = |3.804954 - 4| = 0.195046$, el modelo 26: $|C_p - p| = |4.664740 - 5| = 0.33526$ y el modelo 31: $|C_p - p| = |6 - 6| = 0$, pero de acuerdo con la ecuación $$C_p = \frac{SSE_p}{MSE(X_1,X_2,...,X_k)}- (n-2p)$$, esto siempre ocurre con el modelo con todas las variables, por lo tanto, teniendo en cuenta que el modelo 16 tiene el valor más pequeño, entonces por este criterio se selecciona el modelo 16: $$Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \beta_3X_{i3} + E_i$$, $E_i \overset{\text{iid}}{\sim} N(0,\sigma^2)$..
+Teniendo en cuenta que con este estadístico se busca que el modelo con el menor valor $|C_p - p|$, los mejores candidatos son el modelo 6: $|C_p - p| = |4.298177 - 3| = 1.298177$, el modelo 16: $|C_p - p| = |3.804954 - 4| = 0.195046$, el modelo 26: $|C_p - p| = |4.664740 - 5| = 0.33526$ y el modelo 31: $|C_p - p| = |6 - 6| = 0$, pero de acuerdo con la ecuación $$C_p = \frac{SSE_p}{MSE(X_1,X_2,...,X_k)}- (n-2p)$$, esto siempre ocurre con el modelo con todas las variables, por lo tanto, teniendo en cuenta que el modelo 16 tiene el valor más pequeño, entonces por este criterio se selecciona el modelo 16: $$Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \beta_3X_{i3} + E_i$$, $E_i \overset{\text{iid}}{\sim} N(0,\sigma^2)$..
 
-**c)** Stepwise
+## Literal C. Stepwise
 
 ```{r}
 # selección stepwie
 ols_step_both_p(mod2,pent = 0.05, prem = 0.05,details=T)
 ```
 
-- Según el método stepwise, el modelo a usar es el modelo 6: $$Y_i = \beta_0 + \beta_2X_{i2} + \beta_3X_{i3} + E_i$$,$E_i \overset{\text{iid}}{\sim} N(0,\sigma^2)$.
+Según el método *stepwise*, el modelo a usar es el modelo 6: $$Y_i = \beta_0 + \beta_2X_{i2} + \beta_3X_{i3} + E_i$$,$E_i \overset{\text{iid}}{\sim} N(0,\sigma^2)$.
 
-**d)** Selección hacia adelante o forward
+# Literal D. Selección hacia adelante o forward
 
 ```{r}
 # selección forward
 ols_step_forward_p(mod2,penter=0.05,details = T)
 ```
 
-- Según el método forward, nuevamente, el modelo seleccionado es el modelo 6.
+Según el método *forward*, nuevamente, el modelo seleccionado es el modelo seis.
 
-**e)** Selección hacia atrás o backward
+# Literal E. Selección hacia atrás o backward
 
 ```{r}
 # selección backward
 ols_step_backward_p(mod2,prem=0.05,details = T)
 ```
 
-- Según el método backward, nuevamente, el modelo seleccionado es el modelo 6.
+Según el método backward, nuevamente, el modelo seleccionado es el modelo 6.
 
-**14.** Con base en los anteriores numerales, ¿Cuál modelo sugiere para la variable respuesta? ¿por qué?
-
-**RTA:** 
+# Punto 14. Selección final y justificación
