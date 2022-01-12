@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.5)  10 JAN 2022 20:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.5)  12 JAN 2022 16:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -373,6 +373,79 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \FrameRule=\dimen162
 \FrameSep=\dimen163
 )
+(c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.s
+ty
+Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+\LTleft=\skip54
+\LTright=\skip55
+\LTpre=\skip56
+\LTpost=\skip57
+\LTchunksize=\count285
+\LTcapwidth=\dimen164
+\LT@head=\box53
+\LT@firsthead=\box54
+\LT@foot=\box55
+\LT@lastfoot=\box56
+\LT@gbox=\box57
+\LT@cols=\count286
+\LT@rows=\count287
+\c@LT@tables=\count288
+\c@LT@chunks=\count289
+\LT@p@ftn=\toks25
+)
+(c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs
+.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen165
+\lightrulewidth=\dimen166
+\cmidrulewidth=\dimen167
+\belowrulesep=\dimen168
+\belowbottomsep=\dimen169
+\aboverulesep=\dimen170
+\abovetopsep=\dimen171
+\cmidrulesep=\dimen172
+\cmidrulekern=\dimen173
+\defaultaddspace=\dimen174
+\@cmidla=\count290
+\@cmidlb=\count291
+\@aboverulesep=\dimen175
+\@belowrulesep=\dimen176
+\@thisruleclass=\count292
+\@lastruleclass=\count293
+\@thisrulewidth=\dimen177
+) (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen178
+\ar@mcellbox=\box58
+\extrarowheight=\dimen179
+\NC@list=\toks26
+\extratabsurround=\skip58
+\backup@length=\skip59
+\ar@cellbox=\box59
+) (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count294
+\calc@Bcount=\count295
+\calc@Adimen=\dimen180
+\calc@Bdimen=\dimen181
+\calc@Askip=\skip60
+\calc@Bskip=\skip61
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count296
+\calc@Cskip=\skip62
+)
+(c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox
+.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count297
+)
+(c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote
+.sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box60
+\fn@width=\dimen182
+)
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx
 .sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
@@ -390,8 +463,8 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
-\Gin@req@height=\dimen164
-\Gin@req@width=\dimen165
+\Gin@req@height=\dimen183
+\Gin@req@width=\dimen184
 )
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/xfrac/
 xfrac.sty
@@ -402,8 +475,8 @@ Package: expl3 2021-11-22 L3 programming layer (loader)
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backe
 nd-pdftex.def
 File: l3backend-pdftex.def 2021-12-14 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count285
-\l__pdf_internal_box=\box53
+\l__color_backend_stack_int=\count298
+\l__pdf_internal_box=\box61
 ))
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/l3keys
 2e/l3keys2e.sty
@@ -416,19 +489,19 @@ Package: xparse 2021-11-12 L3 Experimental document command parser
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/xtempl
 ate/xtemplate.sty
 Package: xtemplate 2021-11-12 L3 Experimental prototype document functions
-\l__xtemplate_tmp_dim=\dimen166
-\l__xtemplate_tmp_int=\count286
+\l__xtemplate_tmp_dim=\dimen185
+\l__xtemplate_tmp_int=\count299
 \l__xtemplate_tmp_muskip=\muskip18
-\l__xtemplate_tmp_skip=\skip54
+\l__xtemplate_tmp_skip=\skip63
 )
 Package: xfrac 2021-11-12 L3 Experimental split-level fractions
-\l__xfrac_slash_box=\box54
-\l__xfrac_tmp_box=\box55
-\l__xfrac_denominator_bot_sep_dim=\dimen167
-\l__xfrac_numerator_bot_sep_dim=\dimen168
-\l__xfrac_numerator_top_sep_dim=\dimen169
-\l__xfrac_slash_left_sep_dim=\dimen170
-\l__xfrac_slash_right_sep_dim=\dimen171
+\l__xfrac_slash_box=\box62
+\l__xfrac_tmp_box=\box63
+\l__xfrac_denominator_bot_sep_dim=\dimen186
+\l__xfrac_numerator_bot_sep_dim=\dimen187
+\l__xfrac_numerator_top_sep_dim=\dimen188
+\l__xfrac_slash_left_sep_dim=\dimen189
+\l__xfrac_slash_right_sep_dim=\dimen190
 \l__xfrac_slash_left_muskip=\muskip19
 \l__xfrac_slash_right_muskip=\muskip20
 
@@ -438,24 +511,24 @@ Package xtemplate Info: Declaring object type 'xfrac' taking 3 argument(s) on
 ) (./Conjunto.aux)
 \openout1 = `Conjunto.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
 
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epst
 opdf-base.sty
@@ -468,7 +541,7 @@ pdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 113.
+Package hyperref Info: Link coloring OFF on input line 123.
 
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.
 sty
@@ -482,11 +555,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count287
+\c@section@level=\count300
 )
-LaTeX Info: Redefining \ref on input line 113.
-LaTeX Info: Redefining \pageref on input line 113.
-LaTeX Info: Redefining \nameref on input line 113.
+LaTeX Info: Redefining \ref on input line 123.
+LaTeX Info: Redefining \pageref on input line 123.
+LaTeX Info: Redefining \nameref on input line 123.
 (./Conjunto.out) (./Conjunto.out)
 \@outlinefile=\write4
 \openout4 = `Conjunto.out'.
@@ -526,740 +599,730 @@ LaTeX Info: Redefining \nameref on input line 113.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-15.
+25.
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-15.
+25.
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-115.
+125.
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-115.
+125.
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 115.
+(Font)              <12> on input line 125.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 115.
+(Font)              <8> on input line 125.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 115.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 115
+(Font)              <6> on input line 125.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 125
 .
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 115
+LaTeX Font Info:    Trying to load font information for U+msb on input line 125
 .
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-31.
+41.
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 132.
+(Font)              <10> on input line 142.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 132.
+(Font)              <7> on input line 142.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 132.
+(Font)              <5> on input line 142.
 [1
 
 {c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdft
 ex.map}]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-15.
-(c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [2]
-<Conjunto_files/figure-latex/unnamed-chunk-6-1.pdf, id=128, 469.755pt x 325.215
+<Conjunto_files/figure-latex/unnamed-chunk-6-1.pdf, id=121, 469.755pt x 325.215
 pt>
 File: Conjunto_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 
 <use Conjunto_files/figure-latex/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-6-1.pdf  use
-d on input line 262.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+d on input line 267.
+(pdftex.def)             Requested size: 385.2016pt x 266.67802pt.
+[2]
 <Conjunto_files/figure-latex/unnamed-chunk-7-1.pdf, id=129, 469.755pt x 325.215
 pt>
 File: Conjunto_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
 
 <use Conjunto_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-7-1.pdf  use
-d on input line 276.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[3 <./Conjunto_files/figure-latex/unnamed-chunk-6-1.pdf>] [4 <./Conjunto_files/
-figure-latex/unnamed-chunk-7-1.pdf>]
+d on input line 281.
+(pdftex.def)             Requested size: 385.2016pt x 266.67802pt.
+[3 <./Conjunto_files/figure-latex/unnamed-chunk-6-1.pdf> <./Conjunto_files/figu
+re-latex/unnamed-chunk-7-1.pdf>]
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 3
-51.
+49.
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [4]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
+94.
+(c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [5] [6]
 
-LaTeX Warning: Command \' invalid in math mode on input line 527.
+LaTeX Warning: Command \' invalid in math mode on input line 531.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 527.
+LaTeX Warning: Command \' invalid in math mode on input line 531.
 
 
-Overfull \hbox (22.8914pt too wide) in paragraph at lines 531--538
+Overfull \hbox (24.09138pt too wide) in paragraph at lines 535--542
 [][] 
  []
 
-[7] [8] [9]
-Overfull \hbox (18.72618pt too wide) in paragraph at lines 768--778
+
+Overfull \hbox (1.67613pt too wide) in paragraph at lines 578--588
+[] 
+ []
+
+[7]
+Overfull \hbox (1.67613pt too wide) in paragraph at lines 611--621
+[][] 
+ []
+
+[8]
+Overfull \hbox (18.72618pt too wide) in paragraph at lines 709--719
 []\T1/lmr/m/n/10 Cada valor nos dice el SSR de cada vari-able en el mod-elo com
 -pleto dadas las demás (ej. $[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 X[]\OMS/lmsy/m
 /n/10 j\OML/lmm/m/it/10 X[]; X[]; X[]; X[]\OT1/lmr/m/n/10 ) =
  []
 
-[10]
-<Conjunto_files/figure-latex/unnamed-chunk-26-1.pdf, id=187, 578.16pt x 289.08p
+<Conjunto_files/figure-latex/unnamed-chunk-26-1.pdf, id=180, 578.16pt x 289.08p
 t>
 File: Conjunto_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (type pdf
 )
 <use Conjunto_files/figure-latex/unnamed-chunk-26-1.pdf>
 Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-26-1.pdf  us
-ed on input line 789.
+ed on input line 730.
 (pdftex.def)             Requested size: 469.75385pt x 234.8769pt.
-<Conjunto_files/figure-latex/unnamed-chunk-27-1.pdf, id=188, 505.89pt x 433.62p
+[9]
+<Conjunto_files/figure-latex/unnamed-chunk-27-1.pdf, id=186, 505.89pt x 433.62p
 t>
 File: Conjunto_files/figure-latex/unnamed-chunk-27-1.pdf Graphic file (type pdf
 )
 <use Conjunto_files/figure-latex/unnamed-chunk-27-1.pdf>
 Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-27-1.pdf  us
-ed on input line 807.
+ed on input line 748.
 (pdftex.def)             Requested size: 469.76265pt x 402.65372pt.
-[11 <./Conjunto_files/figure-latex/unnamed-chunk-26-1.pdf>]
-<Conjunto_files/figure-latex/unnamed-chunk-28-1.pdf, id=199, 650.43pt x 650.43p
+[10 <./Conjunto_files/figure-latex/unnamed-chunk-26-1.pdf>]
+<Conjunto_files/figure-latex/unnamed-chunk-28-1.pdf, id=196, 650.43pt x 650.43p
 t>
 File: Conjunto_files/figure-latex/unnamed-chunk-28-1.pdf Graphic file (type pdf
 )
 <use Conjunto_files/figure-latex/unnamed-chunk-28-1.pdf>
 Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-28-1.pdf  us
-ed on input line 824.
+ed on input line 765.
 (pdftex.def)             Requested size: 469.76817pt x 469.76817pt.
-[12 <./Conjunto_files/figure-latex/unnamed-chunk-27-1.pdf>] [13 <./Conjunto_fil
-es/figure-latex/unnamed-chunk-28-1.pdf>] [14] [15] [16]
-Overfull \hbox (11.52232pt too wide) in paragraph at lines 1049--1155
- [][] 
+[11 <./Conjunto_files/figure-latex/unnamed-chunk-27-1.pdf>] [12 <./Conjunto_fil
+es/figure-latex/unnamed-chunk-28-1.pdf>]
+<Conjunto_files/figure-latex/unnamed-chunk-30-1.pdf, id=221, 1084.05pt x 578.16
+pt>
+File: Conjunto_files/figure-latex/unnamed-chunk-30-1.pdf Graphic file (type pdf
+)
+<use Conjunto_files/figure-latex/unnamed-chunk-30-1.pdf>
+Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-30-1.pdf  us
+ed on input line 803.
+(pdftex.def)             Requested size: 469.75496pt x 250.53596pt.
+<Conjunto_files/figure-latex/unnamed-chunk-30-2.pdf, id=222, 1084.05pt x 578.16
+pt>
+File: Conjunto_files/figure-latex/unnamed-chunk-30-2.pdf Graphic file (type pdf
+)
+<use Conjunto_files/figure-latex/unnamed-chunk-30-2.pdf>
+Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-30-2.pdf  us
+ed on input line 804.
+(pdftex.def)             Requested size: 469.75496pt x 250.53596pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 803--805
+[][]
  []
 
-
-LaTeX Warning: Float too large for page by 562.76997pt on input line 1155.
-
-<Conjunto_files/figure-latex/unnamed-chunk-31-1.pdf, id=236, 1084.05pt x 578.16
-pt>
+[13 <./Conjunto_files/figure-latex/unnamed-chunk-30-1.pdf> <./Conjunto_files/fi
+gure-latex/unnamed-chunk-30-2.pdf>]
+<Conjunto_files/figure-latex/unnamed-chunk-31-1.pdf, id=240, 505.89pt x 361.35p
+t>
 File: Conjunto_files/figure-latex/unnamed-chunk-31-1.pdf Graphic file (type pdf
 )
 <use Conjunto_files/figure-latex/unnamed-chunk-31-1.pdf>
 Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-31-1.pdf  us
-ed on input line 1170.
-(pdftex.def)             Requested size: 469.75496pt x 250.53596pt.
-<Conjunto_files/figure-latex/unnamed-chunk-31-2.pdf, id=237, 1084.05pt x 578.16
-pt>
-File: Conjunto_files/figure-latex/unnamed-chunk-31-2.pdf Graphic file (type pdf
-)
-<use Conjunto_files/figure-latex/unnamed-chunk-31-2.pdf>
-Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-31-2.pdf  us
-ed on input line 1171.
-(pdftex.def)             Requested size: 469.75496pt x 250.53596pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1170--1172
-[][]
- []
-
-[17]
-<Conjunto_files/figure-latex/unnamed-chunk-32-1.pdf, id=242, 505.89pt x 361.35p
-t>
+ed on input line 820.
+(pdftex.def)             Requested size: 469.76265pt x 335.54477pt.
+<Conjunto_files/figure-latex/unnamed-chunk-32-1.pdf, id=241, 469.755pt x 325.21
+5pt>
 File: Conjunto_files/figure-latex/unnamed-chunk-32-1.pdf Graphic file (type pdf
 )
 <use Conjunto_files/figure-latex/unnamed-chunk-32-1.pdf>
 Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-32-1.pdf  us
-ed on input line 1187.
-(pdftex.def)             Requested size: 469.76265pt x 335.54477pt.
-[18 <./Conjunto_files/figure-latex/unnamed-chunk-31-1.pdf> <./Conjunto_files/fi
-gure-latex/unnamed-chunk-31-2.pdf>]
-<Conjunto_files/figure-latex/unnamed-chunk-33-1.pdf, id=259, 469.755pt x 325.21
-5pt>
-File: Conjunto_files/figure-latex/unnamed-chunk-33-1.pdf Graphic file (type pdf
-)
-<use Conjunto_files/figure-latex/unnamed-chunk-33-1.pdf>
-Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-33-1.pdf  us
-ed on input line 1197.
+ed on input line 833.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[19 <./Conjunto_files/figure-latex/unnamed-chunk-32-1.pdf>]
-<Conjunto_files/figure-latex/unnamed-chunk-35-1.pdf, id=271, 578.16pt x 361.35p
+[14 <./Conjunto_files/figure-latex/unnamed-chunk-31-1.pdf>]
+<Conjunto_files/figure-latex/unnamed-chunk-34-1.pdf, id=252, 578.16pt x 361.35p
+t>
+File: Conjunto_files/figure-latex/unnamed-chunk-34-1.pdf Graphic file (type pdf
+)
+<use Conjunto_files/figure-latex/unnamed-chunk-34-1.pdf>
+Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-34-1.pdf  us
+ed on input line 837.
+(pdftex.def)             Requested size: 469.75385pt x 293.59616pt.
+[15 <./Conjunto_files/figure-latex/unnamed-chunk-32-1.pdf> <./Conjunto_files/fi
+gure-latex/unnamed-chunk-34-1.pdf>]
+<Conjunto_files/figure-latex/unnamed-chunk-35-1.pdf, id=270, 578.16pt x 289.08p
 t>
 File: Conjunto_files/figure-latex/unnamed-chunk-35-1.pdf Graphic file (type pdf
 )
 <use Conjunto_files/figure-latex/unnamed-chunk-35-1.pdf>
 Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-35-1.pdf  us
-ed on input line 1201.
-(pdftex.def)             Requested size: 469.75385pt x 293.59616pt.
-[20 <./Conjunto_files/figure-latex/unnamed-chunk-33-1.pdf> <./Conjunto_files/fi
-gure-latex/unnamed-chunk-35-1.pdf>]
-<Conjunto_files/figure-latex/unnamed-chunk-36-1.pdf, id=289, 578.16pt x 289.08p
-t>
+ed on input line 845.
+(pdftex.def)             Requested size: 469.75385pt x 234.8769pt.
+<Conjunto_files/figure-latex/unnamed-chunk-36-1.pdf, id=271, 650.43pt x 325.215
+pt>
 File: Conjunto_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file (type pdf
 )
 <use Conjunto_files/figure-latex/unnamed-chunk-36-1.pdf>
 Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-36-1.pdf  us
-ed on input line 1209.
-(pdftex.def)             Requested size: 469.75385pt x 234.8769pt.
-<Conjunto_files/figure-latex/unnamed-chunk-37-1.pdf, id=290, 650.43pt x 325.215
-pt>
-File: Conjunto_files/figure-latex/unnamed-chunk-37-1.pdf Graphic file (type pdf
-)
-<use Conjunto_files/figure-latex/unnamed-chunk-37-1.pdf>
-Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-37-1.pdf  us
-ed on input line 1215.
+ed on input line 851.
 (pdftex.def)             Requested size: 469.76817pt x 234.88408pt.
-<Conjunto_files/figure-latex/unnamed-chunk-38-1.pdf, id=291, 578.16pt x 325.215
-pt>
-File: Conjunto_files/figure-latex/unnamed-chunk-38-1.pdf Graphic file (type pdf
-)
-<use Conjunto_files/figure-latex/unnamed-chunk-38-1.pdf>
-Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-38-1.pdf  us
-ed on input line 1230.
-(pdftex.def)             Requested size: 469.75385pt x 264.23653pt.
-[21 <./Conjunto_files/figure-latex/unnamed-chunk-36-1.pdf> <./Conjunto_files/fi
-gure-latex/unnamed-chunk-37-1.pdf>] [22 <./Conjunto_files/figure-latex/unnamed-
-chunk-38-1.pdf>]
-<Conjunto_files/figure-latex/unnamed-chunk-45-1.pdf, id=320, 469.755pt x 325.21
+[16 <./Conjunto_files/figure-latex/unnamed-chunk-35-1.pdf> <./Conjunto_files/fi
+gure-latex/unnamed-chunk-36-1.pdf>]
+<Conjunto_files/figure-latex/unnamed-chunk-43-1.pdf, id=288, 469.755pt x 325.21
 5pt>
-File: Conjunto_files/figure-latex/unnamed-chunk-45-1.pdf Graphic file (type pdf
+File: Conjunto_files/figure-latex/unnamed-chunk-43-1.pdf Graphic file (type pdf
 )
-<use Conjunto_files/figure-latex/unnamed-chunk-45-1.pdf>
-Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-45-1.pdf  us
-ed on input line 1304.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Conjunto_files/figure-latex/unnamed-chunk-45-2.pdf, id=321, 469.755pt x 325.21
+<use Conjunto_files/figure-latex/unnamed-chunk-43-1.pdf>
+Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-43-1.pdf  us
+ed on input line 942.
+(pdftex.def)             Requested size: 375.80452pt x 260.17235pt.
+[17]
+<Conjunto_files/figure-latex/unnamed-chunk-43-2.pdf, id=294, 469.755pt x 325.21
 5pt>
-File: Conjunto_files/figure-latex/unnamed-chunk-45-2.pdf Graphic file (type pdf
+File: Conjunto_files/figure-latex/unnamed-chunk-43-2.pdf Graphic file (type pdf
 )
-<use Conjunto_files/figure-latex/unnamed-chunk-45-2.pdf>
-Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-45-2.pdf  us
-ed on input line 1305.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<use Conjunto_files/figure-latex/unnamed-chunk-43-2.pdf>
+Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-43-2.pdf  us
+ed on input line 944.
+(pdftex.def)             Requested size: 375.80452pt x 260.17235pt.
+[18 <./Conjunto_files/figure-latex/unnamed-chunk-43-1.pdf> <./Conjunto_files/fi
+gure-latex/unnamed-chunk-43-2.pdf>] [19]
+<Conjunto_files/figure-latex/unnamed-chunk-48-1.pdf, id=320, 469.755pt x 325.21
+5pt>
+File: Conjunto_files/figure-latex/unnamed-chunk-48-1.pdf Graphic file (type pdf
+)
+<use Conjunto_files/figure-latex/unnamed-chunk-48-1.pdf>
+Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-48-1.pdf  us
+ed on input line 1100.
+(pdftex.def)             Requested size: 328.82626pt x 227.64894pt.
+<Conjunto_files/figure-latex/unnamed-chunk-48-2.pdf, id=321, 469.755pt x 325.21
+5pt>
+File: Conjunto_files/figure-latex/unnamed-chunk-48-2.pdf Graphic file (type pdf
+)
+<use Conjunto_files/figure-latex/unnamed-chunk-48-2.pdf>
+Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-48-2.pdf  us
+ed on input line 1101.
+(pdftex.def)             Requested size: 328.82626pt x 227.64894pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1304--1306
-[][]
+Overfull \hbox (190.11972pt too wide) in paragraph at lines 1100--1102
+[][] [] 
  []
 
-[23 <./Conjunto_files/figure-latex/unnamed-chunk-45-1.pdf>] [24 <./Conjunto_fil
-es/figure-latex/unnamed-chunk-45-2.pdf>] [25]
-<Conjunto_files/figure-latex/unnamed-chunk-50-1.pdf, id=351, 469.755pt x 325.21
-5pt>
-File: Conjunto_files/figure-latex/unnamed-chunk-50-1.pdf Graphic file (type pdf
-)
-<use Conjunto_files/figure-latex/unnamed-chunk-50-1.pdf>
-Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-50-1.pdf  us
-ed on input line 1461.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Conjunto_files/figure-latex/unnamed-chunk-50-2.pdf, id=352, 469.755pt x 325.21
-5pt>
-File: Conjunto_files/figure-latex/unnamed-chunk-50-2.pdf Graphic file (type pdf
-)
-<use Conjunto_files/figure-latex/unnamed-chunk-50-2.pdf>
-Package pdftex.def Info: Conjunto_files/figure-latex/unnamed-chunk-50-2.pdf  us
-ed on input line 1462.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1461--1463
-[][]
- []
-
-[26] [27 <./Conjunto_files/figure-latex/unnamed-chunk-50-1.pdf>] [28 <./Conjunt
-o_files/figure-latex/unnamed-chunk-50-2.pdf>]
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+[20] [21 <./Conjunto_files/figure-latex/unnamed-chunk-48-1.pdf> <./Conjunto_fil
+es/figure-latex/unnamed-chunk-48-2.pdf>]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## (Intercept)     5.776         0.224                 25.732
     0.000     5.331     6.222[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##     Volatil    -0.980         0.383       -0.253    -2.559
     0.012    -1.741    -0.220[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
-[29]
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+[22]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## (Intercept)     6.608         0.336                 19.654
     0.000     5.941     7.276[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##     Volatil    -1.924         0.469       -0.496    -4.100
     0.000    -2.855    -0.992[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##     Citrico    -1.397         0.435       -0.388    -3.211
     0.002    -2.260    -0.533[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
-[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
-------------------------------[] 
- []
-
-[30]
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
+[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
+------------------------------[] 
+ []
+
+
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## (Intercept)     6.608         0.336                 19.654
     0.000     5.941     7.276[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##     Volatil    -1.924         0.469       -0.496    -4.100
     0.000    -2.855    -0.992[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##     Citrico    -1.397         0.435       -0.388    -3.211
     0.002    -2.260    -0.533[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
+[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
+------------------------------[] 
+ []
+
+[23]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
-[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
-------------------------------[] 
- []
-
-
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## (Intercept)     6.608         0.336                 19.654
     0.000     5.941     7.276[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##     Volatil    -1.924         0.469       -0.496    -4.100
     0.000    -2.855    -0.992[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ##     Citrico    -1.397         0.435       -0.388    -3.211
     0.002    -2.260    -0.533[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1647--1647
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1286--1286
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
-[31]
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1794--1794
+[24]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## (Intercept)     5.776         0.224                 25.732
     0.000     5.331     6.222[] 
  []
 
-[32]
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ##     Volatil    -0.980         0.383       -0.253    -2.559
     0.012    -1.741    -0.220[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1433--1433
+[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
+------------------------------[] 
+ []
+
+[25]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1794--1794
-[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
-------------------------------[] 
- []
-
-
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## (Intercept)     6.608         0.336                 19.654
     0.000     5.941     7.276[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ##     Volatil    -1.924         0.469       -0.496    -4.100
     0.000    -2.855    -0.992[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ##     Citrico    -1.397         0.435       -0.388    -3.211
     0.002    -2.260    -0.533[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
-[33]
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1794--1794
+[26]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## (Intercept)     6.608         0.336                 19.654
     0.000     5.941     7.276[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ##     Volatil    -1.924         0.469       -0.496    -4.100
     0.000    -2.855    -0.992[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ##     Citrico    -1.397         0.435       -0.388    -3.211
     0.002    -2.260    -0.533[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1794--1794
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1433--1433
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
-[34]
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+[27]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## (Intercept)     5.881         0.553                 10.631
     0.000     4.782     6.979[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##        Fija     0.102         0.063        0.172     1.617
     0.109    -0.023     0.228[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##     Volatil    -2.009         0.473       -0.518    -4.252
     0.000    -2.948    -1.071[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##     Citrico    -1.841         0.490       -0.512    -3.755
     0.000    -2.815    -0.867[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##    Cloruros     0.960         0.897        0.105     1.070
     0.288    -0.822     2.741[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
-[35]
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+[28]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## (Intercept)     5.911         0.553                 10.691
     0.000     4.813     7.009[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##        Fija     0.100         0.063        0.169     1.581
     0.117    -0.026     0.225[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##     Volatil    -1.920         0.466       -0.495    -4.125
     0.000    -2.845    -0.996[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##     Citrico    -1.685         0.469       -0.469    -3.597
     0.001    -2.616    -0.755[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
-[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
-------------------------------[] 
- []
-
-[36]
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
+[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
+------------------------------[] 
+ []
+
+
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## (Intercept)     6.608         0.336                 19.654
     0.000     5.941     7.276[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##     Volatil    -1.924         0.469       -0.496    -4.100
     0.000    -2.855    -0.992[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##     Citrico    -1.397         0.435       -0.388    -3.211
     0.002    -2.260    -0.533[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
+[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
+------------------------------[] 
+ []
+
+[29]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
-[]\T1/lmtt/m/n/10 ## ----------------------------------------------------------
-------------------------------[] 
- []
-
-
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##       model      Beta    Std. Error    Std. Beta      t   
      Sig      lower     upper[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## (Intercept)     6.608         0.336                 19.654
     0.000     5.941     7.276[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##     Volatil    -1.924         0.469       -0.496    -4.100
     0.000    -2.855    -0.992[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ##     Citrico    -1.397         0.435       -0.388    -3.211
     0.002    -2.260    -0.533[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 1986--1986
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 1625--1625
 []\T1/lmtt/m/n/10 ## ----------------------------------------------------------
 ------------------------------[] 
  []
 
-[37] [38] [39] (./Conjunto.aux)
+[30] [31] (./Conjunto.aux)
 Package rerunfilecheck Info: File `Conjunto.out' has not changed.
-(rerunfilecheck)             Checksum: 152544452BD194DD3F776891761D3A9F;7565.
+(rerunfilecheck)             Checksum: 6C28DC65C464D15E4985CFDA159F584F;7658.
  ) 
 Here is how much of TeX's memory you used:
- 11764 strings out of 480313
- 198006 string characters out of 5895697
- 576321 words of memory out of 5000000
- 29329 multiletter control sequences out of 15000+600000
+ 12473 strings out of 480313
+ 209032 string characters out of 5895697
+ 521955 words of memory out of 5000000
+ 30025 multiletter control sequences out of 15000+600000
  472218 words of font info for 74 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,63p,1027b,469s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,63p,1007b,471s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.
 enc}{c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-m
 athit.enc}{c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/l
@@ -1287,10 +1350,10 @@ e1/public/lm/lmr8.pfb><c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/fonts
 f-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/lenovo/AppData/Roaming/TinyTe
 X/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/Users/lenovo/AppData/Roaming/T
 inyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on Conjunto.pdf (39 pages, 723563 bytes).
+Output written on Conjunto.pdf (31 pages, 712183 bytes).
 PDF statistics:
- 547 PDF objects out of 1000 (max. 8388607)
- 426 compressed objects within 5 object streams
- 88 named destinations out of 1000 (max. 500000)
- 278 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 505 PDF objects out of 1000 (max. 8388607)
+ 395 compressed objects within 4 object streams
+ 81 named destinations out of 1000 (max. 500000)
+ 273 words of extra memory for PDF output out of 10000 (max. 10000000)
 
