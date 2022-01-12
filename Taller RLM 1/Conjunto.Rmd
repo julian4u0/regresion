@@ -3,7 +3,7 @@ title: "Taller RLM 1"
 author:
   - "Sofía Cuartas García"
   - "Simón Cuartas Rendón"
-  - "Julián Úsuga"
+  - "Julián Alejandro Úsuga Ortiz"
   - "Deivid Zhang Figueroa"
 date: "Enero de 2022"
 output: 
@@ -25,6 +25,7 @@ library("rgl")
 library("GGally")
 library("DT")
 library("scales")
+library(stargazer)
 ```
 
 ```{r, include = FALSE}
@@ -46,7 +47,7 @@ rm(datos)
 #pairs(datos1, pch = 20, upper.panel = NULL)
 ```
 
-# Punto uno. Descripción de la base de datos.
+# Punto 1. Descripción de la base de datos.
 
 Para impulsar la industria de vinos y su crecimiento se invierte en tecnología para el proceso de producción y venta.
 
@@ -75,13 +76,27 @@ Ahora bien, el objetivo es plantear un **modelo de regresión lineal múltiple**
 
 Teniendo este presente, es útil considerar en este análisis descriptivo la estructura de varianzas y covarianzas.
 
-# Punto dos. Análisis descriptivo.
+# Punto 2. Análisis descriptivo.
 
 La calidad es una variable numérica discreta que puede ser estudiada inicialmente mediante el siguiente esquema de resúmenes numéricos:
 
-```{r}
+```{r, include = FALSE}
 descr(datos1$quality)
 ```
+
+| Parámetro                | Valor |
+|--------------------------|-------|
+| Media                    | 5.25  |
+| Desviación estándar      | 0.66  |
+| Mínimo                   | 4     |
+| Primer cuantil (Q1)      | 4     |
+| Mediana (Q2)             | 5     |
+| Tercer cuantil (Q3)      | 6     |
+| Máximo (Q4)              | 7     |
+| Rango intercuartídico    | 1     |
+| Coeficiente de variación | 0.13  |
+| Coeficiente de asimetría | 0.75  |
+| Curtosis                 | 0.82  |
 
 Entonces, se comienza mencionando que la calidad promedio de los vinos de la muestra de los investigadores es de 5.25, con una desviación estándar de 0.66. Por otro lado, se tiene que el vino de peor calidad tiene un puntaje de cuatro puntos, toda vez que el mejor ranqueado destaca con siete puntos de diez. Asimismo, se tiene que la mediana ocurre en los cinco puntos, al igual que el primer cuantil, lo que quiere decir que al menos el 50 % de los vinos de esta base de datos tiene una calidad puntuada entre los cinco y los siete puntos, mientras que los demás tienen cuatro puntos; asimismo, se cumple que el tercer cuantil ocurre a los seis puntos y, en consecuencia, el rango intercuartídico es de un punto únicamente, lo cual ya anticipa una concentración importante de valores al rededor de este rango.
 
@@ -89,7 +104,7 @@ Otras características de la distribución de esta variable es que el coeficient
 
 Ahora bien, para poder entender mejor esta variable vale la pena considerar el siguiente gráfico de barras:
 
-```{r}
+```{r, out.width="82%", fig.align='center'}
 ggplot(data = datos1,
        mapping = aes(x = quality,
                      y = (..count..)/sum(..count..))) +
@@ -108,7 +123,7 @@ Y como se puede observar, más del 60 % de los vinos incluidos en la base de dat
 
 ## Estructura de varianzas y covarianzas
 
-```{r}
+```{r, out.width="82%", fig.align='center'}
 # evc <-ggpairs(datos1,
 #               upper = list(continuous = wrap("smooth",
 #                                              alpha = 0.3,
@@ -139,29 +154,16 @@ Del gráfico anterior se observa pues que las dos variables que presentan la may
 
 Ahora bien, al ceñirse únicamente a la calidad, solo se destaca la correlación lineal negativa moderada a débil que se mencionó previamente entre esta variable y la concentración de ácidos volátiles, mientras que con las demás variables se tienen correlaciones lineales débiles, destacándose la que se tiene con las concentraciones de azúcares residuales y los cloruros, pues los coeficientes de correlación son de -0.002 y -0.004 respectivamente.
 
-A continuación se van a realizar los gráficos de dispersión entre el puntaje de calidad y las los ácidos volátiles y cítricos y entre el puntaje de calidad y ácidos fijos y los cítricos, pues son los que obtuvieron mayores correlaciones lineales. 
-
-***PENDIENTE.***
-
-```{r}
-# Gráfico 3D: calidad vs. ácidos volátiles + cítricos
-# scatter3d(datos1$quality~datos1$`fixed acidity`+datos1$`volatile acidity`)
-# s3d.12 = scatter3d(datos1$`fixed acidity`, datos1$`volatile acidity`, datos1$quality,
-#                    cex.symbol = 2, color = 2, box = F, font.lab = 4, font.axis = 4)
-# s3d.12$plane3d(lm(datos1$quality~datos1$`fixed acidity`+datos1$`volatile acidity`),
-               # lty.box = "solid") ##################### No funciona
-```
-
-# Punto tres. Modelo de regresión.
+# Punto 3. Modelo de regresión.
 
 Para plantear el modelo de regresión lineal, se van a considerar las siguientes variables:
 
 - $Y_i$. Calidad del *i*-ésimo vino analizado.
-- $X_{1i}$. Concentración de ácidos fijos *i*-ésimo vino analizado en XXXX.
-- $X_{2i}$. Concentración de ácidos volátiles en el *i*-ésimo vino analizado en XXXX.
-- $X_{3i}$. Concentración de ácidos cítricos en el *i*-ésimo vino analizado en XXXX.
-- $X_{4i}$. Concentración de azúcares residuales en el *i*-ésimo vino analizado en XXXX.
-- $X_{5i}$. Concentración de cloruros en el *i*-ésimo vino analizado en XXXX.
+- $X_{1i}$. Concentración de ácidos fijos *i*-ésimo vino analizado en $\frac{g[CH_3-COOH (C_2H_4O_2)]}{dm^3}$.
+- $X_{2i}$. Concentración de ácidos volátiles en el *i*-ésimo vino analizado en $\frac{g[CH_3-COOH (C_2H_4O_2)]}{dm^3}$.
+- $X_{3i}$. Concentración de ácidos cítricos en el *i*-ésimo vino analizado en $\frac{g}{dm^3}$
+- $X_{4i}$. Concentración de azúcares residuales en el *i*-ésimo vino analizado en $\frac{g}{dm^3}$.
+- $X_{5i}$. Concentración de cloruros en el *i*-ésimo vino analizado en $\frac{g[NaCl]}{dm^3}$.
 - $E_i$. Error aleatorio de la regresión.
 
 Notar que para cada una de las variables el índice $i$ es tal que $i \ = \ 1, \ 2, \ ..., \ n$, con $n = 100$, puesto que se está considerando una muestra de cien vinos. Con esto presente, el modelo de regresión lineal múltiple que se va a ajustar es el siguiente:
@@ -185,9 +187,46 @@ rm(datos1)
 
 ```{r}
 modelo = lm(Calidad~Fija+Volatil+Citrico+Azucar+Cloruros, datos)
-tabmodelo <- summary(modelo)
-tabmodelo
 ```
+  
+```{r, include = F, fig.align='center'}
+stargazer(modelo, type = "latex", title = "Resumen del modelo de regresión")
+```
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & Calidad \\ 
+\hline \\[-1.8ex] 
+ Fija & 0.096 \\ 
+  & (0.066) \\ 
+  & \\ 
+ Volatil & $-$2.088$^{***}$ \\ 
+  & (0.495) \\ 
+  & \\ 
+ Citrico & $-$1.686$^{***}$ \\ 
+  & (0.511) \\ 
+  & \\ 
+ Azucar & 0.002 \\ 
+  & (0.045) \\ 
+  & \\ 
+ Cloruros & 0.787 \\ 
+  & (0.941) \\ 
+  & \\ 
+ Constant & 5.973$^{***}$ \\ 
+  & (0.584) \\ 
+  & \\ 
+\hline \\[-1.8ex] 
+Observations & 100 \\ 
+R$^{2}$ & 0.175 \\ 
+Adjusted R$^{2}$ & 0.131 \\ 
+Residual Std. Error & 0.612 (df = 94) \\ 
+F Statistic & 3.997$^{***}$ (df = 5; 94) \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
 
 Es decir, el modelo ajustado está dado por:
 
@@ -197,8 +236,10 @@ Ahora bien, la tabla ***ANOVA*** para este modelo es la siguiente:
 
 
 ```{r}
-anova(rsm(Calidad~FO(Fija,Volatil,Citrico,Azucar,Cloruros), data = datos))
+tabla2 <- anova(rsm(Calidad~FO(Fija,Volatil,Citrico,Azucar,Cloruros), data = datos))
+tabla2
 ```
+
 
 Entonces, si plantean las siguientes hipótesis:
 
@@ -210,7 +251,7 @@ Y para este test, si se toma un nivel de significancia de $\alpha = 0.05$ y se c
 
 Finalmente, como se pudo observar en la tabla uno, se obtuvo un $R^2 = 0.1753$, lo que quiere decir que el 17.53 % de la variabilidad de la calificación de calidad de un vino está explicado por el modelo de regresión lineal múltiple, el cual incluye a las variables de concentraciones de acidez fija, acidez volátil acidez cítrica, azúcares residuales y cloruros en el vino. Como se puede observar, este es un valor muy bajo y por tanto se tiene un modelo que no logra explicar adecuadamente la variabilidad de la calidad del vino.
 
-# Punto cuatro. Coeficientes de regresión estandarizados.
+# Punto 4. Coeficientes de regresión estandarizados.
 
 A continuación se muestra una tabla que exhibe el valor de los coeficientes estandarizados, esto es, despojándolos del efecto que puedan tener las unidades de cada uno de ellos:
 
@@ -222,14 +263,15 @@ coef.std=c(0,coef(lm(update(formula(modeloreg),~.+0),datos2)))
 limites=confint(modeloreg,level=0.95)
 vifs=c(0,vif(modeloreg))
 resul=data.frame("Estimacíon"=coefi,"Límites"=limites,Vif=vifs,Coef.Std=coef.std)
-cat("Coeficientes estimados, sus I.C, Vifs y Coeficientes estimados estandarizados","\n")
 resul
 }
 ```
 
 ```{r}
-miscoeficientes(modelo, datos)
+tabla3 <- miscoeficientes(modelo, datos)
+tabla3
 ```
+
 De la tabla anterior se puede extraer que $|\beta_2| > |\beta_3| > |\beta_1| > |\beta_5| > |\beta_4|$, lo que significa que es la concentración de ácidos cítricos la variable que tiene mayor efecto en la calidad de los vinos según el modelo de regresión lineal múltiple planteado en [2]. 
 
 # Punto 5. Significancia individual.
@@ -294,7 +336,8 @@ $F_{0} \sim f_{g.l[SSE(MR)]-g.l[SSE(MF)],n-k-1}$, que en nuestro caso equivale a
 ```{r echo=TRUE}
 pf(0.9177,3,94, lower.tail = F)
 ```
-el valor P es mayor que el nivel de significancia que fijamos como $\alpha=0.05$, por tanto el valor de nuestro estadístico de prueba no cae en la región de rechazo; no hay evidencia suficiente para rechazar $H_{0}$, por lo tanto podemos decir que las variables *acidez fija*, *azúcar residual* y *cloruros* no ayudan a explicar la calidad de los vinos, dado que en el modelo estan las variables *acidez volátil* y *ácido cítrico*.
+
+El valor P es mayor que el nivel de significancia que fijamos como $\alpha=0.05$, por tanto el valor de nuestro estadístico de prueba no cae en la región de rechazo; no hay evidencia suficiente para rechazar $H_{0}$, por lo tanto podemos decir que las variables *acidez fija*, *azúcar residual* y *cloruros* no ayudan a explicar la calidad de los vinos, dado que en el modelo estan las variables *acidez volátil* y *ácido cítrico*.
 
 ```{r}
 rm(list = ls())
@@ -317,7 +360,7 @@ library("olsrr")
 library("xtable")
 ```
 
-```{r}
+```{r, include = FALSE}
 datos <- read_csv("archivos/winequality-red.csv")
 #datos=read.table(file.choose(),header=T,sep=",",dec=".")
 datos1<-datos[1:100,c(1:5,12)]
@@ -333,14 +376,14 @@ datos <- datos1 %>%
 rm(datos1)
 ```
 
-```{r}
+```{r, include = FALSE}
 attach(datos)
 modelo = lm(Calidad ~ Fija + Volatil + Citrico + Azucar + Cloruros, datos)
 summary(modelo)
 ```
 
 
-# Punto siete.
+# Punto 7. Análisis de errores secuenciales y parciales
 
 
 ```{r}
@@ -356,7 +399,6 @@ Azucar   & $\text{SSR}(X_4 | X_1,X_2,X_3)$=0.000                         & 1  & 
 Cloruros & $\text{SSR}(X_5 | X_1,X_2,X_3,X_4)$=0.262                     & 1  & \multicolumn{1}{c|}{0.6997}  & \multicolumn{1}{c|}{0.404997}             & \multicolumn{1}{c|}{$H_{0}$: $\beta_{5}=0$ vs $H_{A}:\beta_{5} \neq 0$} \\ \hline
 Error    & \multicolumn{1}{c|}{$\text{SSE}(X_1,X_2,X_3,X_4,X_5)$=35.255} & 94 & \multicolumn{3}{c}{}                                                                                                                               \\ \cline{1-3}
 \end{tabular}
-\end{table}
 
 Empezando por las sumas de cuadrados secuenciales (tipo 1), tenemos la anterior tabla, como podemos observar los menores valores para las sumas de cuadrados de tipo I son:
 
@@ -366,15 +408,7 @@ Empezando por las sumas de cuadrados secuenciales (tipo 1), tenemos la anterior 
 
 3\. $\text{SS1}_{X_1} = 0.474$
 
-La variable con menor valor en la suma de cuadrados en este caso es Azúcar, lo que significa que al añadir la variable Azúcar dado que las covariables Acidez fija, Acidez Volátil y Ácido cítrico están en el modelo, esta no ayuda a reducir en mayor medida la suma de cuadrados del error lo que no es lo mas conveniente, ya que lo que buscamos es que los residuales de nuestro nuevo modelo sea cada vez más cercano a cero; lo que puede ser un indicio de que la azúcar residual no es significativa para explicar la calidad del vino dado que las otras covariables mencionadas anteriormente estan en el modelo; de manera similar sucede con las covariables Fija y Cloruros.
-
-Para comprobar las sospechas la misma tabla anova nos proporciona el P valor de las variables, con los cuales podemos concluir que no hay evidencia suficiente para rechazar la hipótesis nula:
-
-* Lo cual en el caso de la variable Fija significa que la Acidez fija no es significativa para explicar la calidad del vino dado que no hay otras covariables en el modelo.
-
-* Lo cual en el caso de la variable Azúcar significa que la azúcar residual no es significativa para explicar la calidad del vino dado que Acidez fija, Acidez Volátil y Ácido cítrico están en el modelo .
-
-* En el caso de la variable Cloruros, los cloruros nos son significativos para explicar la calidad del vino dado que las covariables Acidez fija, Acidez Volátil, Ácido cítrico y azúcar estan en el modelo.
+La variable con menor valor en la suma de cuadrados en este caso es Azúcar, lo que significa que al añadir la variable Azúcar dado que las covariables Acidez fija, Acidez Volátil y Ácido cítrico están en el modelo, esta no ayuda a reducir en mayor medida la suma de cuadrados del error lo que no es lo mas conveniente, ya que lo que buscamos es que los residuales de nuestro nuevo modelo sea cada vez más cercano a cero; lo que puede ser un indicio de que la azúcar residual no es significativa para explicar la calidad del vino dado que las otras covariables mencionadas anteriormente están en el modelo; de manera similar sucede con las covariables Fija y Cloruros.
 
 
 ```{r}
@@ -407,9 +441,11 @@ Para la suma de cuadrados parciales el significado es el mismo lo que cambia est
 
 * Para la variable Azúcar no hay evidencia suficiente para rechazar la hipótesis nula, lo que implica que la azúcar residual no es significativa para explicar la calidad del vino dado que las covariables  Acidez fija, Acidez Volátil, Ácido cítrico, y cloruros estan en el modelo.
 
-* Para la variable Cloruros no hay evidencia suficiente para rechazar la hipótesis nula, lo que implica que los cloruros no son significativos para explicar la calidad del vino dado que las covariables  Acidez fija, Acidez Volátil, Ácido cítrico, y azúcar estan en el modelo.
+* Para la variable Cloruros no hay evidencia suficiente para rechazar la hipótesis nula, lo que implica que los cloruros no son significativos para explicar la calidad del vino dado que las covariables  Acidez fija, Acidez Volátil, Ácido cítrico, y azúcar están en el modelo.
+
 ```{r}
-anova(modelo)
+tabla4 <- anova(modelo)
+tabla4
 ```
 
 Como podemos observar en la tabla anterior los menores valores para las
@@ -454,7 +490,7 @@ Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} +\beta_3X_{i3} +\beta_4X_{i4} + \b
 $$
 
 
-# Punto ocho. Gráficos de los residuales estudentizados vs. Valores ajustados y contra las variables de regresión utilizadas.
+# Punto 8. Gráficos de los residuales estudentizados vs. Valores ajustados y contra las variables de regresión utilizadas.
 
 ```{r, fig.width=8, fig.height=4}
 par(mfrow = c(1, 2))
@@ -522,7 +558,7 @@ utilizadas para la regresión vs. los residuales, al parecer no hay
 ningún indicio de que alguna variable afecte el comportamiento de la
 varianza de los residuales.
 
-# Punto nueve. Gráfica de probabilidad normal para los residuales estudentizados. ¿Existen razones para dudar de la hipótesis de normalidad sobre los errores en este modelo?
+# Punto 9. Gráfica de probabilidad normal para los residuales estudentizados. ¿Existen razones para dudar de la hipótesis de normalidad sobre los errores en este modelo?
 
 ```{r, fig.width=9, fig.height=9}
 test = shapiro.test(rstudent(modelo)) #Test de normalidad sobre residuales estudentizados
@@ -543,14 +579,14 @@ $\alpha$ que podamos fijar, por lo que rechazamos la hipótesis nula y
 afirmamos que hay suficiente evidencia para decir que los errores
 residuales no siguen una distribución normal.
 
-# Punto diez. Presencia de observaciones atípicas, de balanceo y/o influenciales.
+# Punto 10. Presencia de observaciones atípicas, de balanceo y/o influenciales.
 
-**Tabla de medidas influenciables en el final del archivo**
+Para este punto, vale la pena comenzar revisando la tabla que indica qué observaciones pueden ser influenciables de acuerdo a diferentes medidas, la cual puede ser consultada haciendo [***clic aquí***](https://drive.google.com/file/d/1FH9vN1VdCgVRd_YV7HYJ_NgqZHy2gkS1/view?usp=sharing). En esta se pueden ver qué observaciones son catalagadas como tal según varios criterios revisando cuáles tienen una letra $\color{green}{\textsf{T}}$.
 
-```{r, echo=FALSE, results='asis'}
+```{r, echo=FALSE, results='asis', include=FALSE}
 # MEDIDAS DE INFLUENCIA
 tabla <- influence.measures(modelo)$is.inf 
-print(xtable(tabla), type="latex", comment=FALSE)
+#print(xtable(tabla), type="latex", comment=FALSE)
 
 ```
 
@@ -716,7 +752,7 @@ summary(mod2)
 
 - En la anterior tabla se puede observar que, la estimación de los parámetros $\beta_j$ no presentan cambios notorios, excepto para $\beta_4$, pasa de 0.001826 (signo positivo) considerando las observaciones 17 y 34, a -0.04494 (signo negativo) sin considerar las observaciones 17 y 34. Ahora, para los errores estándar se puede observar que no cambian notoriamente sin considerar las observaciones 17 y 34, sin embargo, para la significancia, si se toma un nivel de significancia de 10%, $\alpha = 0.1$, se tiene que $\beta_1$ es significativo, pues $0.094535 < 0.1$, mientras que considerando las observaciones 17 y 34 esto no pasa, pues $0.14921 > 0.1$.
 
-```{r}
+```{r, out.width="80%", fig.align='center'}
 # Gráfico de normalidad para los residuales estudentizados
 
 residualPlots(mod2,tests=FALSE,type="rstudent",quadratic=FALSE,col=2,cex=1.5)
@@ -734,7 +770,7 @@ round(c(test$statistic,test$p.value),digits=5)),cex=1.2)
 
 El efecto de las observaciones 17 y 34 en el modelo es de tipo ***influenciable***, puesto que cuando estas no se incluyen en el modelo, el valor del coeficiente $\beta_4$, asociado a los cloruros cambia de signo.
 
-# Punto doce. Diagnóstico de multicolinealidad.
+# Punto 12. Diagnóstico de multicolinealidad.
 
 - ***Para el modelo con todas las variables y sin las observaciones 17 y 34, realice diagnósticos de multicolinealidad mediante XXXX.***
 
@@ -776,11 +812,11 @@ colldiag(mod2)
 
 - Con las proporciones de descomposición de varianza: se puede observar que, en la quinta fila, $\pi_{52}$ y $\pi_{53}$ superan 0.5, y no existe otra fila i donde 2 $\pi_{ij}$ superen esta cota, luego, con estos índices se detecta que volátil y cítrico están involucradas en una relación de multicolinealidad.
 
-# Punto trece. Modelos de regresión con métodos de selección.
+# Punto 13. Modelos de regresión con métodos de selección.
 
 - ***Sin las observaciones 17 y 34, construya modelos de regresión utilizando los métodos de selección (muestre de cada método sólo la tabla de resumen de este y la tabla ANOVA y la de parámetros estimados del modelo finalmente resultante).***
 
-```{r, warning = FALSE, message = FALSE}
+```{r, warning = FALSE, message = FALSE, out.width="70%"}
 #Todas las regresiones posibles; da información del Cp, R2, R2adj
 k=ols_step_all_possible(mod2)
 format(k[, c(1:5, 7)], scientific = FALSE, digits = 4)
@@ -790,7 +826,7 @@ plot(k)
 
 ## Literal A. Selección según el $R_{adj}^2$
 
-Según el $R_{adj}^2$, los mejores modelos son el 6, 16, 26 y 31, y como estos 3 últimos no muestran un incremento significativo en este estadístico, con respecto al modelo 6, entonces aplicando el principio de parsimonia, se escogería el modelo 6: $$Y_i = \beta_0 + \beta_2X_{i2} + \beta_3X_{i3} + E_i$$,$E_i \overset{\text{iid}}{\sim} N(0,\sigma^2)$.
+Según el $R_{adj}^2$, los mejores modelos son el 6, 16, 26 y 31, y como estos 3 últimos no muestran un incremento significativo en este estadístico, con respecto al modelo 6, entonces aplicando el principio de parsimonia, se escogería el modelo 6: $$Y_i = \beta_0 + \beta_2X_{i2} + \beta_3X_{i3} + E_i, \ E_i \overset{\text{iid}}{\sim} N(0,\sigma^2)$$.
 
 ## Literal B. Selección según el estadístico $C_p$
 
