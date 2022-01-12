@@ -166,3 +166,5 @@ ols_step_backward_p(mod2,prem=0.05,details = T)
 Según el método backward, nuevamente, el modelo seleccionado es el modelo 6.
 
 # Punto 14. Selección final y justificación
+Teniendo en cuenta los análisis de los numerales anteriores, el modelo que se seleccionará es el siguiente, $$\hat{Y}_i = 6.608 - 1.924X_{i2}$$
+Debido que este modelo surge del modelo 6 que presenta problemas de multicolinealidad con las dos variables regresoras involucradas (volátil y cítrico), por lo que, hay que eliminar una de ellas y ponerlos a competir mediante medidas como el $R^2$. Ahora, como podemos observar en la tabla de todas las regresiones posibles, el modelo con solo la variable regresora volátil presenta un mayor $R^2$ con respecto al modelo con solo la variable regresora cítrico, por lo tanto, mediante esta medida, el modelo seleccionado será el modelo con solo la variable volátil. 
