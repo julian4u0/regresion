@@ -385,20 +385,22 @@ summary(modelo)
 
 # Punto 7. Análisis de errores secuenciales y parciales
 
-
 ```{r}
 #anova(modelo)
 ```
-\begin{tabular}{|c|l|c|ccc}
+
+\begin{table}[!htb]
+\begin{tabular}{|c|l|c|cc}
 \hline
-Fuente   & \multicolumn{1}{c|}{SS1}                                      & Df & \multicolumn{1}{c|}{$F_0$}   & \multicolumn{1}{c|}{Pr($f_{1,94}$>$F_0$)} & \multicolumn{1}{c|}{Test asociado}                                      \\ \hline
-Fija     & $\text{SSR}(X_1)$=0.474                                       & 1  & \multicolumn{1}{c|}{1.2632}  & \multicolumn{1}{c|}{0.2639}               & \multicolumn{1}{c|}{$H_{0}$: $\beta_{1}=0$ vs $H_{A}:\beta_{1} \neq 0$} \\ \hline
-Volatil  & $\text{SSR}(X_2 | X_1)$=2.919                                 & 1  & \multicolumn{1}{c|}{7.7829}  & \multicolumn{1}{c|}{0.006386}             & \multicolumn{1}{c|}{$H_{0}$: $\beta_{2}=0$ vs $H_{A}:\beta_{2} \neq 0$} \\ \hline
-Citrico  & $\text{SSR}(X_3 | X_1,X_2)$=3.840                             & 1  & \multicolumn{1}{c|}{10.2384} & \multicolumn{1}{c|}{0.001876}             & \multicolumn{1}{c|}{$H_{0}$: $\beta_{3}=0$ vs $H_{A}:\beta_{3} \neq 0$} \\ \hline
-Azucar   & $\text{SSR}(X_4 | X_1,X_2,X_3)$=0.000                         & 1  & \multicolumn{1}{c|}{0.0003}  & \multicolumn{1}{c|}{0.987118}             & \multicolumn{1}{c|}{$H_{0}$: $\beta_{4}=0$ vs $H_{A}:\beta_{4} \neq 0$} \\ \hline
-Cloruros & $\text{SSR}(X_5 | X_1,X_2,X_3,X_4)$=0.262                     & 1  & \multicolumn{1}{c|}{0.6997}  & \multicolumn{1}{c|}{0.404997}             & \multicolumn{1}{c|}{$H_{0}$: $\beta_{5}=0$ vs $H_{A}:\beta_{5} \neq 0$} \\ \hline
-Error    & \multicolumn{1}{c|}{$\text{SSE}(X_1,X_2,X_3,X_4,X_5)$=35.255} & 94 & \multicolumn{3}{c}{}                                                                                                                               \\ \cline{1-3}
+Fuente   & \multicolumn{1}{c|}{SS1}                                      & Df & \multicolumn{1}{c|}{$F_0$}   & \multicolumn{1}{c|}{Pr($f_{1,94}$>$F_0$)} \\ \hline
+Fija     & $\text{SSR}(X_1)$=0.474                                       & 1  & \multicolumn{1}{c|}{1.2632}  & \multicolumn{1}{c|}{0.2639}               \\ \hline
+Volatil  & $\text{SSR}(X_2 | X_1)$=2.919                                 & 1  & \multicolumn{1}{c|}{7.7829}  & \multicolumn{1}{c|}{0.006386}             \\ \hline
+Citrico  & $\text{SSR}(X_3 | X_1,X_2)$=3.840                             & 1  & \multicolumn{1}{c|}{10.2384} & \multicolumn{1}{c|}{0.001876}             \\ \hline
+Azucar   & $\text{SSR}(X_4 | X_1,X_2,X_3)$=0.000                         & 1  & \multicolumn{1}{c|}{0.0003}  & \multicolumn{1}{c|}{0.987118}             \\ \hline
+Cloruros & $\text{SSR}(X_5 | X_1,X_2,X_3,X_4)$=0.262                     & 1  & \multicolumn{1}{c|}{0.6997}  & \multicolumn{1}{c|}{0.404997}             \\ \hline
+Error    & \multicolumn{1}{c|}{$\text{SSE}(X_1,X_2,X_3,X_4,X_5)$=35.255} & 94 & \multicolumn{2}{c}{}                                                     \\ \cline{1-3}
 \end{tabular}
+\end{table}
 
 Empezando por las sumas de cuadrados secuenciales (tipo 1), tenemos la anterior tabla, como podemos observar los menores valores para las sumas de cuadrados de tipo I son:
 
@@ -408,7 +410,15 @@ Empezando por las sumas de cuadrados secuenciales (tipo 1), tenemos la anterior 
 
 3\. $\text{SS1}_{X_1} = 0.474$
 
-La variable con menor valor en la suma de cuadrados en este caso es Azúcar, lo que significa que al añadir la variable Azúcar dado que las covariables Acidez fija, Acidez Volátil y Ácido cítrico están en el modelo, esta no ayuda a reducir en mayor medida la suma de cuadrados del error lo que no es lo mas conveniente, ya que lo que buscamos es que los residuales de nuestro nuevo modelo sea cada vez más cercano a cero; lo que puede ser un indicio de que la azúcar residual no es significativa para explicar la calidad del vino dado que las otras covariables mencionadas anteriormente están en el modelo; de manera similar sucede con las covariables Fija y Cloruros.
+La variable con menor valor en la suma de cuadrados en este caso es Azúcar, lo que significa que al añadir la variable Azúcar dado que las covariables Acidez fija, Acidez Volátil y Ácido cítrico están en el modelo, esta no ayuda a reducir en mayor medida la suma de cuadrados del error lo que no es lo mas conveniente, ya que lo que buscamos es que los residuales de nuestro nuevo modelo sea cada vez más cercano a cero; lo que puede ser un indicio de que la azúcar residual no es significativa para explicar la calidad del vino dado que las otras covariables mencionadas anteriormente estan en el modelo; de manera similar sucede con las covariables Fija y Cloruros.
+
+Para comprobar las sospechas la misma tabla anova nos proporciona el P valor de las variables, con los cuales podemos concluir que no hay evidencia suficiente para rechazar la hipótesis nula:
+
+* Lo cual en el caso de la variable Fija significa que la Acidez fija no es significativa para explicar la calidad del vino dado que no hay otras covariables en el modelo.
+
+* Lo cual en el caso de la variable Azúcar significa que la azúcar residual no es significativa para explicar la calidad del vino dado que Acidez fija, Acidez Volátil y Ácido cítrico están en el modelo .
+
+* En el caso de la variable Cloruros, los cloruros nos son significativos para explicar la calidad del vino dado que las covariables Acidez fija, Acidez Volátil, Ácido cítrico y azúcar estan en el modelo.
 
 
 ```{r}
@@ -441,53 +451,8 @@ Para la suma de cuadrados parciales el significado es el mismo lo que cambia est
 
 * Para la variable Azúcar no hay evidencia suficiente para rechazar la hipótesis nula, lo que implica que la azúcar residual no es significativa para explicar la calidad del vino dado que las covariables  Acidez fija, Acidez Volátil, Ácido cítrico, y cloruros estan en el modelo.
 
-* Para la variable Cloruros no hay evidencia suficiente para rechazar la hipótesis nula, lo que implica que los cloruros no son significativos para explicar la calidad del vino dado que las covariables  Acidez fija, Acidez Volátil, Ácido cítrico, y azúcar están en el modelo.
+* Para la variable Cloruros no hay evidencia suficiente para rechazar la hipótesis nula, lo que implica que los cloruros no son significativos para explicar la calidad del vino dado que las covariables  Acidez fija, Acidez Volátil, Ácido cítrico, y azúcar estan en el modelo.
 
-```{r}
-tabla4 <- anova(modelo)
-tabla4
-```
-
-Como podemos observar en la tabla anterior los menores valores para las
-sumas de cuadrados de tipo I son: 1. $\text{SS1}_{X_4} = 0.000$ 2.
-$\text{SS1}_{X_5} = 0.262$ 3. $\text{SS1}_{X_1} = 0.474$ Nuestra tabla
-anova tambien nos dice que: $\text{SSR}(X_4 | X_1, X_2, X_3) = 0.000$
-$\text{SSR}(X_5 | X_1, X_2, X_3, X_4) = 0.262$
-$\text{SSR}(X_1) = 0.474$, lo que quiere decir que las sumas de las
-diferencias entre la estimación y el valor medio de la variable de
-respuesta es mínima, por lo que el modelo propuesto no es
-suficientemente útil, también podemos verlo con el p-value; rechazamos
-la hipótesis y concluimos que la variable no es significativa para cada
-modelo planteado.
-
-```{r}
-Anova(modelo)
-```
-
-Como podemos observar en la tabla anterior los menores valores para las
-sumas de cuadrados de tipo II son:
-
-1\. $\text{SS2}_{X_4} = 0.001$
-
-2\. $\text{SS2}_{X_5} = 0.262$
-
-3\. $\text{SS2}_{X_1} = 0.793$
-
-Cada valor nos dice el SSR de cada variable en el modelo completo dadas
-las demás (ej. $\text{SSR}(X_4 | X_1, X_2, X_3, X_4) = 0.001$), lo que
-quiere decir que las sumas de las diferencias entre la estimación y el
-valor medio de la variable de respuesta es mínima, por lo que el modelo
-propuesto no es suficientemente útil, también podemos verlo con el
-p-value; recordemos que rechazamos la siguiente hipótesis nula cuando el
-p-value es pequeño, como podemos ver para $X_1, X_4, X_5$ los p-values
-son demasiado grandes si fijamos un $\alpha$ de 0.05, por lo que
-concluimos que estas variables no son significativa para cada el modelo
-ajustado.
-
-$$
-Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} +\beta_3X_{i3} +\beta_4X_{i4} + \beta_5X_{i5} + E_i\ , \text{con} \ E \sim N(0, \sigma^2) \\\ 
-\text{H}_0 : \beta_j = 0 \text{ vs. }\text{H}_1 :  \beta \neq 0
-$$
 
 
 # Punto 8. Gráficos de los residuales estudentizados vs. Valores ajustados y contra las variables de regresión utilizadas.
