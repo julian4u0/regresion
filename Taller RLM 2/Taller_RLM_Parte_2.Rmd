@@ -1,0 +1,47 @@
+---
+title: "Taller RLM 2"
+author:
+  - "Sofía Cuartas García"
+  - "Simón Cuartas Rendón"
+  - "Julián Alejandro Úsuga Ortiz"
+  - "Deivid Zhang Figueroa"
+date: "Enero de 2022"
+output: 
+  pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(randomForest)
+data(imports85)
+
+# quitando los registros con NA en price y observaciones errores de registro
+data1 <-
+  imports85[-c(10, 16, 45, 46, 48, 70), ] 
+
+data2 <- data1[1:100, ]
+dim(data2)
+names(data2)
+head(data2)
+table(data2$bodyStyle)
+data2$bodyStyle <- as.character(data2$bodyStyle)
+data2$bodyStyle <-
+  replace(
+    data2$bodyStyle,
+    data2$bodyStyle == "convertible" |
+      data2$bodyStyle == "hardtop" | data2$bodyStyle == "wagon",
+    "Otro"
+  )
+data2$bodyStyle <- as.factor(data2$bodyStyle)
+levels(data2$bodyStyle) = c("hatchback", "sedan", "Otro")
+
+datos <- data2[, c("bodyStyle","cityMpg", "price")]
+rm("data1", "data2", "imports85")
+```
+
+```{r}
+plot(datos$cityMpg, datos$price, col = as.factor(datos$bodyStyle))
+```
