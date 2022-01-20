@@ -1,0 +1,39 @@
+---
+title: "Base de datos"
+author: "Sofía Cuartas García, Simón Cuartas Rendón"
+date: "19/1/2022"
+output: html_document
+---
+
+```{r}
+library(randomForest)
+data(imports85)
+data1<-imports85[-c(10,16,45,46,48,70),]#quitando los registros con NA en price
+#y observaciones errores de registro
+data2<-data1[1:100,]
+dim(data2)
+names(data2)
+head(data2)
+table(data2$bodyStyle)
+data2$bodyStyle<-as.character(data2$bodyStyle)
+data2$bodyStyle<-replace(data2$bodyStyle,data2$bodyStyle=="convertible"|data2$bodyStyle=="hardtop"|data2$bodyStyle=="wagon","Otro")
+data2$bodyStyle<-as.factor(data2$bodyStyle)
+levels(data2$bodyStyle)=c("hatchback","sedan","Otro")
+```
+```{r}
+datos = data2 %>% 
+  select(price, cityMpg, bodyStyle)
+```
+
+```{r}
+rm(list = c("data1", "data2", "imports85"))
+```
+
+```{r}
+save(datos, file = "Datos.RData")
+```
+
+```{r}
+rm(list = ls())
+```
+
