@@ -5,26 +5,22 @@ date: "22/1/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+load("Datos.RData")
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+**7.** Teniendo en cuenta los resultados anteriores realice una prueba de suma de cuadrados extra con test lineal general. Justifique la hipótesis que desea probar en este numeral.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+**RTA:** 
 
-```{r cars}
-summary(cars)
+```{r}
+#linearHypothesis(modelo1,c("Publicidad:Secci ́onA=0","Publicidad:Secci ́onB=0"))
+linearHypothesis(modelo, c("cityMpg:bodyStylehatchback", "cityMpg:bodyStylesedan"))
 ```
 
-## Including Plots
+Como podemos observar en la anterior tabla de test lineal general, el $SSR_{parcial} = SSE(MR) - SSE(MF) = SSR(X*I_1,X*I_2|X,I_1,I_2)$ dio el valor de 2.
 
-You can also embed plots, for example:
+**8.** Si se quiere probar que la recta de price vs $X_1$ es diferente para cada niveles de bodyStyle, plantee la hipótesis a probar, el estadístico de prueba y región crítica al nivel de 0.05, realice la prueba y concluya.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+**RTA:** 
