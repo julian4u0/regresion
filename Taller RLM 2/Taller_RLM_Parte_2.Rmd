@@ -1,47 +1,272 @@
 ---
 title: "Taller RLM 2"
 author:
-  - "Sofía Cuartas García"
-  - "Simón Cuartas Rendón"
-  - "Julián Alejandro Úsuga Ortiz"
-  - "Deivid Zhang Figueroa"
+- Sofía Cuartas García
+- Simón Cuartas Rendón
+- Julián Alejandro Úsuga Ortiz
+- Deivid Zhang Figueroa
 date: "Enero de 2022"
-output: 
-  pdf_document
+output:
+  pdf_document:
+    extra_dependencies:
+    - xfrac
+    - amsmath
+    - multirow
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-```{r}
+```{r, include = FALSE, warning = FALSE, message = FALSE}
+# Cargue de librerías que serán usadas
 library(randomForest)
-data(imports85)
-
-# quitando los registros con NA en price y observaciones errores de registro
-data1 <-
-  imports85[-c(10, 16, 45, 46, 48, 70), ] 
-
-data2 <- data1[1:100, ]
-dim(data2)
-names(data2)
-head(data2)
-table(data2$bodyStyle)
-data2$bodyStyle <- as.character(data2$bodyStyle)
-data2$bodyStyle <-
-  replace(
-    data2$bodyStyle,
-    data2$bodyStyle == "convertible" |
-      data2$bodyStyle == "hardtop" | data2$bodyStyle == "wagon",
-    "Otro"
-  )
-data2$bodyStyle <- as.factor(data2$bodyStyle)
-levels(data2$bodyStyle) = c("hatchback", "sedan", "Otro")
-
-datos <- data2[, c("bodyStyle","cityMpg", "price")]
-rm("data1", "data2", "imports85")
+library(DT)
+library(tidyverse)
+library(stargazer)
+library(car)
+library(GGally)
 ```
 
 ```{r}
-plot(datos$cityMpg, datos$price, col = as.factor(datos$bodyStyle))
+# Lectura de la base de datos
+load("Datos.RData")
+```
+
+## Punto tres. Planteamiento del modelo de regresión lineal.
+
+Como se vio en el punto uno, la base de datos asignada está compuesta por tres variables: $\textsf{price}$, que corresponde a la variable respuesta del modelo a plantear y que será denotada como $Y$; $\textsf{cityMpg}$, que es una variable cuantitativa y que será una variable regresora que será denotada como $X_1$ y, finalmente, $\textsf{bodyStyle}$, denotada como $X_2$, es la otra variable regresora, y de la cual se debe tener en cuenta que es cuantitativa, de manera que para la realización del modelo de regresión se deben tener en cuenta sus tres niveles de medición: `hatchback`, `sedan` y `Otro`, y para ello se define al nivel `Otros` como el de referencia. Para definir cómo se va a plantear el modelo de regresión, esto es, si deben ser incluidos términos de interacción en el modelo, vale la pena observar la figura XXXX, en la cual se muestra la relación que existe entre $\textsf{price}$ y $\textsf{cityMpg}$ diferenciando los niveles de $\textsf{bodyStyle}$ con diferentes figuras.
+
+```{r, fig.cap = "Dispersión de mgp vs. precio."}
+# Precio vs cityMpg según los niveles de bodyStyle
+g1 = ggplot(data = datos) +
+  geom_point(mapping = aes(x = cityMpg, y = price,
+                           color = bodyStyle)) +
+  labs(color = "Tipo de vehículo") +
+  labs(title = "Gráfico de dispersión",
+       subtitle = "de millas recorridas por galón en área urbana contra precio",
+       caption = "Figura XXXX.") +
+  xlab("Millas recorridas por galón en área urbana [mpg]") +
+  ylab("Precio [$USD]") +
+  theme_light() +
+  theme(plot.title = element_text(size = 12, face = "bold"),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 12, color = "gray")) +
+  scale_color_manual(values = c("#d80000", "#2692ff", "#00d800"))
+g1
+```
+
+Como se observa en el gráfico anterior, existen tendencias diferentes para cada uno de los niveles de medición. Para empezar, las observaciones asociadas a vehículos catalogados como `Otro` parece tener una pendiente bastante pronunciada, lo cual se refleja en el hecho de que existen varias observaciones que toman altos precios, lo cual contrasta con lo que sucede con los otros dos niveles: `hatckback` y `sedan`, que no toman valores tan altos de precios, salvo algunas pocas excepciones para el nivel `sedan`. Además, debe tenerse en cuenta que hay algunas observaciones del nivel `Otro` que tiene un comportamiento semejante al de `hatckback` y `sedan`, lo cual se puede deber al hecho de que esta variable recoge distintos tipos de vehículos, por lo que es posible que existan algunos de estos tipos que tengan precios bajos.
+
+En todo caso, teniendo en cuenta este análisis, es necesario incluir variables indicadoras al modelo. Así, tomando al nivel `Otro` como el de referencia para $\textsf{bodyStyle}$, $I_1$ la variable indicadora asociada a los *hatchbacks* e $I_2$ la variable indicadora que referencia a los sedanes, entonces el modelo a desarrollar sería como sigue:
+
+$$Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i, \ \ \ \ \ \lceil 1 \rfloor$$
+
+$$E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100$$ De manera que pueden ser planteados tres modelos diferentes en función del nivel de la variable categórica $\textsf{bodyShape}$ considerado, a saber:
+
+-   Para los automóviles catalogados como `Otro` ($I_1 = I_2 = 0$):
+
+$$Y_i = \beta_0 + \beta_1 X_{i1} + E_i \ \ \ \ \ \lceil 2 \rfloor$$ $$E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100$$
+
+-   Para los automóviles catalogados como `hatchback` ($I_1 = 1 \ \land \ I_2 =0$):
+
+$$Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 + \beta_{1,1} X_{i1} + E_i$$ $$E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100$$
+
+Lo cual equivale a:
+
+$$Y_i = (\beta_0 + \beta_2) + (\beta_1 + \beta_{1,1}) X_{i1} + E_i \ \ \ \ \ \lceil 3 \rfloor$$ $$E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100$$
+
+-   Para los automóviles catalogados como `sedan` ($I_1 = 0 \ \land \ I_2 = 1$):
+
+$$Y_i = \beta_0 + \beta_1 X_{i1} + \beta_3 + \beta_{1,2} X_{i1} + E_i$$ $$E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100$$ Lo cual equivale a:
+
+$$Y_i = (\beta_0 + \beta_3) + (\beta_1 + \beta_{1,2}) X_{i1} + E_i \ \ \ \ \ \lceil 4     \rfloor$$ $$E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100$$
+
+Definido esto, se puede proceder a obtener el modelo con ayuda de $\color{blue}{\textsf{R}}$ y el resultado es el que se visualiza enseguida:
+
+```{r}
+datos<- within(datos, bodyStyle <- relevel(bodyStyle, ref = "Otro"))
+```
+
+```{r}
+modelo = lm(price~cityMpg*bodyStyle,
+            data = datos)
+summary(modelo)
+```
+
+A partir de la tabla anterior se tiene que el vector de coeficientes está dado por:
+
+$$\hat{\boldsymbol{\beta}} =
+\begin{pmatrix} \hat{\beta_0} \\ \hat{\beta_1} \\ \hat{\beta_2} \\ \hat{\beta_3} \\ \widehat{\beta_{1,1}} \\ \widehat{\beta_{1,2}} \end{pmatrix} =
+\begin{pmatrix} 43,564.3 \\ -1,140.4 \\ -23.252.4 \\ 9,983.4 \\ 744.5 \\ -414.6 \end{pmatrix} $$
+
+pueden obtener entonces las rectas ajustadas para cada uno de los niveles de $\textsf{bodyShape}$ como sigue:
+
+-   Para los vehículos catalogados como `Otro`, reemplazando en $\lceil 2 \rfloor$:
+
+$$\hat{Y}_i = 43564.3 - 1140.4X_{i1}, \ \ \ \ i=1, \ ..., \ 100 \ \ \ \ \ \lceil \hat{2} \rfloor$$
+
+-   Para los vehículos catalogados como `hatchback`, reemplazando en $\lceil 3 \rfloor$:
+
+$$\hat{Y}_i = 20311.9 - 395.9 X_{i1}, \ \ \ \ i=1, \ ..., \ 100 \ \ \ \ \ \lceil \hat{3} \rfloor$$ \* Para los vehículos etiquetados como `sedan`, reemplazando en $\lceil 4 \rfloor$:
+
+$$\hat{Y}_i = 53547.7 - 1555 X_{i1}, \ \ \ \ i=1, \ ..., \ 100 \ \ \ \ \ \lceil \hat{4} \rfloor$$ Además, debe notarse que el $R^2=0.6272$, lo que significa que el 62.72 % de la variabilidad del precio es explicada por el tipo de vehículo empleado y la cantidad de millas recorridas por galón de combustible consumido en una área urbana.
+
+## Punto cuatro. Supuesto de normalidad y varianza constante.
+
+Uno de los supuestos asumidos en el punto anterior para poder plantear los modelos presentados es que los errores tienen la misma distribución, siendo esta normal con media cero y varianza $\sigma^2$, por lo que es necesario validar este último aspecto para comprobar los modelos propuestos, para lo cual vale la pena revisar los siguientes dos gráficos, los cuales contrastan a los residuos internamente estudentizados contra el número de millas recorridas por galón consumida en recorridos urbanos y contra los valores ajustados.
+
+```{r, out.width="80%", fig.cap = "Residuos estudentizados."}
+residualPlots(modelo,
+              groups = datos$bodyStyle,
+              type = "rstudent",
+              linear = F,
+              cex = 1.5,
+              pch = 1:3,
+              col=1:3,
+              main = "Gráficos de dispersión para los residuos estudentizados",
+              ylab = "Residuales estudentiza")
+layout(cbind(c(1),c(2)))
+```
+
+Comenzando con el gráfico de la izquierda, que grafica a las millas recorridas por galón en la ciudad contra los residuos estudentizados, se puede ver que, en general, no parece haber alguna distribución particular en cada uno de los puntos, salvo que tienen una acumulación hacia bajos valores de millas recorridas por galón, lo cual se anticipaba del gráfico de la figura XXXX, donde la mayor concentración de puntos se da en valores bajos de dicha variable. No obstante, al revisar para cada tipo de vehículo, resaltan los triángulos rojos asociados a los `hatchback`, que parecen tener una tendencia parabólica y cóncava hacia arriba, lo cual muestra que el mejor modelo pudo haber sido uno de orden cuadrático, si bien este patrón no se repite con los vehículos etiquetados como `Otro` ni como `sedan`. Cabe destacarse también que pueden existir valores atípicos, ya que en el gráfico se ven algunas observaciones de `hatchbacks` en el margen derecho.
+
+Después, al pasar al gráfico de la derecha, donde se esquematiza un gráfico de dispersse observa que tampoco hay una distribución particular de los diferentes puntos, aunque se puede diferenciar que los vehículos que son clasificados como `sedan` o como `Otro` tienen una mayor variabilidad de valores ajustados y residuos internamente estudentizados, mientras que los `hatchback` están fuertemente concentrados en precios ajustados alrededor de los diez mil dólares estadounidenses (USD\$ 10,000.00) y sus residuales estudentizados se agrupan alrededor de valores negativos cercanos al cero. Además, también llama la atención que existe un valor ajustado asociado a un vehículo tipo `Otro` negativo, lo cual en términos prácticos no tiene sentido (¿se debe pagar al comprador para que se quede con el vehículo?).
+
+`PREGUNTA. ¿Qué se hace con el valor ajustado negativo?`
+
+A partir de lo anterior se puede concluir que no hay heterocedasticidad, por lo que se cumple el primer supuesto que se quería verificar, si biene se debe detallar que existe una observación potencialmente atípicas, dado que su residual internamente estudentizado es mayor que tres. Asimismo, se tienen varias observaciones que tienen residuales internamente estudentizados mayores a dos y menores a menos dos, lo cual da cuenta de que existen varias observaciones potencialmente influenciables, siendo cuatro de ellas asociadas a vehículos tipo `Otro` y dos a `sedan`. Además, debe tenerse en cuenta que el modelo propuesto presenta un problema de ajuste, como se explicó antes.
+
+Por otro lado, es útil analizar descriptivamente a los residuos internamente estudentizados, para lo cual vale la pena analizar la figura XXXX que contraste tres boxplots para estos valores según el tipo de vehículo:
+
+```{r, out.width="80%", fig.cap = "Gráficos de cajas y bigotes para los residuales estudentizados según el tipo de vehículo."}
+plot(rstudent(modelo)~datos$bodyStyle,
+     border=1:3,
+     main = "Boxplots para los gráficos de cajas y bigotes según el tipo de vehículo",
+     xlab = "Tipo de vehículo",
+     ylab = "Residuales internamente estudentizados")
+abline(h=c(-2,0,2),lty=3)
+```
+
+De la figura XXXX lo primero que llama la atención es que los vehículos tipo `hatchback` poseen una caja muy angosta, lo cual está asociado con la concentración de los residuales estudentizados que se analizó en el gráfico derecho de la figura XXXX, además debe notarse que su mediana es negativa, lo cual se anticipaba al ver que los puntos se concentraban debajo del cero. Nótese, además, que los bigotes no superan los umbrales demarcados en dos y dos negativo, y que existe un residual estudentizado atípico en el contexto de este tipo de vehículos.
+
+Por otro lado, se tiene que la situación con los vehículos tipo `Otro` o `sedan` es diferente, ya que hay una mayor dispersión en los valores de sus residuales internamente estudentizados, lo que se refleja en sus cajas más anchas, y que hay bigotes que superan el umbral de dos positivo y dos negativo. En el caso de los vehículos tipo `Otro`, se ve que hay un bigote que supera el valor de dos y se aproxima al de tres, mientras que con los sedanas se tienen a los dos bigotes superando los umbrales demarcados, pero sin llegar a tres positivo o negativo, lo que se corresponde con el análisis realizado a partir de la figura XXXX con diagramas de dispersión.
+
+Luego, se debe verificar la normalidad de los residuales, ya que como se mencionó, se partió del supuesto de que los errores son normales, para lo cual vale la pena observar el siguiente QQ plot:
+
+```{r}
+test=shapiro.test(rstudent(modelo))
+qqnorm(rstudent(modelo),
+       pch = as.numeric(datos$bodyStyle),
+       cex = 1.5,
+       col = as.numeric(datos$bodyStyle),
+       main = "QQ pplot para normalidad",
+       xlab = "Cuantiles teóricos",
+       ylab = "Cuantiles empíricos")
+qqline(rstudent(modelo))
+legend("topleft",legend=rbind(c("Estadístico W","Valor p"),
+round(c(test$statistic,test$p.value),digits=4)),cex=0.8)
+```
+
+Y como se puede observar, existe una amplia concentración de valores alrededor de los cuantiles teórcios cuando se está cerca a la media, es decir, a cero, pero este no es el caso en las colas, ya que los cuantiles empíricos se alejan de los teóricos, sobre todo con la cola superior, y esto sucede fundamentalmente con los vehículos tipo `Otro` y con algunos tipo `sedan`, por lo que es razonable pensar que los vehículos `hatchback`, cuyo modelo ajustado está dado por la ecuación $\hat{3}$ sí cumplen con el supuesto de normalidad, mientras que los demás presentan dificultades al tener distribuciones con colas más pesadas. Además, se realizó un test de Shapiro-Wilk para comprar la normalidad para las cien observaciones, con las siguientes hipótesis:
+
+-   $H_0:$ Los residuales tienen una distribución normal.
+-   $H_1:$ Los residuales ***no*** tienen una distribución normal.
+
+Y sus resultados se pueden ver en el margen superior izquierdo de la gráfica, donde se ve que el valor p es $V_p = 2 \times 10 ^{-4}$, lo cual es menor que cualquier $\alpha$, y en particular, que un $\alpha = 0.05 > V_p$, de manera que se rechaza la hipótesis nula y se concluye que no hay evidencia muestral suficiente para sugerir que los errores tienen una distribución normal.
+
+`PREGUNTA. ¿Concluyo sobre errores o residuales? ¿Y es correcto decir que uno de los modelos cumple y los otros no?`
+
+## Punto cinco. ¿Existe diferencia entre las ordenadas en el origen de las rectas correspondientes a los diferentes niveles de bodyStyle?.
+
+Para saber si existen diferencias entre las ordenadas en el origen para cada recta regresora por nivel de **bodyStyle** planteamos los siguientes modelos:
+
+$$Y_i = \beta_0 + \beta_1 X_{i1} + E_i \ \ \ \ \text{Para "Otro" } (I_1 \land I_2 = 0)$$
+
+$$Y_i = (\beta_0 + \beta_2) + (\beta_1+\beta_{1,1}) X_{i1} + E_i \text{ Para "hatchback"} \ (I_1 = 1 \ \land I_2 = 0)$$
+
+$$Y_i = (\beta_0 +\beta_3 ) + (\beta_1 +\beta_{1,2})X_{i1} + E_i \text{ Para "sedan"} \ (I_1 = 0 \ \land I_2 =1)$$
+
+También vale la pena recordar que nuestro modelo completo (MF), como se había planteado anteriormente, es el siguiente:
+
+$$
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i
+$$
+
+De esta forma, para que no existan diferencias entre estas las ordenadas de estas rectas se debe cumplir que $\beta_0 = (\beta_0 + \beta_2) = (\beta_0 + \beta_3)$, lo que que es equivalente a que simplemente $\beta_2 = \beta_3 = 0$.
+
+Derivándonos de esto, planteamos las siguientes hipótesis:
+
+$$
+H_0: \beta_2 = \beta_3=0 \\ 
+H_1: \text{ algun } \beta_j \ne 0, \ j=1,2
+$$
+
+Así, el modelo reducido (MR) bajo $H_0$ es el siguiente:
+
+$$
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i
+$$
+
+Por lo que nuestro estadístico de prueba es:
+
+$$
+F_0 = \frac{[\text{SSE}_{\text{(MR)}}-\text{SSE}_{\text{(MF)}}]/v}{\text{MSE}_{\text{(MF)}}} = \frac{\text{SSR}(I_{1}, I_{2} | X_{1},X_{1}*I_{1}, X_{1} * I_{2})/(c-1)}{\text{MSE}(X_1, I_1, I_2, X_{1}*I_{1}, X_{1} * I_{2})} \\ = \frac{(4280394376-3098866721)/(3-1)}{32966667} = 17.92
+$$
+
+Nuestro *p-value* se deriva de $P(f_{3-1, 100-3*2}>F_0) = P(f_{2, 94}>17.92) = 2.55*10^7$, lo cual validamos con la librería *linearHypothesis* y obtenemos los resultados anteriores.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, include= FALSE}
+# Valor P con F_0
+# 1-pf(17.92004,3-1, 100-2*3)
+lh <- linearHypothesis(modelo, c("bodyStylehatchback=0", "bodyStylesedan=0"))
+lh
+```
+
+```{=tex}
+\begin{table}[]
+\begin{tabular}{lllllll}
+                              & \multicolumn{3}{l}{\textbf{Linear hypothesis test}}                                                         & \multicolumn{3}{l|}{}                                                                                            \\
+                              & \multicolumn{3}{l}{\textit{Hypothesis:}}                                                                    & \multicolumn{3}{l}{\multirow{4}{*}{}}                                                                            \\
+                              & \multicolumn{3}{l}{\textit{bodyStylehatchback = 0}}                                                         & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textit{bodyStylesedan = 0}}                                                             & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textbf{Model 1: Modelo reducido}}                                                       & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textbf{Model 2: price $\sim$ cityMpg * bodyStyle}}                                           & \multicolumn{3}{l}{}                                                                                             \\ \hline
+\multicolumn{1}{|l|}{}        & \multicolumn{1}{l|}{\textbf{Res.Df}} & \multicolumn{1}{l|}{\textbf{RSS}} & \multicolumn{1}{l|}{\textbf{Df}} & \multicolumn{1}{l|}{\textbf{Sum of Sq}} & \multicolumn{1}{l|}{\textbf{F}} & \multicolumn{1}{l|}{\textbf{Pr(>F)}} \\ \hline
+\multicolumn{1}{|l|}{Model 1} & \multicolumn{1}{l|}{96}              & \multicolumn{1}{l|}{4280394376}   & \multicolumn{1}{l|}{}            & \multicolumn{1}{l|}{}                   & \multicolumn{1}{l|}{}           & \multicolumn{1}{l|}{}                \\ \hline
+\multicolumn{1}{|l|}{Model 2} & \multicolumn{1}{l|}{94}              & \multicolumn{1}{l|}{3098866721}   & \multicolumn{1}{l|}{2}           & \multicolumn{1}{l|}{1181527655}         & \multicolumn{1}{l|}{17.92}      & \multicolumn{1}{l|}{2.552e-07 ***}   \\ \hline
+\end{tabular}
+\end{table}
+```
+Ya realizado el test, obtuvimos un *p-value* de $2.552*10^7$, el cual es un valor extremadamente pequeño, por lo que podemos fijar nuestro nivel de significancia en $\alpha = 0.05$ y claramente se rechaza la hipótesis nula; concluimos que los intersectos con la ordenada para cada recta de regresión son diferentes.
+
+Con lo anterior podemos afirmar, de una forma mas intuitiva que para valores de *millas por galón* cercanos a 0 el precio por tipo de vehículo es diferentes a los demás, por lo que podemos decir que hay precios que difieren inicialmente, en el siguiente punto (6) veremos si no solo difieren inicialmente sino también a lo largo del dominio de los datos, osea, si las tres rectas de regresión tienen pendientes diferentes.
+
+Lo anterior lo podemos validar gráficamente en la siguiente gráfica; si tratamos de visualizar la proyección de cada una de las rectas, podemos ver que cada uno de las ordenadas en el origen son diferente de las demás, destacándose el tipo de vehículo hatchback de los otros dos tipos (Otros y Sedan).
+
+```{r,fig.width=6, fig.height=3.7 ,fig.cap = "Dispersión de mgp vs. precio.", warning=F, message=F}
+
+
+# Precio vs cityMpg según los niveles de bodyStyle
+g1 = ggplot(datos, aes(cityMpg, price, colour = bodyStyle)) +
+  geom_smooth(method = 'lm', se = F) +
+  geom_point(mapping = aes(color = bodyStyle)) +
+  xlim(c(0, 52)) +
+  labs(color = "Tipo de vehículo") +
+  labs(title = "Gráfico de dispersión con lineas de regresión",
+       subtitle = "de millas recorridas por galón en área urbana contra precio",
+       caption = "Figura XXXX.") +
+  xlab("Millas recorridas por galón en área urbana [mpg]") +
+  ylab("Precio [$USD]") +
+  theme_light() +
+  theme(
+    plot.title = element_text(size = 12, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    plot.caption = element_text(size = 12, color = "gray")
+  ) +
+  scale_color_manual(values = c("#d80000", "#2692ff", "#00d800"))
+
+g1
 ```
