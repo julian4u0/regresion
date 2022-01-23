@@ -221,7 +221,8 @@ Nuestro *p-value* se deriva de $P(f_{3-1, 100-3*2}>F_0) = P(f_{2, 94}>17.92) = 2
 ```{r, echo=FALSE, warning = FALSE, message = FALSE, include= FALSE}
 # Valor P con F_0
 # 1-pf(17.92004,3-1, 100-2*3)
-lh <- linearHypothesis(modelo, c("bodyStylehatchback=0", "bodyStylesedan=0"))
+lh <-
+  linearHypothesis(modelo, c("bodyStylehatchback=0", "bodyStylesedan=0"))
 lh
 ```
 
@@ -247,6 +248,7 @@ Con lo anterior podemos afirmar, de una forma mas intuitiva que para valores de 
 Lo anterior lo podemos validar gráficamente en la siguiente gráfica; si tratamos de visualizar la proyección de cada una de las rectas, podemos ver que cada uno de las ordenadas en el origen son diferente de las demás, destacándose el tipo de vehículo hatchback de los otros dos tipos (Otros y Sedan).
 
 ```{r,fig.width=6, fig.height=3.7 ,fig.cap = "Dispersión de mgp vs. precio.", warning=F, message=F}
+
 
 
 # Precio vs cityMpg según los niveles de bodyStyle
