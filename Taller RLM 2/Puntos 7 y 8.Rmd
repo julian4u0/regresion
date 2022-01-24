@@ -1,0 +1,26 @@
+---
+title: "Puntos 7 y 8"
+author: "Deivid Zhang Figueroa"
+date: "22/1/2022"
+output: html_document
+---
+
+```{r}
+load("Datos.RData")
+```
+
+
+**7.** Teniendo en cuenta los resultados anteriores realice una prueba de suma de cuadrados extra con test lineal general. Justifique la hipótesis que desea probar en este numeral.
+
+**RTA:** 
+
+```{r}
+#linearHypothesis(modelo1,c("Publicidad:Secci ́onA=0","Publicidad:Secci ́onB=0"))
+linearHypothesis(modelo, c("cityMpg:bodyStylehatchback", "cityMpg:bodyStylesedan"))
+```
+
+Como podemos observar en la anterior tabla de test lineal general, el $SSR_{parcial} = SSE(MR) - SSE(MF) = SSR(X*I_1,X*I_2|X,I_1,I_2)$ dio el valor de 2.
+
+**8.** Si se quiere probar que la recta de price vs $X_1$ es diferente para cada niveles de bodyStyle, plantee la hipótesis a probar, el estadístico de prueba y región crítica al nivel de 0.05, realice la prueba y concluya.
+
+**RTA:** 
