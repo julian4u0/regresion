@@ -31,20 +31,20 @@ load("Datos.RData")
 
 ## Punto uno. Descripción de la base de datos.
 
-La base de datos consta de 205 observaciones de las cuales solo tendremos en cuenta 100, esta contiene variables continuas y categoricas; las observaciones corresponde a caracteristicas de automoviles como lo pueden ser sus caracteristicas fisicas que en este caso serían variables continuas por nombrar algunas tenemos: largo, ancho, altura del automovil; también se le caracterizan según: su fabricante, que tan susceptible es a perdidas y/o daños, número de puertas, entre otras categorias. 
-Lo que nos interesa es buscar si el *precio* del auto puede ser explicado por la variable continua *City-mpg* y la variable categorica *body-style*, de las cuales haremos una breve descripción a continuación:
+La base de datos consta de 205 observaciones de las cuales solo tendremos en cuenta 100, esta contiene variables continuas y categóricas; las observaciones corresponde a caracteristicas de automoviles como lo pueden ser sus caracteristicas fisicas que en este caso serían variables continuas por nombrar algunas tenemos: largo, ancho y altura del automovil; también se le caracterizan según: su fabricante, que tan susceptible es a perdidas y/o daños, número de puertas, entre otras categorias. 
+Lo que nos interesa es buscar si el *precio* del auto puede ser explicado por la variable continua *City-mpg* y la variable categórica *body-style*, de las cuales haremos una breve descripción a continuación:
 
-**City-mpg.** Las millas por galón es una medida de la distancia promedio recorrida por unidad de energía consumida, puede ser utilizada para comparar el consumo de combustible entre automoviles. esta toma valores entre 13 mi/gal.us y 49 mi/gal.us
+**City-mpg.** Las millas por galón es una medida de la distancia promedio recorrida por unidad de energía consumida, puede ser utilizada para comparar el consumo de combustible entre automoviles. Los valores observados de esta variable estan entre 13 mi/gal.us y 49 mi/gal.us
 
 **Body-style.** Esta variable clasifica el automovil según la forma de su carrocería, tendrá tres niveles de medición que se definen como:
 
-* Hatchback...
+* Hatchback En términos de estilo automotriz son vehículos diseñados en dos pilares, en comparación con la mayoria de los sedan estos tienen más capacidad de almacenamiento y tienen un menor consumo de combustible.
 
-* Sedan son los modelos de auntos mas comunes que hay...
+* Sedan Son vehículos diseñados en tres pilares, en comparación con los hatchback son mas estables a altas velocidades y el espacio para los pasajeros es más generoso.
 
-* otro en la base de datos se habla tambien de las carrocerias hardtop, wagon, covertibles pero por facilidad el nivel "Otro" estara consituido por las tres.
+* otro en la base de datos se habla tambien de las carrocerias hardtop, wagon y covertibles pero por facilidad el nivel "Otro" estará consituido por estas tres.
 
-**Price** Precio de los autos sera nuestra variable de respuesta, los valores observados de esta variables toman valores entre 5118 y 45400 ¿dolares?.
+**Price** Precio de los autos, será nuestra variable de respuesta, los valores observados de esta variable toman valores entre 5118 y 45400 dólares estadounidenses.
 
 ## Punto dos. Análisis descriptivo.
 
@@ -98,6 +98,8 @@ gg2
 #lower=list(continuous ="cor"))
 
 ```
+Con el anterior gráfico podemos observar que entre price y CityMpg hay una relación lineal negativa fuerte, lo que era de esperarse ya que los coches pequeños suelen ser los mas baratos y estos tienden a tener mejores Mpg, más adelante estudiaremos la gráfica de dispersión de City-Mpg vs price con identificación de secciones. También vale la pena comentar que las millas por galon para los tres tipos de carroceria parecen tener la misma variabilidad en sus datos centrales,además se nota que la longuitud de los bigotes de sedan es más angosta que para hatchback y para otro, lo que nos inidica que hay menos dispersión de los valores de millas por gallon para los vehículos tipo sedan.
+
 ## Punto tres. Planteamiento del modelo de regresión lineal.
 
 Como se vio en el punto uno, la base de datos asignada está compuesta por tres variables: $\textsf{price}$, que corresponde a la variable respuesta del modelo a plantear y que será denotada como $Y$; $\textsf{cityMpg}$, que es una variable cuantitativa y que será una variable regresora que será denotada como $X_1$ y, finalmente, $\textsf{bodyStyle}$, denotada como $X_2$, es la otra variable regresora, y de la cual se debe tener en cuenta que es cuantitativa, de manera que para la realización del modelo de regresión se deben tener en cuenta sus tres niveles de medición: `hatchback`, `sedan` y `Otro`, y para ello se define al nivel `Otros` como el de referencia. Para definir cómo se va a plantear el modelo de regresión, esto es, si deben ser incluidos términos de interacción en el modelo, vale la pena observar la figura XXXX, en la cual se muestra la relación que existe entre $\textsf{price}$ y $\textsf{cityMpg}$ diferenciando los niveles de $\textsf{bodyStyle}$ con diferentes figuras.
