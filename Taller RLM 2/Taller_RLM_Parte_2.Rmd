@@ -14,10 +14,24 @@ output:
     - multirow
   html_document:
     df_print: paged
+  word_document: default
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{float}
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+opts_chunk$set(
+  fig.path = 'figure/graphics-',
+  cache.path = 'cache/graphics-',
+  fig.align = 'center',
+  external = TRUE,
+  echo = F,
+  warning = FALSE,
+  fig.pos = 'H'
+)
+
 ```
 
 ```{r, include = FALSE, warning = FALSE, message = FALSE}
@@ -183,17 +197,29 @@ Y sus resultados se pueden ver en el margen superior izquierdo de la gráfica, d
 
 Para saber si existen diferencias entre las ordenadas en el origen para cada recta regresora por nivel de **bodyStyle** planteamos los siguientes modelos:
 
-$$Y_i = \beta_0 + \beta_1 X_{i1} + E_i \ \ \ \ \text{Para "Otro" } (I_1 \land I_2 = 0)$$
+$$
+Y_i = \beta_0 + \beta_1 X_{i1} + E_i \ \ \text{Para "Otro" } (I_1 \land I_2 = 0) \\
+$$
 
-$$Y_i = (\beta_0 + \beta_2) + (\beta_1+\beta_{1,1}) X_{i1} + E_i \text{ Para "hatchback"} \ (I_1 = 1 \ \land I_2 = 0)$$
+$$
+Y_i = (\beta_0 + \beta_2) + (\beta_1+\beta_{1,1}) X_{i1} + E_i \text{ Para "hatchback"} \ (I_1 = 1 \ \land I_2 = 0)
+$$
 
-$$Y_i = (\beta_0 +\beta_3 ) + (\beta_1 +\beta_{1,2})X_{i1} + E_i \text{ Para "sedan"} \ (I_1 = 0 \ \land I_2 =1)$$
+
+\begin{gather*}
+Y_i = ( \beta_0 + \beta_3 ) + ( \beta_1 + \beta_{1,2} ) X_{i1} + E_i \text{ Para "sedan"} \ (I_1 = 0 \ \land I_2 =1) \\
+\text{Sabiendo que } E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*} 
+
 
 También vale la pena recordar que nuestro modelo completo (MF), como se había planteado anteriormente, es el siguiente:
 
-$$
-Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i
-$$
+
+\begin{gather*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i \\
+\text{con }E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
 
 De esta forma, para que no existan diferencias entre estas las ordenadas de estas rectas se debe cumplir que $\beta_0 = (\beta_0 + \beta_2) = (\beta_0 + \beta_3)$, lo que que es equivalente a que simplemente $\beta_2 = \beta_3 = 0$.
 
@@ -206,15 +232,22 @@ $$
 
 Así, el modelo reducido (MR) bajo $H_0$ es el siguiente:
 
-$$
-Y_i = \beta_0 + \beta_1 X_{i1} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i
-$$
+
+\begin{gather*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i \\
+\text{con } E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
 
 Por lo que nuestro estadístico de prueba es:
 
-$$
-F_0 = \frac{[\text{SSE}_{\text{(MR)}}-\text{SSE}_{\text{(MF)}}]/v}{\text{MSE}_{\text{(MF)}}} = \frac{\text{SSR}(I_{1}, I_{2} | X_{1},X_{1}*I_{1}, X_{1} * I_{2})/(c-1)}{\text{MSE}(X_1, I_1, I_2, X_{1}*I_{1}, X_{1} * I_{2})} \\ = \frac{(4280394376-3098866721)/(3-1)}{32966667} = 17.92
-$$
+
+\begin{gather*}
+F_0 = \frac{[\text{SSE}_{\text{(MR)}}-\text{SSE}_{\text{(MF)}}]/v}{\text{MSE}_{\text{(MF)}}} \\ 
+= \frac{\text{SSR}(I_{1}, I_{2} | X_{1},X_{1}*I_{1}, X_{1} * I_{2})/(c-1)}{\text{MSE}(X_1, I_1, I_2, X_{1}*I_{1}, X_{1} * I_{2})} \\ 
+= \frac{(4280394376-3098866721)/(3-1)}{32966667} = 17.92
+\end{gather*}
+
 
 Nuestro *p-value* se deriva de $P(f_{3-1, 100-3*2}>F_0) = P(f_{2, 94}>17.92) = 2.55*10^7$, lo cual validamos con la librería *linearHypothesis* y obtenemos los resultados anteriores.
 
@@ -272,3 +305,80 @@ g1 = ggplot(datos, aes(cityMpg, price, colour = bodyStyle)) +
 
 g1
 ```
+
+## Punto seis. ¿Existe diferencia entre las pendientes de las rectas correspondientes a los diferentes niveles de bodyStyle?.
+
+En este caso evaluaremos si existen diferencias entre las pendientes de las rectas regresoras, vale la pena recordar nuevamente que nuestro modelo completo (MF) es el siguiente:
+
+
+\begin{gather*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i \\
+\text{con }E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
+
+Ahora, de las formulas planteadas en el punto cinco podemos ver que para que hayan diferencias entre las pendientes de las rectas se debe cumplir que:
+
+
+\begin{gather*}
+\beta_1 \ne (\beta_1 + \beta_{1,1}) \ne (\beta_1 + \beta_{1,2}) \\ 
+\text{que equivale a } \beta_{1,1} = \beta_{1,2} = 0 \\
+\text{con }E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
+Por lo que podemos plantear nuestras hipótesis como las siguientes:
+
+
+\begin{gather*} 
+H_0:\beta_{1,1} = \beta_{1,2} = 0  \\
+vs. \\
+H_1: \text{algun } \beta_{1,k} \ne 0, k=1,2 
+\end{gather*}
+
+
+Así, el modelo reducido (MR) para este caso queda definido como:
+
+
+\begin{gather*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2}  + E_i \\
+\text{con }E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
+
+Con esto podemos definir nuestro estadístico de prueba $F_0$ como:
+
+
+\begin{gather*}
+F_0 = \frac{[\text{SSE}_{\text{(MR)}}-\text{SSE}_{\text{(MF)}}]/v}{\text{MSE}_{\text{(MF)}}} \\
+= \frac{\text{SSR}(X_{1}*I_{1}, X_{1} * I_{2}| X_{1},I_{1}, I_{2})/(c-1)}{\text{MSE}(X_1, I_1, I_2, X_{1}*I_{1}, X_{1} * I_{2})} \\
+= \frac{(3999435253-3098866721)/(3-1)}{32966667} = 13.65877 
+\end{gather*}
+
+
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, include= FALSE}
+
+lh <-
+  linearHypothesis(modelo, c("cityMpg:bodyStylehatchback=0", "cityMpg:bodyStylesedan=0"))
+lh
+```
+
+Nuestro *p-value* se deriva de $P(f_{3-1, 100-3*2}>F_0) = P(f_{2, 94}>13.65877) = 6.203*10^6$, lo cual validamos con la librería *linearHypothesis* y obtenemos los resultados anteriores, podemos decir que para cualquier valor de $\alpha$ se rechaza la hipótesis nula, ya que este es un valor demasiado pequeño.
+
+
+\begin{table}[]
+\begin{tabular}{lllllll}
+                              & \multicolumn{3}{l}{\textbf{Linear hypothesis test}}                                                         & \multicolumn{3}{l|}{}                                                                                            \\
+                              & \multicolumn{3}{l}{\textit{Hypothesis:}}                                                                    & \multicolumn{3}{l}{\multirow{4}{*}{}}                                                                            \\
+                              & \multicolumn{3}{l}{\textit{cityMpg:bodyStylehatchback = 0}}                                                 & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textit{cityMpg:bodyStylesedan = 0}}                                                     & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textbf{Model 1: Modelo reducido}}                                                       & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textbf{Model 2: price ~ cityMpg * bodyStyle}}                                           & \multicolumn{3}{l}{}                                                                                             \\ \hline
+\multicolumn{1}{|l|}{}        & \multicolumn{1}{l|}{\textbf{Res.Df}} & \multicolumn{1}{l|}{\textbf{RSS}} & \multicolumn{1}{l|}{\textbf{Df}} & \multicolumn{1}{l|}{\textbf{Sum of Sq}} & \multicolumn{1}{l|}{\textbf{F}} & \multicolumn{1}{l|}{\textbf{Pr(>F)}} \\ \hline
+\multicolumn{1}{|l|}{Model 1} & \multicolumn{1}{l|}{96}              & \multicolumn{1}{l|}{3999435253}   & \multicolumn{1}{l|}{}            & \multicolumn{1}{l|}{}                   & \multicolumn{1}{l|}{}           & \multicolumn{1}{l|}{}                \\ \hline
+\multicolumn{1}{|l|}{Model 2} & \multicolumn{1}{l|}{94}              & \multicolumn{1}{l|}{3098866721}   & \multicolumn{1}{l|}{2}           & \multicolumn{1}{l|}{900568531}          & \multicolumn{1}{l|}{13.659}     & \multicolumn{1}{l|}{6.203e-06 ***}   \\ \hline
+\end{tabular}
+\end{table}
+
+
+Así, hemos rechazado la hipótesis nula y concluimos que las pendientes de nuestras lineas regresoras son diferentes entre si, esto significa que para cada tipo de vehículo existen diferentes inclinaciones a aumentos de precio dependiendo de las millas que alcanza a viajar por galón de gasolina.
