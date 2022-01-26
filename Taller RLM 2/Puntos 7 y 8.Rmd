@@ -12,14 +12,19 @@ load("Datos.RData")
 
 **7.** Teniendo en cuenta los resultados anteriores realice una prueba de suma de cuadrados extra con test lineal general. Justifique la hipótesis que desea probar en este numeral.
 
-**RTA:** 
+**RTA:** Consideramos de nuevo el modelo inicial con rectas distintas tanto en pendiente como interceptos y en ese modelo el efecto medio de citympg sobre price será igual entre bodystyle, si $$ \beta_1 + \beta_{1,1} = \beta_1 + \beta_{1,2} = \beta_1 \Longleftrightarrow \beta_{1,1} = \beta_{1,2} = 0$$
+Luego, se debe realizar el siguiente test
+$H_0: \beta_{1,1} = \beta_{1,2} = 0$ vs
+$H_1:$ al menos uno de los parámetros $\beta_{1,1},\beta_{1,2}$ es $\neq 0$
+
+Haciendo test lineal general:
 
 ```{r}
 #linearHypothesis(modelo1,c("Publicidad:Secci ́onA=0","Publicidad:Secci ́onB=0"))
 linearHypothesis(modelo, c("cityMpg:bodyStylehatchback", "cityMpg:bodyStylesedan"))
 ```
 
-Como podemos observar en la anterior tabla de test lineal general, el $SSR_{parcial} = SSE(MR) - SSE(MF) = SSR(X*I_1,X*I_2|X,I_1,I_2)$ dio el valor de 2.
+Como se puede observar en la anterior tabla de test lineal general, el $SSR_{parcial} = SSE(MR) - SSE(MF) = SSR(X*I_1,X*I_2|X,I_1,I_2)$ dio el valor de 900568531, y el valor p dado es 6.203e-06 < $\alpha$ = 0.05, por lo tanto, se rechaza la hipótesis nula, es decir, al menos uno de los parámetros antes mencionados aportan al modelo significativamente.
 
 **8.** Si se quiere probar que la recta de price vs $X_1$ es diferente para cada niveles de bodyStyle, plantee la hipótesis a probar, el estadístico de prueba y región crítica al nivel de 0.05, realice la prueba y concluya.
 
