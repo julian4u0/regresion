@@ -31,20 +31,21 @@ load("Datos.RData")
 
 ## Punto uno. Descripción de la base de datos.
 
-La base de datos consta de 205 observaciones de las cuales solo tendremos en cuenta 100, esta contiene variables continuas y categóricas; las observaciones corresponde a caracteristicas de automoviles como lo pueden ser sus caracteristicas fisicas que en este caso serían variables continuas por nombrar algunas tenemos: largo, ancho y altura del automovil; también se le caracterizan según: su fabricante, que tan susceptible es a perdidas y/o daños, número de puertas, entre otras categorias. 
+La base de datos consta de 205 observaciones de las cuales solo tendremos en cuenta 100, esta contiene variables continuas y categóricas; las observaciones corresponden a características de automóviles como lo pueden ser sus características físicas que en este caso serían variables continuas por nombrar algunas tenemos: largo, ancho y altura del automóvil; también se le caracterizan según: su fabricante, que tan susceptible es a pérdidas y/o daños, número de puertas, entre otras categorías. 
 Lo que nos interesa es buscar si el *precio* del auto puede ser explicado por la variable continua *City-mpg* y la variable categórica *body-style*, de las cuales haremos una breve descripción a continuación:
 
-**City-mpg.** Las millas por galón es una medida de la distancia promedio recorrida por unidad de energía consumida, puede ser utilizada para comparar el consumo de combustible entre automoviles. Los valores observados de esta variable estan entre 13 mi/gal.us y 49 mi/gal.us
+**City-mpg.** Las millas por galón es una medida de la distancia promedio recorrida por unidad de energía consumida, puede ser utilizada para comparar el consumo de combustible entre automóviles. Los valores observados de esta variable están entre 13 mi/gal.us y 49 mi/gal.us
 
-**Body-style.** Esta variable clasifica el automovil según la forma de su carrocería, tendrá tres niveles de medición que se definen como:
+**Body-style.** Esta variable clasifica el automóvil según la forma de su carrocería, tendrá tres niveles de medición que se definen como:
 
-* Hatchback En términos de estilo automotriz son vehículos diseñados en dos pilares, en comparación con la mayoria de los sedan estos tienen más capacidad de almacenamiento y tienen un menor consumo de combustible.
+* *Hatchback* En términos de estilo automotriz son vehículos diseñados en dos pilares, en comparación con la mayoría de los sedan estos tienen más capacidad de almacenamiento y tienen un menor consumo de combustible.
 
-* Sedan Son vehículos diseñados en tres pilares, en comparación con los hatchback son mas estables a altas velocidades y el espacio para los pasajeros es más generoso.
+* *Sedan* Son vehículos diseñados en tres pilares, en comparación con los hatchback son más estables a altas velocidades y el espacio para los pasajeros es más generoso.
 
-* otro en la base de datos se habla tambien de las carrocerias hardtop, wagon y covertibles pero por facilidad el nivel "Otro" estará consituido por estas tres.
+* *Otro* En la base de datos se habla también de las carrocerías hardtop, wagon y convertibles pero por facilidad el nivel "Otro" estará constituido por estas tres.
 
-**Price** Precio de los autos, será nuestra variable de respuesta, los valores observados de esta variable toman valores entre 5118 y 45400 dólares estadounidenses.
+**Price** Precio de los autos, será nuestra variable de respuesta, los valores observados de esta variable toma valores entre 5118 y 45400 dólares estadounidenses.
+
 
 ## Punto dos. Análisis descriptivo.
 
@@ -66,7 +67,7 @@ IQR(datos$price)
 | Coeficiente de asimetría | 1.735634 |
 | Curtosis                 | 5.394072 |
 
-Como se observa en la tabla anterior el precio promedio de los automoviles de la muestra es de 13443, con una ddesviación estandar  de 9163.297, tambien podemos ver que el auto de menor precio de la muestra tiene un precio de 5151 y el de mayor precio es de 45400. Por otro lado, el rango intercuartílico es de 9246.5 por lo que podemos anticipar que los datos centrales tienen una fuerte disperción. Destaca que la curtosis es de 5.394072 lo que nos indica que la distribución de nuestra variable tiene colas mas pesadas que la distribución normal, coherente con esto tenemos un coeficiente de asimetría de 1.735634 un indicio de que la ditribución de la variable es asimetrica hacia la derecha, para ver esto mejor realizaremos el respectivo histograma
+Como se observa en la tabla anterior el precio promedio de los automóviles de la muestra es de 13443, con una desviación estándar  de 9163.297, tambien podemos ver que el auto de menor precio de la muestra tiene un precio de 5151 y el de mayor precio es de 45400. Por otro lado, el rango intercuartílico es de 9246.5 por lo que podemos anticipar que los datos centrales tienen una fuerte dispersión. Destaca que la curtosis es de 5.394072 lo que nos indica que la distribución de nuestra variable tiene colas más pesadas que la distribución normal, coherente con esto tenemos un coeficiente de asimetría de 1.735634 un indicio de que la distribución de la variable es asimétrica hacia la derecha, para ver esto mejor realizaremos el respectivo histograma
 
 ```{r Histograma, precio, echo = FALSE, out.width="95%"}
 h_mag <- hist(datos$price, plot = FALSE)
@@ -77,28 +78,45 @@ plot(h_mag, freq = FALSE, col = "#ffa600",
      ylab = "Porcentaje (%)",
      cex = 1.5, bty = "n", font = 3, font.main = 4)
 ```
+```{r}
+ # Precio vs cityMpg según los niveles de bodyStyle
+g1 = ggplot(data = datos, aes(color = bodyStyle)) +
+  geom_point(mapping = aes(x = cityMpg, y = price,
+                           shape = bodyStyle)) +
+  labs(color = "Tipo de vehículo") +
+  labs(title = "Gráfico de dispersión",
+       subtitle = "de millas recorridas por galón en área urbana contra precio",
+       caption = "Figura XXXX.") +
+  xlab("Millas recorridas por galón en área urbana [mpg]") +
+  ylab("Precio [$USD]") +
+  theme_light() +
+  theme(plot.title = element_text(size = 12, face = "bold"),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 12, color = "gray")) +
+  scale_color_manual(values = c("#d80000", "#2692ff", "#00d800"))
+g1
+```
+El gráfico evidencia que entre el precio y las millas por galón parece existir un relación lineal negativa para todos los tipos de vehículo, lo que era de esperarse ya que los coches pequeños suelen ser los más baratos y estos tienden a tener mejores Mpg; ahora, si discriminamos por el tipo de vehículo podemos ver que las observaciones pertenecientes a vehículos hard top, wagon y convertibles que fueron las que agrupamos en la categoría "otro"  tienen la pendiente con inclinación más elevada, de estas observaciones también podemos comentar que son bastante dispersas esto puede deberse a que en esta categoría están mezclados distintos tipos de vehículos; pasando a las observaciones pertenecientes a la categoría “hatchback” podemos comentar que su pendiente es por mucho la menos inclinada además estas observaciones tienen poca dispersión; la categoría “sedan” parecería tener una pendiente ni tan plana como la de “hatchback” ni tan pronunciada como la de “otro” de no ser porque algunas observaciones alcanzan precios bastante altos, debido a esto último podemos decir que el intercepto con el "Eje Y" para “sedan” y para “otro” podrían ser iguales y de este podríamos esperar que sea un valor alto en comparación con el intercepto de las observación tipo “hatchback”.
+
 ```{r, out.width="82%", fig.align='center', warning = FALSE}
-gg2<-ggpairs(datos,upper=list(continuous = wrap("smooth",alpha = 0.3, size=1.2,
+#gg2<-ggpairs(datos,upper=list(continuous = wrap("smooth",alpha = 0.3, #size=1.2,
 
-method = "lm")),lower=list(continuous ="cor"))
+#method = "lm")),lower=list(continuous ="cor"))
 
-for(i in 1:2){
-gg2[i,i]<-gg2[i,i]+
-geom_histogram(breaks=hist(datos[,i],breaks = "FD",plot=F)$breaks,
+#for(i in 1:2){
+#gg2[i,i]<-gg2[i,i]+
+#geom_histogram(breaks=hist(datos[,i],breaks = "FD",plot=F)$breaks,
 
-colour = "red",fill="lightgoldenrod1")
+#colour = "red",fill="lightgoldenrod1")
 
-}
-win.graph()
-gg2
+#}
 #win.graph()
-#ggpairs(datos,diag=list(continuous=wrap("box_no_facet",color="red",
-#fill="lightgoldenrod1",alpha=0.3)),
-#upper=list(continuous = wrap("smooth",alpha = 0.3, size=1.2,method = #"lm")),
-#lower=list(continuous ="cor"))
+#gg2
+#Con el anterior gráfico podemos observar que entre price y CityMpg hay una relación lineal negativa fuerte, lo que era de esperarse ya que los coches pequeños suelen ser los mas baratos y estos tienden a tener mejores Mpg, más adelante estudiaremos la gráfica de dispersión de City-Mpg vs price con identificación de secciones. También vale la pena comentar que las millas por galon para los tres tipos de carroceria parecen tener la misma variabilidad en sus datos centrales,además se nota que la longuitud de los bigotes de sedan es más angosta que para hatchback y para otro, lo que nos inidica que hay menos dispersión de los valores de millas por gallon para los vehículos tipo sedan.
+
 
 ```
-Con el anterior gráfico podemos observar que entre price y CityMpg hay una relación lineal negativa fuerte, lo que era de esperarse ya que los coches pequeños suelen ser los mas baratos y estos tienden a tener mejores Mpg, más adelante estudiaremos la gráfica de dispersión de City-Mpg vs price con identificación de secciones. También vale la pena comentar que las millas por galon para los tres tipos de carroceria parecen tener la misma variabilidad en sus datos centrales,además se nota que la longuitud de los bigotes de sedan es más angosta que para hatchback y para otro, lo que nos inidica que hay menos dispersión de los valores de millas por gallon para los vehículos tipo sedan.
+
 
 ## Punto tres. Planteamiento del modelo de regresión lineal.
 
