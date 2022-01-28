@@ -1,0 +1,417 @@
+\documentclass[11pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usetheme{CambridgeUS}
+\begin{document}
+	\author{Sofía Cuartas García \and Simón Cuartas Rendón \and \\
+	Julian Alejandro Úsuga Ortiz \and Deivid Zhang Figueroa}
+	\title{Modelo de regresión lineal múltiple}
+	\subtitle{del precio de vehículos de 1985 en Estados Unidos a partir del número de millas recorridas por galón en zonas urbanas y del tipo de vehículo}
+	%\logo{}
+	\institute{Universidad Nacional de Colombia}
+	\date{Febrero 2 de 2022}
+	\subject{Análisis de regresión}
+	%\setbeamercovered{transparent}
+	%\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+		\maketitle
+	\end{frame}
+	
+	\begin{frame}
+    \frametitle{Contenidos}
+    \tableofcontents
+    \end{frame}
+    
+    \section{Contexto}
+    
+    \begin{frame}{Base de datos}
+        \begin{figue}
+        \centering
+        \includegraphics[height = 6 cm]{NY85.jpg}
+        %\caption{Vehículos en Nueva York en 1985}
+        \end{figue}
+        \\
+        Se tiene una base de datos que contiene \textbf{veintiséis características} de 205 vehículos importados a los Estados Unidos en 1985.
+    \end{frame}
+    
+    \begin{frame}{Contexto}
+        Esta base de datos se encuentra en el paquete $\texttt{randomForest}$ de $\color{blue}{R}$ \pause y fue publicada por la Universidad de California en Irvine (UCI) en su repositorio de bases de datos para técnicas de aprendizaje automatizado. \pause \\
+        Algunas de las variables de esta base de datos son:
+        \begin{itemize}
+            \item Precio \pause
+            \item Millas recorridas por galón de combustible en zonas urbanas\pause
+            \item Tipo de vehículo\pause
+            \item Millas recorridas por galón de combustible en autopistas\pause
+            \item Tamaño del motor\pause
+            \item Tipo de combustible \pause
+            \item Etcétera
+        \end{itemize}
+    \end{frame}
+    
+    \subsection{Objetivo}
+    
+    \begin{frame}{Objetivo}
+    \begin{block}{¿Qué se va a hacer?}
+        Se quiere plantear un modelo de regresión lineal múltiple que permita obtener el \textbf{precio} de un vehículo como función de solo dos características y empleando solo las primeras cien observaciones de la base de datos.
+    \end{block}
+    \end{frame}
+    
+    \section{1. Descripción de las variables}
+    
+    \begin{frame}{Variables a emplear}
+        Las variables a usar son:
+        \begin{block}{Precio}
+            Denominada $\texttt{price}$. \textbf{Continua.} Es el valor en dólares estadounidenses (\$USD) de un vehículo.
+        \end{block}
+        \pause
+        \begin{block}{Millas recorridas por galón en zona urbana}
+            Denominada $\texttt{cityMpg}$. \textbf{Continua.} Es la cantidad de millas que un vehículo puede recorrer en una zona urbana de Estados Unidos consumiendo un galón de combustible.
+        \end{block}
+        \pause
+        \begin{block}{Tipo de vehículo}
+            Denominada \texttt{bodyType}. \textbf{Categórica.} Describe el tipo de carrosería del vehículo.
+        \end{block}
+    \end{frame}
+    
+    \section{2. Análisis descriptivo}
+    
+    \begin{frame}{Estadísticos de resumen}
+    
+        \begin{table}[]
+        \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Estadístico}     & \textbf{Valor} \\ \hline
+        Media                    & 13443    \\ \hline
+        Desviación estándar      & 9163.297 \\ \hline
+        Mínimo                   & 5151     \\ \hline
+        Primer cuantil (Q1)      & 7254     \\ \hline
+        Mediana (Q2)             & 9754     \\ \hline
+        Tercer cuantil (Q3)      & 16500    \\ \hline
+        Máximo (Q4)              & 45400    \\ \hline
+        Rango intercuartílico    & 9246.5   \\ \hline
+        Coeficiente de asimetría & 1.736    \\ \hline
+        Curtosis                 & 5.394    \\ \hline
+        \end{tabular}
+        \end{table}
+        
+    \end{frame}
+    
+    \begin{frame}{Histograma para la variable 'precio'}
+        \begin{figue}
+        \begin{center}
+            \includegraphics[height = 7 cm]{HistogramaPrecio.png}
+        \end{center}
+        \end{figue}
+    \end{frame}
+    
+    \begin{frame}{Estructura de correlaciones entre las variables}
+        \begin{figue}
+        \begin{center}
+            \includegraphics[height = 7 cm]{Correlaciones.png}
+        \end{center}
+        \end{figue}
+    \end{frame}
+    
+    \section{3. Modelo de regresión lineal}
+    
+    \begin{frame}{Notación}
+        Para desarrollar el modelo de RLM, se va a emplear la siguiente notación para las variables cuantitativas:
+        
+        \begin{itemize}
+            \item $Y_i$. Precio del \textit{i}-ésimo vehículo. \pause
+            \item $X_{i1}$. Número de millas recorridas por galón de combustible del \textit{i}-ésimo vehículo en zona urbana. \pause
+        \end{itemize}
+        \begin{alertblock}{Variable categórica}
+            Se tiene una variable categórica: \textbf{tipo de vehículo}. \pause Para poder trabajar con ella, es necesario emplear \textbf{variables indicadoras}. \pause Para ello, se va a tomar como nivel de referencia a los vehículos tipo \textbf{Otro}.
+        \end{alertblock}
+        \pause
+        \begin{itemize}
+            \item $I_{i1}$. Vehículo tipo \textbf{hatchback}. \pause
+            \item $I_{i2}$. Vehículo tipo \textbf{sedán}. \pause
+            \item $E_i$. Error aleatorio. \pause
+        \end{itemize}
+        
+        \begin{center}
+            $i = 1, \ 2, \ ..., \ 100$
+        \end{center}
+    \end{frame}
+    
+    \begin{frame}{Tipo de modelo a plantear}
+    \begin{figue}
+        \begin{center}
+            \includegraphics[height = 7 cm]{Dispersión.png}
+        \end{center}
+        \end{figue}
+    \end{frame}
+    
+    \begin{frame}{Modelo}
+        Así, el modelo a ajustar es:
+        
+        \begin{block}{Modelo}
+            \begin{center}
+                $Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1, 2} X_{i1} I_{i2} + E_i$ \\ \pause
+            $E_i \overset{i.i.d}{\sim} Normal(0, \ \sigma^2)$
+            \end{center}
+        \end{block} \pause
+        
+        No obstante, se debe tener en cuenta que este modelo variará en función del \textbf{tipo de vehículo}.
+    \end{frame}
+    
+    \begin{frame}{Modelo según el tipo de vehículo}
+    
+    \begin{block}{Otro}
+        $I_1 = I_2 = 0$
+        \begin{center}
+            $Y_i = \beta_0 + \beta_1 + X_{i1} + E_i$
+        \end{center}
+    \end{block} \pause
+    
+    \begin{block}{Hatchback}
+        $I_1 = 1, \I_1 = 2$
+        \begin{center}
+            $Y_i = (\beta_0 + \beta_2) +  (\beta_1 + \beta_{1, 1} ) X_{i1} + E_i$
+        \end{center}
+    \end{block} \pause
+    
+    \begin{block}{Sedan}
+        $I_1 = 0, \ I_2 = 1$
+        \begin{center}
+            $Y_i = (\beta_0 + \beta_3) +  (\beta_1 + \beta_{1, 2} ) X_{i1} + E_i$
+        \end{center}
+    \end{block}
+    
+    \begin{center}
+        $E_i \overset{i.i.d}{\sim} Normal(0, \ \sigma^2)$
+    \end{center}
+    \end{frame}
+    
+    \begin{frame}{Modelo ajustado}
+        \begin{table}[]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{Coe.} & \textbf{Término} & \textbf{Estim.} & \textbf{Error std.} & \textbf{Est. T} & \textbf{Valor P} \\ \hline
+$\beta_0$            & Intercepto       & 43564.3         & 3163.3                 & 13.746          & \textless{}2e-16 \\ \hline
+$\beta_1$            & MPG              & -1140.4         & 124.6                  & -9.150          & 1.18e-14         \\ \hline
+$\beta_2$            & Hatchback        & -23252.4        & 4525.6                 & -5.138          & 1.50e-6          \\ \hline
+$\beta_3$            & Sedán            & 9983.4          & 7305.3                 & 1.367           & 0.175            \\ \hline
+$\beta_{1, 1}$       & MPG - Hatchback  & 744.5           & 169.5                  & 4.393           & 2.93e-5          \\ \hline
+$\beta_{1, 2}$       & MPG - Sedán      & -414.6          & 302.8                  & -1.369          & 0.174            \\ \hline
+\end{tabular}
+\end{table}
+    \end{frame}
+    
+    \begin{frame}{Modelo ajustado}
+    
+        \begin{center}
+        $\hat{\boldsymbol{\beta}} =
+\begin{pmatrix} \hat{\beta_0} \\ \hat{\beta_1} \\ \hat{\beta_2} \\ \hat{\beta_3} \\ \widehat{\beta_{1,1}} \\ \widehat{\beta_{1,2}} \end{pmatrix} =
+\begin{pmatrix} 43,564.3 \\ -1,140.4 \\ -23.252.4 \\ 9,983.4 \\ 744.5 \\ -414.6 \end{pmatrix} $
+        \end{center} \pause
+        
+        \begin{block}{Modelo para vehículos tipo \textit{otro}}
+            $\hat{Y}_i = 43564.3 - 1140.4X_{i1}, \ \ \ \ i=1, \ ..., \ 100$
+        \end{block} \pause
+        
+        \begin{block}{Modelo para vehículos tipo \textit{hatchback}}
+            $\hat{Y}_i = 20311.9 - 395.9 X_{i1}, \ \ \ \ i=1, \ ..., \ 100$
+        \end{block} \pause
+        
+        \begin{block}{Modelo para vehículos tipo \textit{sedán}}
+            $\hat{Y}_i = 53547.7 - 1555 X_{i1}, \ \ \ \ i=1, \ ..., \ 100$
+        \end{block}
+    \end{frame}
+    
+    \section{4. Verificación de supuestos}
+    
+    \begin{frame}{Residuales internamente estudentizados}
+    \begin{figue}
+        \begin{center}
+            \includegraphics[height = 7 cm]{Residuales.png}
+        \end{center}
+    \end{figue}
+    \end{frame}
+    
+    \begin{frame}{Residuales internamente estudentizados}
+    \begin{figue}
+        \begin{center}
+            \includegraphics[height = 7 cm]{ResidualesBox.png}
+        \end{center}
+        \end{figue}
+    \end{frame}
+    
+    \begin{frame}{Test de normalidad}
+        Uno de los supuestos es que los errores siguen una distribución \textbf{normal}. \pause Para verificar que el modelo realmente cumpla esto, se va a realizar una prueba de hipótesis sobre los residuales del modelo propuesto. \pause Así, las hipótesis son: \\
+        
+        \begin{block}{Hipótesis}
+            $H_0:$ Los residuales siguen una distribución normal. \\
+            $H_1:$ Los residuales \textbf{no} siguen una distribución normal. \\
+        \end{block} \pause
+        
+        Para evaluar este test, vale la pena observar un \textbf{QQ plot} de normalidad y el resultado de un test de \textbf{Shapiro-Wilk} con un nivel de significancia de $\alpha = 0.05$.
+    \end{frame}
+    
+    \begin{frame}{Test de normalidad}
+         \begin{figue}
+            \begin{center}
+                \includegraphics[height = 6 cm]{Normalidad.png}
+            \end{center}
+        \end{figue} \pause
+        
+    \textbf{Se rechaza la hipótesis nula} y por tanto, se concluye que \textb{no} hay evidencia muestral suficiente para sugerir que los errores siguen una distribución normal con una significancia de $\alpha = 0.05$
+        
+    \end{frame}
+    
+    \section{5. Diferencias entre los interceptos para cada tipo de vehículo}
+    
+    \begin{frame}{Recordar}
+        \begin{block}{Modelo completo (MF)}
+            $Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1, 2} X_{i1} I_{i2} + E_i$ 
+        \end{block}
+    
+        \begin{block}{Otro}
+        \begin{center}
+            $Y_i =$ $\color{red}{\beta_0}$ + $\beta_1 + X_{i1} + E_i$
+        \end{center}
+    \end{block}
+    
+    \begin{block}{Hatchback}
+        \begin{center}
+            $Y_i =$ $\color{red}{(\beta_0 + \beta_2)}$ +  $(\beta_1 + \beta_{1, 1} ) X_{i1} + E_i$
+        \end{center}
+    \end{block}
+    
+    \begin{block}{Sedan}
+        \begin{center}
+            $Y_i =$ $\color{red}{(\beta_0 + \beta_3)}$ $+  (\beta_1 + \beta_{1, 2} ) X_{i1} + E_i$
+        \end{center}
+    \end{block}
+    
+    \begin{center}
+        $E_i \overset{i.i.d}{\sim} Normal(0, \ \sigma^2)$
+    \end{center}
+        
+    \end{frame}
+    
+     \begin{frame}{¿Qué se va a evaluar?}
+         Quiere verificarse si las ordenadas en el origen para las rectas ajustadas de cada tipo de vehículo son significativamente diferentes. \pause Si esto no sucede es porque $\beta_0 = (\beta_0 + \beta_2) = (\beta_0 + \beta_3)$, \pause lo cual equivale a $\color{red}{\beta_2 = \beta_3} = 0$. \pause \\
+         
+         Para esto, se plantean las siguientes hipótesis:
+         
+         \begin{block}{Hipótesis}
+             $H_0: \ \beta_2 = \beta_3 = 0$ \\
+             $H_1: \ \exists \ j: \ \beta_j \neq 0, \ j = 1, \ 2$
+         \end{block} \pause
+         
+         Y el estadístico de prueba es: \\
+         \begin{center}
+             $F_0 = \frac{[\text{SSE}_{\text{(MR)}}-\text{SSE}_{\text{(MF)}}]/v}{\text{MSE}_{\text{(MF)}}}$
+         \end{center}
+         donde \textit{MR} hace referencia al modelo reducido y \textit{MF} está asociado al modelo completo.
+     \end{frame}
+     
+     \begin{frame}{Evaluación}
+        Así, sabiendo que se tienen $c = 3$ tipos de vehículos, el estadístico de prueba calculado está dado por:
+        \begin{center}
+            $\frac{\text{SSR}(I_{1}, I_{2} | X_{1},X_{1}*I_{1}, X_{1} * I_{2})/(c-1)}{\text{MSE}(X_1, I_1, I_2, X_{1}*I_{1}, X_{1} * I_{2})} 
+            = \frac{(4280394376-3098866721)/(3-1)}{32966667} = 17.92$
+        \end{center} \pause
+        
+        Luego, se calcula el valor p:
+        
+        \begin{center}
+            $V_p = P(f_{3-1, 100-3*2}>F_0) = P(f_{2, 94}>17.92) = 2.55 \times 10^{-7}$
+        \end{center} \pause
+        
+        Y tomando un nivel de significancia de $\alpha = 0.05$, se tiene que $V_p = 2.55 \times 10 ^{-7} < \alpha = 0.05$, por lo que \textbf{se rechaza la hipótesis nula}.
+        
+        \begin{block}{Conclusión}
+            Hay evidencia muestral suficiente para sugerir que las ordenadas de los orígenes de las rectas de regresión ajustadas \textbf{son diferentes}, con una significancia de $\alpha = 0.05$.
+        \end{block}
+        \end{frame}
+        
+        \begin{frame}{Gráfico}
+            \begin{figue}
+            \begin{center}
+                \includegraphics[height = 7 cm]{Interceptos.png}
+            \end{center}
+            \end{figue}
+        \end{frame}
+        
+     \section{6. Diferencia entre las pendientes para cada tipo de vehículo}
+     
+     \begin{frame}{Recordar}
+        \begin{block}{Modelo completo (MF)}
+            $Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1, 2} X_{i1} I_{i2} + E_i$ 
+        \end{block}
+    
+        \begin{block}{Otro}
+        \begin{center}
+            $Y_i = \beta_0$ + $\color{red}{\beta_1}$ $ X_{i1} + E_i$
+        \end{center}
+    \end{block}
+    
+    \begin{block}{Hatchback}
+        \begin{center}
+            $Y_i =(\beta_0 + \beta_2)$ +  $\color{red}{(\beta_1 + \beta_{1, 1} )}$ $X_{i1} + E_i$
+        \end{center}
+    \end{block}
+    
+    \begin{block}{Sedan}
+        \begin{center}
+            $Y_i = (\beta_0 + \beta_3) +$ $\color{red}{(\beta_1 + \beta_{1, 2} )}$ $X_{i1} + E_i$
+        \end{center}
+    \end{block}
+    
+    \begin{center}
+        $E_i \overset{i.i.d}{\sim} Normal(0, \ \sigma^2)$
+    \end{center}
+    \end{frame}
+    
+    \begin{frame}{¿Qué se va a evaluar?}
+         Quiere verificarse si las \textbf{pendientes} las rectas ajustadas de cada tipo de vehículo son significativamente diferentes. \pause Si esto no sucede es porque $\beta_1 = (\beta_1 + \beta_{1,1}) = (\beta_0 + \beta_{1, 2})$, \pause lo cual equivale a $\color{red}{\beta_{1,1} = \beta_{1,2}} = 0$. \pause \\
+         
+         Para esto, se plantean las siguientes hipótesis:
+         
+         \begin{block}{Hipótesis}
+             $H_0: \ \beta_{1,1} = \beta_{1, 2} = 0$ \\
+             $H_1: \ \exists \ k: \ \beta_{1,k} \neq 0, \ k = 1, \ 2$
+         \end{block} \pause
+         
+         Y el estadístico de prueba es: \\
+         \begin{center}
+             $F_0 = \frac{[\text{SSE}_{\text{(MR)}}-\text{SSE}_{\text{(MF)}}]/v}{\text{MSE}_{\text{(MF)}}}$
+         \end{center}
+         donde \textit{MR} hace referencia al modelo reducido y \textit{MF} está asociado al modelo completo.
+     \end{frame}
+     
+     \begin{frame}{Evaluación}
+        Así, sabiendo que se tienen $c = 3$ tipos de vehículos, el estadístico de prueba calculado está dado por:
+        \begin{center}
+            $\frac{\text{SSR}(X_{1}*I_{1}, X_{1} * I_{2}| X_{1},I_{1}, I_{2})/(c-1)}{\text{MSE}(X_1, I_1, I_2, X_{1}*I_{1}, X_{1} * I_{2})} = \frac{(3999435253-3098866721)/(3-1)}{32966667} = 13.65877$
+        \end{center} \pause
+        
+        Luego, se calcula el valor p:
+        
+        \begin{center}
+            $V_p = P(f_{3-1, 100-3*2}>F_0) = P(f_{2, 94}>13.65877) = 6.203 \times 10^{-6}$
+        \end{center} \pause
+        
+        Y tomando un nivel de significancia de $\alpha = 0.05$, se tiene que $V_p = 6.203 \times 10 ^{-6} < \alpha = 0.05$, por lo que \textbf{se rechaza la hipótesis nula}.
+        
+        \begin{block}{Conclusión}
+            Hay evidencia muestral suficiente para sugerir que las pendientes de las rectas de regresión ajustadas \textbf{son diferentes}, con una significancia de $\alpha = 0.05$.
+        \end{block}
+        \end{frame}
+    
+    \begin{frame}{Gráfico}
+            \begin{figue}
+            \begin{center}
+                \includegraphics[height = 7 cm]{Interceptos.png}
+            \end{center}
+            \end{figue}
+        \end{frame}
+    
+    
+    
+\end{document}
