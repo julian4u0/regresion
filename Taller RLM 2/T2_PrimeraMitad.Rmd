@@ -6,8 +6,18 @@ author:
   - "Julián Alejandro Úsuga Ortiz"
   - "Deivid Zhang Figueroa"
 date: "Enero de 2022"
-output: 
-  pdf_document
+output:
+  pdf_document:
+    extra_dependencies:
+    - xfrac
+    - amsmath
+    - multirow
+  html_document:
+    df_print: paged
+  word_document: default
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{float}
 ---
 
 ```{r setup, include=FALSE}
@@ -69,16 +79,18 @@ IQR(datos$price)
 
 Como se observa en la tabla anterior el precio promedio de los automóviles de la muestra es de 13443, con una desviación estándar  de 9163.297, tambien podemos ver que el auto de menor precio de la muestra tiene un precio de 5151 y el de mayor precio es de 45400. Por otro lado, el rango intercuartílico es de 9246.5 por lo que podemos anticipar que los datos centrales tienen una fuerte dispersión. Destaca que la curtosis es de 5.394072 lo que nos indica que la distribución de nuestra variable tiene colas más pesadas que la distribución normal, coherente con esto tenemos un coeficiente de asimetría de 1.735634 un indicio de que la distribución de la variable es asimétrica hacia la derecha, para ver esto mejor realizaremos el respectivo histograma
 
-```{r Histograma, precio, echo = FALSE, out.width="95%"}
+```{r Histograma, precio, echo = FALSE, out.width="60%", fig.align='center'}
 h_mag <- hist(datos$price, plot = FALSE)
 h_mag$density = h_mag$counts/sum(h_mag$counts)*100
 plot(h_mag, freq = FALSE, col = "#ffa600",
      main = "Histograma para para el precio del automovil",
      xlab = "Precio automovil (USD)",
      ylab = "Porcentaje (%)",
-     cex = 1.5, bty = "n", font = 3, font.main = 4)
+     cex = 1.5, bty = "n", font = 3, font.main = 4,
+     sub = "Figura 1. Histograma del precio de los vehículos de la base de datos")
 ```
-```{r}
+
+```{r Gráfico de dispersión, echo = FALSE, out.width="80%", fig.align='center'}
  # Precio vs cityMpg según los niveles de bodyStyle
 g1 = ggplot(data = datos, aes(color = bodyStyle)) +
   geom_point(mapping = aes(x = cityMpg, y = price,
@@ -86,7 +98,7 @@ g1 = ggplot(data = datos, aes(color = bodyStyle)) +
   labs(color = "Tipo de vehículo") +
   labs(title = "Gráfico de dispersión",
        subtitle = "de millas recorridas por galón en área urbana contra precio",
-       caption = "Figura XXXX.") +
+       caption = "Figura 2.") +
   xlab("Millas recorridas por galón en área urbana [mpg]") +
   ylab("Precio [$USD]") +
   theme_light() +
@@ -120,28 +132,28 @@ El gráfico evidencia que entre el precio y las millas por galón parece existir
 
 ## Punto tres. Planteamiento del modelo de regresión lineal.
 
-Como se vio en el punto uno, la base de datos asignada está compuesta por tres variables: $\textsf{price}$, que corresponde a la variable respuesta del modelo a plantear y que será denotada como $Y$; $\textsf{cityMpg}$, que es una variable cuantitativa y que será una variable regresora que será denotada como $X_1$ y, finalmente, $\textsf{bodyStyle}$, denotada como $X_2$, es la otra variable regresora, y de la cual se debe tener en cuenta que es cuantitativa, de manera que para la realización del modelo de regresión se deben tener en cuenta sus tres niveles de medición: `hatchback`, `sedan` y `Otro`, y para ello se define al nivel `Otros` como el de referencia. Para definir cómo se va a plantear el modelo de regresión, esto es, si deben ser incluidos términos de interacción en el modelo, vale la pena observar la figura XXXX, en la cual se muestra la relación que existe entre $\textsf{price}$ y $\textsf{cityMpg}$ diferenciando los niveles de $\textsf{bodyStyle}$ con diferentes figuras.
+Como se vio en el punto uno, la base de datos asignada está compuesta por tres variables: $\textsf{price}$, que corresponde a la variable respuesta del modelo a plantear y que será denotada como $Y$; $\textsf{cityMpg}$, que es una variable cuantitativa y que será una variable regresora que será denotada como $X_1$ y, finalmente, $\textsf{bodyStyle}$, denotada como $X_2$, es la otra variable regresora, y de la cual se debe tener en cuenta que es cuantitativa, de manera que para la realización del modelo de regresión se deben tener en cuenta sus tres niveles de medición: `hatchback`, `sedan` y `Otro`, y para ello se define al nivel `Otros` como el de referencia. Para definir cómo se va a plantear el modelo de regresión, esto es, si deben ser incluidos términos de interacción en el modelo, vale la pena observar la figura dos, en la cual se muestra la relación que existe entre $\textsf{price}$ y $\textsf{cityMpg}$ diferenciando los niveles de $\textsf{bodyStyle}$ con diferentes figuras.
 
-```{r, fig.cap = "Dispersión de mgp vs. precio."}
-# Precio vs cityMpg según los niveles de bodyStyle
-g1 = ggplot(data = datos) +
-  geom_point(mapping = aes(x = cityMpg, y = price,
-                           color = bodyStyle)) +
-  labs(color = "Tipo de vehículo") +
-  labs(title = "Gráfico de dispersión",
-       subtitle = "de millas recorridas por galón en área urbana contra precio",
-       caption = "Figura XXXX.") +
-  xlab("Millas recorridas por galón en área urbana [mpg]") +
-  ylab("Precio [$USD]") +
-  theme_light() +
-  theme(plot.title = element_text(size = 12, face = "bold"),
-        plot.subtitle = element_text(size = 12),
-        plot.caption = element_text(size = 12, color = "gray")) +
-  scale_color_manual(values = c("#d80000", "#2692ff", "#00d800"))
-g1
-```
+<!-- # ```{r, fig.cap = "Dispersión de mgp vs. precio."} -->
+<!-- # # Precio vs cityMpg según los niveles de bodyStyle -->
+<!-- # g1 = ggplot(data = datos) + -->
+<!-- #   geom_point(mapping = aes(x = cityMpg, y = price, -->
+<!-- #                            color = bodyStyle)) + -->
+<!-- #   labs(color = "Tipo de vehículo") + -->
+<!-- #   labs(title = "Gráfico de dispersión", -->
+<!-- #        subtitle = "de millas recorridas por galón en área urbana contra precio", -->
+<!-- #        caption = "Figura XXXX.") + -->
+<!-- #   xlab("Millas recorridas por galón en área urbana [mpg]") + -->
+<!-- #   ylab("Precio [$USD]") + -->
+<!-- #   theme_light() + -->
+<!-- #   theme(plot.title = element_text(size = 12, face = "bold"), -->
+<!-- #         plot.subtitle = element_text(size = 12), -->
+<!-- #         plot.caption = element_text(size = 12, color = "gray")) + -->
+<!-- #   scale_color_manual(values = c("#d80000", "#2692ff", "#00d800")) -->
+<!-- # g1 -->
+<!-- # ``` -->
 
-Como se observa en el gráfico anterior, existen tendencias diferentes para cada uno de los niveles de medición. Para empezar, las observaciones asociadas a vehículos catalogados como `Otro`  parece tener una pendiente bastante pronunciada, lo cual se refleja en el hecho de que existen varias observaciones que toman altos precios, lo cual contrasta con lo que sucede con los otros dos niveles: `hatckback` y `sedan`, que no toman valores tan altos de precios, salvo algunas pocas excepciones para el nivel `sedan`. Además, debe tenerse en cuenta que hay algunas observaciones del nivel `Otro` que tiene un comportamiento semejante al de `hatckback` y `sedan`, lo cual se puede deber al hecho de que esta variable recoge distintos tipos de vehículos, por lo que es posible que existan algunos de estos tipos que tengan precios bajos. 
+Así, al retomar la figura dos, se observa que existen tendencias diferentes para cada uno de los niveles de medición. Para empezar, las observaciones asociadas a vehículos catalogados como `Otro`  parece tener una pendiente bastante pronunciada, lo cual se refleja en el hecho de que existen varias observaciones que toman altos precios, lo cual contrasta con lo que sucede con los otros dos niveles: `hatckback` y `sedan`, que no toman valores tan altos de precios, salvo algunas pocas excepciones para el nivel `sedan`. Además, debe tenerse en cuenta que hay algunas observaciones del nivel `Otro` que tiene un comportamiento semejante al de `hatckback` y `sedan`, lo cual se puede deber al hecho de que esta variable recoge distintos tipos de vehículos, por lo que es posible que existan algunos de estos tipos que tengan precios bajos. 
 
 En todo caso, teniendo en cuenta este análisis, es necesario incluir variables indicadoras al modelo. Así, tomando al nivel `Otro` como el de referencia para $\textsf{bodyStyle}$, $I_1$ la variable indicadora asociada a los *hatchbacks* e $I_2$ la variable indicadora que referencia a los sedanes, entonces el modelo a desarrollar sería como sigue:
 
@@ -211,7 +223,7 @@ Además, debe notarse que el $R^2=0.6272$, lo que significa que el 62.72 % de la
 
 Uno de los supuestos asumidos en el punto anterior para poder plantear los modelos presentados es que los errores tienen la misma distribución, siendo esta normal con media cero y varianza $\sigma^2$, por lo que es necesario validar este último aspecto para comprobar los modelos propuestos, para lo cual vale la pena revisar los siguientes dos gráficos, los cuales contrastan a los residuos internamente estudentizados contra el número de millas recorridas por galón consumida en recorridos urbanos y contra los valores ajustados.
 
-```{r, out.width="80%", fig.cap = "Residuos estudentizados."}
+```{r, out.width="80%"}
 residualPlots(modelo,
               groups = datos$bodyStyle,
               type = "rstudent",
@@ -220,7 +232,8 @@ residualPlots(modelo,
               pch = 1:3,
               col=1:3,
               main = "Gráficos de dispersión para los residuos estudentizados",
-              ylab = "Residuales estudentiza")
+              ylab = "Residuales estudentiza",
+              sub = "Figura 3.")
 layout(cbind(c(1),c(2)))
 ```
 
@@ -240,7 +253,8 @@ plot(rstudent(modelo)~datos$bodyStyle,
      border=1:3,
      main = "Boxplots para los gráficos de cajas y bigotes según el tipo de vehículo",
      xlab = "Tipo de vehículo",
-     ylab = "Residuales internamente estudentizados")
+     ylab = "Residuales internamente estudentizados",
+     sub = "Figura 4.")
 abline(h=c(-2,0,2),lty=3)
 ```
 De la figura XXXX lo primero que llama la atención es que los vehículos tipo `hatchback` poseen una caja muy angosta, lo cual está asociado con la concentración de los residuales estudentizados que se analizó en el gráfico derecho de la figura XXXX, además debe notarse que su mediana es negativa, lo cual se anticipaba al ver que los puntos se concentraban debajo del cero. Nótese, además, que los bigotes no superan los umbrales demarcados en dos y dos negativo, y que existe un residual estudentizado atípico en el contexto de este tipo de vehículos.
@@ -257,7 +271,8 @@ qqnorm(rstudent(modelo),
        col = as.numeric(datos$bodyStyle),
        main = "QQ pplot para normalidad",
        xlab = "Cuantiles teóricos",
-       ylab = "Cuantiles empíricos")
+       ylab = "Cuantiles empíricos",
+       sub = "Figura 5.")
 qqline(rstudent(modelo))
 legend("topleft",legend=rbind(c("Estadístico W","Valor p"),
 round(c(test$statistic,test$p.value),digits=4)),cex=0.8)
@@ -270,3 +285,240 @@ Y como se puede observar, existe una amplia concentración de valores alrededor 
 Y sus resultados se pueden ver en el margen superior izquierdo de la gráfica, donde se ve que el valor p es $V_p = 2 \times 10 ^{-4}$, lo cual es menor que cualquier $\alpha$, y en particular, que un $\alpha = 0.05 > V_p$, de manera que se rechaza la hipótesis nula y se concluye que no hay evidencia muestral suficiente para sugerir que los errores tienen una distribución normal.
 
 `PREGUNTA. ¿Concluyo sobre errores o residuales? ¿Y es correcto decir que uno de los modelos cumple y los otros no?`
+
+## Punto cinco. ¿Existe diferencia entre las ordenadas en el origen de las rectas correspondientes a los diferentes niveles de bodyStyle?.
+
+Para saber si existen diferencias entre las ordenadas en el origen para cada recta regresora por nivel de **bodyStyle** planteamos los siguientes modelos:
+
+$$
+Y_i = \beta_0 + \beta_1 X_{i1} + E_i \ \ \text{Para "Otro" } (I_1 \land I_2 = 0) \\
+$$
+
+$$
+Y_i = (\beta_0 + \beta_2) + (\beta_1+\beta_{1,1}) X_{i1} + E_i \text{ Para "hatchback"} \ (I_1 = 1 \ \land I_2 = 0)
+$$
+
+
+\begin{gather*}
+Y_i = ( \beta_0 + \beta_3 ) + ( \beta_1 + \beta_{1,2} ) X_{i1} + E_i \text{ Para "sedan"} \ (I_1 = 0 \ \land I_2 =1) \\
+\text{Sabiendo que } E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*} 
+
+
+También vale la pena recordar que nuestro modelo completo (MF), como se había planteado anteriormente, es el siguiente:
+
+
+\begin{gather*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i \\
+\text{con }E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
+
+De esta forma, para que no existan diferencias entre estas las ordenadas de estas rectas se debe cumplir que $\beta_0 = (\beta_0 + \beta_2) = (\beta_0 + \beta_3)$, lo que que es equivalente a que simplemente $\beta_2 = \beta_3 = 0$.
+
+Derivándonos de esto, planteamos las siguientes hipótesis:
+
+$$
+H_0: \beta_2 = \beta_3=0 \\ 
+H_1: \text{ algun } \beta_j \ne 0, \ j=1,2
+$$
+
+Así, el modelo reducido (MR) bajo $H_0$ es el siguiente:
+
+
+\begin{gather*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i \\
+\text{con } E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
+
+Por lo que nuestro estadístico de prueba es:
+
+
+\begin{gather*}
+F_0 = \frac{[\text{SSE}_{\text{(MR)}}-\text{SSE}_{\text{(MF)}}]/v}{\text{MSE}_{\text{(MF)}}} \\ 
+= \frac{\text{SSR}(I_{1}, I_{2} | X_{1},X_{1}*I_{1}, X_{1} * I_{2})/(c-1)}{\text{MSE}(X_1, I_1, I_2, X_{1}*I_{1}, X_{1} * I_{2})} \\ 
+= \frac{(4280394376-3098866721)/(3-1)}{32966667} = 17.92
+\end{gather*}
+
+
+Nuestro *p-value* se deriva de $P(f_{3-1, 100-3*2}>F_0) = P(f_{2, 94}>17.92) = 2.55*10^7$, lo cual validamos con la librería *linearHypothesis* y obtenemos los resultados anteriores.
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, include= FALSE}
+# Valor P con F_0
+# 1-pf(17.92004,3-1, 100-2*3)
+lh <-
+  linearHypothesis(modelo, c("bodyStylehatchback=0", "bodyStylesedan=0"))
+lh
+```
+
+```{=tex}
+\begin{table}[]
+\begin{tabular}{lllllll}
+                              & \multicolumn{3}{l}{\textbf{Linear hypothesis test}}                                                         & \multicolumn{3}{l|}{}                                                                                            \\
+                              & \multicolumn{3}{l}{\textit{Hypothesis:}}                                                                    & \multicolumn{3}{l}{\multirow{4}{*}{}}                                                                            \\
+                              & \multicolumn{3}{l}{\textit{bodyStylehatchback = 0}}                                                         & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textit{bodyStylesedan = 0}}                                                             & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textbf{Model 1: Modelo reducido}}                                                       & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textbf{Model 2: price $\sim$ cityMpg * bodyStyle}}                                           & \multicolumn{3}{l}{}                                                                                             \\ \hline
+\multicolumn{1}{|l|}{}        & \multicolumn{1}{l|}{\textbf{Res.Df}} & \multicolumn{1}{l|}{\textbf{RSS}} & \multicolumn{1}{l|}{\textbf{Df}} & \multicolumn{1}{l|}{\textbf{Sum of Sq}} & \multicolumn{1}{l|}{\textbf{F}} & \multicolumn{1}{l|}{\textbf{Pr(>F)}} \\ \hline
+\multicolumn{1}{|l|}{Model 1} & \multicolumn{1}{l|}{96}              & \multicolumn{1}{l|}{4280394376}   & \multicolumn{1}{l|}{}            & \multicolumn{1}{l|}{}                   & \multicolumn{1}{l|}{}           & \multicolumn{1}{l|}{}                \\ \hline
+\multicolumn{1}{|l|}{Model 2} & \multicolumn{1}{l|}{94}              & \multicolumn{1}{l|}{3098866721}   & \multicolumn{1}{l|}{2}           & \multicolumn{1}{l|}{1181527655}         & \multicolumn{1}{l|}{17.92}      & \multicolumn{1}{l|}{2.552e-07 ***}   \\ \hline
+\end{tabular}
+\end{table}
+```
+Ya realizado el test, obtuvimos un *p-value* de $2.552*10^7$, el cual es un valor extremadamente pequeño, por lo que podemos fijar nuestro nivel de significancia en $\alpha = 0.05$ y claramente se rechaza la hipótesis nula; concluimos que los intersectos con la ordenada para cada recta de regresión son diferentes.
+
+Con lo anterior podemos afirmar, de una forma mas intuitiva que para valores de *millas por galón* cercanos a 0 el precio por tipo de vehículo es diferentes a los demás, por lo que podemos decir que hay precios que difieren inicialmente, en el siguiente punto (6) veremos si no solo difieren inicialmente sino también a lo largo del dominio de los datos, osea, si las tres rectas de regresión tienen pendientes diferentes.
+
+Lo anterior lo podemos validar gráficamente en la siguiente gráfica; si tratamos de visualizar la proyección de cada una de las rectas, podemos ver que cada uno de las ordenadas en el origen son diferente de las demás, destacándose el tipo de vehículo hatchback de los otros dos tipos (Otros y Sedan).
+
+```{r,fig.width=6, fig.height=3.7, warning=F, message=F}
+
+
+
+# Precio vs cityMpg según los niveles de bodyStyle
+g1 = ggplot(datos, aes(cityMpg, price, colour = bodyStyle)) +
+  geom_smooth(method = 'lm', se = F) +
+  geom_point(mapping = aes(color = bodyStyle)) +
+  xlim(c(0, 52)) +
+  labs(color = "Tipo de vehículo") +
+  labs(title = "Gráfico de dispersión con lineas de regresión",
+       subtitle = "de millas recorridas por galón en área urbana contra precio",
+       caption = "Figura 6.") +
+  xlab("Millas recorridas por galón en área urbana [mpg]") +
+  ylab("Precio [$USD]") +
+  theme_light() +
+  theme(
+    plot.title = element_text(size = 12, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    plot.caption = element_text(size = 12, color = "gray")
+  ) +
+  scale_color_manual(values = c("#d80000", "#2692ff", "#00d800"))
+
+g1
+```
+
+## Punto seis. ¿Existe diferencia entre las pendientes de las rectas correspondientes a los diferentes niveles de bodyStyle?.
+
+En este caso evaluaremos si existen diferencias entre las pendientes de las rectas regresoras, vale la pena recordar nuevamente que nuestro modelo completo (MF) es el siguiente:
+
+
+\begin{gather*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X_{i1} I_{i1} + \beta_{1,2} X_{i1} I_{i2} + E_i \\
+\text{con }E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
+
+Ahora, de las formulas planteadas en el punto cinco podemos ver que para que hayan diferencias entre las pendientes de las rectas se debe cumplir que:
+
+
+\begin{gather*}
+\beta_1 \ne (\beta_1 + \beta_{1,1}) \ne (\beta_1 + \beta_{1,2}) \\ 
+\text{que equivale a } \beta_{1,1} = \beta_{1,2} = 0 \\
+\text{con }E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
+Por lo que podemos plantear nuestras hipótesis como las siguientes:
+
+
+\begin{gather*} 
+H_0:\beta_{1,1} = \beta_{1,2} = 0  \\
+vs. \\
+H_1: \text{algun } \beta_{1,k} \ne 0, k=1,2 
+\end{gather*}
+
+
+Así, el modelo reducido (MR) para este caso queda definido como:
+
+
+\begin{gather*}
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2}  + E_i \\
+\text{con }E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
+\end{gather*}
+
+
+Con esto podemos definir nuestro estadístico de prueba $F_0$ como:
+
+
+\begin{gather*}
+F_0 = \frac{[\text{SSE}_{\text{(MR)}}-\text{SSE}_{\text{(MF)}}]/v}{\text{MSE}_{\text{(MF)}}} \\
+= \frac{\text{SSR}(X_{1}*I_{1}, X_{1} * I_{2}| X_{1},I_{1}, I_{2})/(c-1)}{\text{MSE}(X_1, I_1, I_2, X_{1}*I_{1}, X_{1} * I_{2})} \\
+= \frac{(3999435253-3098866721)/(3-1)}{32966667} = 13.65877 
+\end{gather*}
+
+
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE, include= FALSE}
+
+lh <-
+  linearHypothesis(modelo, c("cityMpg:bodyStylehatchback=0", "cityMpg:bodyStylesedan=0"))
+lh
+```
+
+Nuestro *p-value* se deriva de $P(f_{3-1, 100-3*2}>F_0) = P(f_{2, 94}>13.65877) = 6.203*10^6$, lo cual validamos con la librería *linearHypothesis* y obtenemos los resultados anteriores, podemos decir que para cualquier valor de $\alpha$ se rechaza la hipótesis nula, ya que este es un valor demasiado pequeño.
+
+
+\begin{table}[]
+\begin{tabular}{lllllll}
+                              & \multicolumn{3}{l}{\textbf{Linear hypothesis test}}                                                         & \multicolumn{3}{l|}{}                                                                                            \\
+                              & \multicolumn{3}{l}{\textit{Hypothesis:}}                                                                    & \multicolumn{3}{l}{\multirow{4}{*}{}}                                                                            \\
+                              & \multicolumn{3}{l}{\textit{cityMpg:bodyStylehatchback = 0}}                                                 & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textit{cityMpg:bodyStylesedan = 0}}                                                     & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textbf{Model 1: Modelo reducido}}                                                       & \multicolumn{3}{l}{}                                                                                             \\
+                              & \multicolumn{3}{l}{\textbf{Model 2: price ~ cityMpg * bodyStyle}}                                           & \multicolumn{3}{l}{}                                                                                             \\ \hline
+\multicolumn{1}{|l|}{}        & \multicolumn{1}{l|}{\textbf{Res.Df}} & \multicolumn{1}{l|}{\textbf{RSS}} & \multicolumn{1}{l|}{\textbf{Df}} & \multicolumn{1}{l|}{\textbf{Sum of Sq}} & \multicolumn{1}{l|}{\textbf{F}} & \multicolumn{1}{l|}{\textbf{Pr(>F)}} \\ \hline
+\multicolumn{1}{|l|}{Model 1} & \multicolumn{1}{l|}{96}              & \multicolumn{1}{l|}{3999435253}   & \multicolumn{1}{l|}{}            & \multicolumn{1}{l|}{}                   & \multicolumn{1}{l|}{}           & \multicolumn{1}{l|}{}                \\ \hline
+\multicolumn{1}{|l|}{Model 2} & \multicolumn{1}{l|}{94}              & \multicolumn{1}{l|}{3098866721}   & \multicolumn{1}{l|}{2}           & \multicolumn{1}{l|}{900568531}          & \multicolumn{1}{l|}{13.659}     & \multicolumn{1}{l|}{6.203e-06 ***}   \\ \hline
+\end{tabular}
+\end{table}
+
+
+Así, hemos rechazado la hipótesis nula y concluimos que las pendientes de nuestras lineas regresoras son diferentes entre si, esto significa que para cada tipo de vehículo existen diferentes inclinaciones a aumentos de precio dependiendo de las millas que alcanza a viajar por galón de gasolina.
+
+# Punto siete.
+
+Teniendo en cuenta los resultados anteriores realice una prueba de suma de cuadrados extra con test lineal general. Justifique la hipótesis que desea probar en este numeral.
+
+Como se vio anteriormente, las ecuaciones de las rectas ajustadas para "otro" y para "sedán" dieron valores similares en sus interceptos y pendientes, por lo que, se hará una prueba para ver si estos son estadísticamente iguales, esto es:
+
+$$\beta_0 = \beta_0 + \beta_3 \longleftrightarrow \beta_3 = 0$$ y
+$$\beta_1 = \beta_1 + \beta_{1,2} \longleftrightarrow \beta_{1,2} = 0$$
+Por lo tanto, la hipótesis nula y alterna es:
+
+$$H_0: \beta_3 = \beta_{1,2} = 0$$ vs
+$H_a:$ al menos uno de estos parámetros es no nulo: $\beta_3,\beta_{1,2}$
+
+Haciendo test lineal general:
+
+```{r}
+linearHypothesis(modelo,c("bodyStylesedan=0",
+"cityMpg:bodyStylesedan=0"))
+```
+
+Luego, se tiene que el valor p es $0.3899 < \alpha = 0.05$, por lo que no se rechaza la hipótesis nula, es decir, las rectas para "otro" y para "sedán" son estadísticamente iguales.
+
+# Punto ocho
+
+Si se quiere probar que la recta de price vs $X_1$ es diferente para cada niveles de bodyStyle, plantee la hipótesis a probar, el estadístico de prueba y región crítica al nivel de 0.05, realice la prueba y concluya.
+
+Las rectas serán iguales si coinciden sus interceptos y sus pendientes, por lo tanto se requiere que: 
+$$\beta_0 +\beta_2 = \beta_0 + \beta_3 = \beta_0 \Longleftrightarrow \beta_2 = \beta_3 = 0$$
+
+, y
+$$\beta_1 + \beta_{1,1} = \beta_1 + \beta_{1,2} = \beta_1 \Longleftrightarrow \beta_{1,1} = \beta_{1,2} = 0$$
+
+Luego, se debe probar:
+
+$$H_0: \beta_2 = \beta_3 = \beta_{1,1} = \beta_{1,2} = 0$$ vs
+$H_a:$ al menos uno de estos parámetros es no nulo: $\beta_2,\beta_3,\beta_{1,1},\beta_{1,2}$
+
+El estadístico de prueba es:
+$$F_0 = \frac{(SSE(MR) - SSE(MF))/\nu}{MSE(MF)}$$
+
+Con la función linearHypothesis se puede hallar estos valores:
+```{r}
+linearHypothesis(modelo,c("bodyStylehatchback=0","bodyStylesedan=0","cityMpg:bodyStylehatchback=0",
+"cityMpg:bodyStylesedan=0"))
+```
+Por lo tanto, según la tabla anterior, el estadístico de prueba $F_0 = \frac{1305775049/4}{30988667} = 9.9022$, y calculando su valor p se tiene que es 9.929e-07 < $\alpha = 0.05$, por lo que se rechaza la hipótesis nula $H_0: \beta_2 = \beta_3 = \beta_{1,1} = \beta_{1,2} = 0$, es decir, la recta de price vs $X_1$ es diferente para cada niveles de bodyStyle.
