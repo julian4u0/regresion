@@ -482,8 +482,8 @@ Teniendo en cuenta los resultados anteriores realice una prueba de suma de cuadr
 
 Como se vio anteriormente, las ecuaciones de las rectas ajustadas para "otro" y para "sedán" dieron valores similares en sus interceptos y pendientes, por lo que, se hará una prueba para ver si estos son estadísticamente iguales, esto es:
 
-$$\beta_0 = \beta_0 + \beta_3 \longleftrightarrow \beta_3 = 0$$ y
-$$\beta_1 = \beta_1 + \beta_{1,2} \longleftrightarrow \beta_{1,2} = 0$$
+$$\beta_0 = \beta_0 + \beta_3 \Longleftrightarrow \beta_3 = 0$$ y
+$$\beta_1 = \beta_1 + \beta_{1,2} \Longleftrightarrow \beta_{1,2} = 0$$
 Por lo tanto, la hipótesis nula y alterna es:
 
 $$H_0: \beta_3 = \beta_{1,2} = 0$$ vs
@@ -521,4 +521,6 @@ Con la función linearHypothesis se puede hallar estos valores:
 linearHypothesis(modelo,c("bodyStylehatchback=0","bodyStylesedan=0","cityMpg:bodyStylehatchback=0",
 "cityMpg:bodyStylesedan=0"))
 ```
-Por lo tanto, según la tabla anterior, el estadístico de prueba $F_0 = \frac{1305775049/4}{30988667} = 9.9022$, y calculando su valor p se tiene que es 9.929e-07 < $\alpha = 0.05$, por lo que se rechaza la hipótesis nula $H_0: \beta_2 = \beta_3 = \beta_{1,1} = \beta_{1,2} = 0$, es decir, la recta de price vs $X_1$ es diferente para cada niveles de bodyStyle.
+Por lo tanto, según la tabla anterior, el estadístico de prueba:
+$$F_0 = \frac{1305775049/4}{30988667} = 9.9022$$,
+y calculando su valor p se tiene que es 9.929e-07 < $\alpha = 0.05$, por lo que se rechaza la hipótesis nula $H_0: \beta_2 = \beta_3 = \beta_{1,1} = \beta_{1,2} = 0$, es decir, la recta de price vs $X_1$ es diferente para cada niveles de bodyStyle.
