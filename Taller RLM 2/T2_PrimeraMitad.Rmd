@@ -489,12 +489,18 @@ Por lo tanto, la hipótesis nula y alterna es:
 $$H_0: \beta_3 = \beta_{1,2} = 0$$ vs
 $H_a:$ al menos uno de estos parámetros es no nulo: $\beta_3,\beta_{1,2}$
 
+El estadístico de prueba es:
+$$F_0 = \frac{(SSE(MR) - SSE(MF))/\nu}{MSE(MF)}$$
+
 Haciendo test lineal general:
 
 ```{r}
 linearHypothesis(modelo,c("bodyStylesedan=0",
 "cityMpg:bodyStylesedan=0"))
 ```
+
+Por lo tanto, según la tabla anterior, el estadístico de prueba está dado por:
+$$F_0 = \frac{62720421/2}{30988667} = 0.9513$$
 
 Luego, se tiene que el valor p es $0.3899 < \alpha = 0.05$, por lo que no se rechaza la hipótesis nula, es decir, las rectas para "otro" y para "sedán" son estadísticamente iguales.
 
@@ -521,6 +527,6 @@ Con la función linearHypothesis se puede hallar estos valores:
 linearHypothesis(modelo,c("bodyStylehatchback=0","bodyStylesedan=0","cityMpg:bodyStylehatchback=0",
 "cityMpg:bodyStylesedan=0"))
 ```
-Por lo tanto, según la tabla anterior, el estadístico de prueba:
+Por lo tanto, según la tabla anterior, el estadístico de prueba está dado por:
 $$F_0 = \frac{1305775049/4}{30988667} = 9.9022$$,
 y calculando su valor p se tiene que es 9.929e-07 < $\alpha = 0.05$, por lo que se rechaza la hipótesis nula $H_0: \beta_2 = \beta_3 = \beta_{1,1} = \beta_{1,2} = 0$, es decir, la recta de price vs $X_1$ es diferente para cada niveles de bodyStyle.
