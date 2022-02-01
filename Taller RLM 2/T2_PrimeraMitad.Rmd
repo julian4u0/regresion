@@ -404,11 +404,10 @@ Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 I_{i1} + \beta_3 I_{i2} + \beta_{1,1} X
 \end{gather*}
 
 
-Ahora, de las formulas planteadas en el punto cinco podemos ver que para que hayan diferencias entre las pendientes de las rectas se debe cumplir que:
-
+Ahora, de las formulas planteadas para cada modelo en el punto cinco podemos ver que para que no existan diferencias entre las pendientes de las rectas regresoras se debe cumplir que: 
 
 \begin{gather*}
-\beta_1 \ne (\beta_1 + \beta_{1,1}) \ne (\beta_1 + \beta_{1,2}) \\ 
+\beta_1 = (\beta_1 + \beta_{1,1}) = (\beta_1 + \beta_{1,2}) \\ 
 \text{que equivale a } \beta_{1,1} = \beta_{1,2} = 0 \\
 \text{con }E_i \overset{i.i.d.}{\sim} N(0, \ \sigma^2), i = 1, \ 2, \ ..., \ 100
 \end{gather*}
