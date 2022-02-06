@@ -521,5 +521,5 @@ linearHypothesis(modelo,c("bodyStylehatchback=0","bodyStylesedan=0","cityMpg:bod
 "cityMpg:bodyStylesedan=0"))
 ```
 Por lo tanto, según la tabla anterior, el estadístico de prueba está dado por:
-$$F_0 = \frac{1305775049/4}{30988667} = 9.9022$$,
+$$F_0 = \frac{1305775049/4}{32966667} = 9.9022$$,
 y calculando su valor p se tiene que es 9.929e-07 < $\alpha = 0.05$, por lo que se rechaza la hipótesis nula $H_0: \beta_2 = \beta_3 = \beta_{1,1} = \beta_{1,2} = 0$, es decir, la recta de price vs $X_1$ es diferente para cada niveles de bodyStyle.

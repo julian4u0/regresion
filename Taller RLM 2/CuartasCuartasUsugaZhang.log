@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.28)  1 FEB 2022 11:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.28)  1 FEB 2022 11:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**T2_PrimeraMitad.tex
-(./T2_PrimeraMitad.tex
+**CuartasCuartasUsugaZhang.tex
+(./CuartasCuartasUsugaZhang.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-21> (c:/Users/lenovo/AppData/Roaming/TinyTeX/texm
 f-dist/tex/latex/base/article.cls
@@ -505,8 +505,8 @@ Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@cntb=\count300
 \multirow@dima=\skip64
 \bigstrutjot=\dimen187
-) (./T2_PrimeraMitad.aux)
-\openout1 = `T2_PrimeraMitad.aux'.
+) (./CuartasCuartasUsugaZhang.aux)
+\openout1 = `CuartasCuartasUsugaZhang.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
 LaTeX Font Info:    ... okay on input line 86.
@@ -557,9 +557,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 86.
 LaTeX Info: Redefining \pageref on input line 86.
 LaTeX Info: Redefining \nameref on input line 86.
-(./T2_PrimeraMitad.out) (./T2_PrimeraMitad.out)
+(./CuartasCuartasUsugaZhang.out) (./CuartasCuartasUsugaZhang.out)
 \@outlinefile=\write3
-\openout3 = `T2_PrimeraMitad.out'.
+\openout3 = `CuartasCuartasUsugaZhang.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -639,24 +639,25 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 
 {c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdft
 ex.map}]
-<T2_PrimeraMitad_files/figure-latex/Histograma, precio-1.pdf, id=51, 469.755pt 
-x 325.215pt>
-File: T2_PrimeraMitad_files/figure-latex/Histograma, precio-1.pdf Graphic file 
-(type pdf)
-<use T2_PrimeraMitad_files/figure-latex/Histograma, precio-1.pdf>
-Package pdftex.def Info: T2_PrimeraMitad_files/figure-latex/Histograma, precio-
-1.pdf  used on input line 167.
+<CuartasCuartasUsugaZhang_files/figure-latex/Histograma, precio-1.pdf, id=51, 4
+69.755pt x 325.215pt>
+File: CuartasCuartasUsugaZhang_files/figure-latex/Histograma, precio-1.pdf Grap
+hic file (type pdf)
+<use CuartasCuartasUsugaZhang_files/figure-latex/Histograma, precio-1.pdf>
+Package pdftex.def Info: CuartasCuartasUsugaZhang_files/figure-latex/Histograma
+, precio-1.pdf  used on input line 167.
 (pdftex.def)             Requested size: 281.85518pt x 195.1305pt.
-<T2_PrimeraMitad_files/figure-latex/Gráfico de dispersión-1.pdf, id=52, 469.7
-55pt x 325.215pt>
-File: T2_PrimeraMitad_files/figure-latex/Gráfico de dispersión-1.pdf Graphic 
-file (type pdf)
-<use T2_PrimeraMitad_files/figure-latex/Gráfico de dispersión-1.pdf>
-Package pdftex.def Info: T2_PrimeraMitad_files/figure-latex/Gráfico de dispers
-ión-1.pdf  used on input line 169.
+<CuartasCuartasUsugaZhang_files/figure-latex/Gráfico de dispersión-1.pdf, id=
+52, 469.755pt x 325.215pt>
+File: CuartasCuartasUsugaZhang_files/figure-latex/Gráfico de dispersión-1.pdf
+ Graphic file (type pdf)
+<use CuartasCuartasUsugaZhang_files/figure-latex/Gráfico de dispersión-1.pdf>
+
+Package pdftex.def Info: CuartasCuartasUsugaZhang_files/figure-latex/Gráfico d
+e dispersión-1.pdf  used on input line 169.
 (pdftex.def)             Requested size: 375.80452pt x 260.17235pt.
-[2 <./T2_PrimeraMitad_files/figure-latex/Histograma, precio-1.pdf> <./T2_Primer
-aMitad_files/figure-latex/Gráfico de dispersión-1.pdf>]
+[2 <./CuartasCuartasUsugaZhang_files/figure-latex/Histograma, precio-1.pdf> <./
+CuartasCuartasUsugaZhang_files/figure-latex/Gráfico de dispersión-1.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 196.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -673,31 +674,31 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
 (c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [3] [4]
-<T2_PrimeraMitad_files/figure-latex/unnamed-chunk-7-1.pdf, id=86, 469.755pt x 3
-25.215pt>
-File: T2_PrimeraMitad_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (ty
-pe pdf)
-<use T2_PrimeraMitad_files/figure-latex/unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: T2_PrimeraMitad_files/figure-latex/unnamed-chunk-7-1.p
-df  used on input line 358.
+<CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-7-1.pdf, id=86, 469.
+755pt x 325.215pt>
+File: CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-7-1.pdf Graphic
+ file (type pdf)
+<use CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: CuartasCuartasUsugaZhang_files/figure-latex/unnamed-ch
+unk-7-1.pdf  used on input line 358.
 (pdftex.def)             Requested size: 375.80452pt x 260.17235pt.
 [5]
-<T2_PrimeraMitad_files/figure-latex/unnamed-chunk-8-1.pdf, id=94, 469.755pt x 3
-25.215pt>
-File: T2_PrimeraMitad_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (ty
-pe pdf)
-<use T2_PrimeraMitad_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: T2_PrimeraMitad_files/figure-latex/unnamed-chunk-8-1.p
-df  used on input line 397.
+<CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-8-1.pdf, id=94, 469.
+755pt x 325.215pt>
+File: CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-8-1.pdf Graphic
+ file (type pdf)
+<use CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-8-1.pdf>
+Package pdftex.def Info: CuartasCuartasUsugaZhang_files/figure-latex/unnamed-ch
+unk-8-1.pdf  used on input line 397.
 (pdftex.def)             Requested size: 375.80452pt x 260.17235pt.
-[6 <./T2_PrimeraMitad_files/figure-latex/unnamed-chunk-7-1.pdf>]
-<T2_PrimeraMitad_files/figure-latex/unnamed-chunk-9-1.pdf, id=104, 469.755pt x 
-325.215pt>
-File: T2_PrimeraMitad_files/figure-latex/unnamed-chunk-9-1.pdf Graphic file (ty
-pe pdf)
-<use T2_PrimeraMitad_files/figure-latex/unnamed-chunk-9-1.pdf>
-Package pdftex.def Info: T2_PrimeraMitad_files/figure-latex/unnamed-chunk-9-1.p
-df  used on input line 424.
+[6 <./CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-7-1.pdf>]
+<CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-9-1.pdf, id=104, 469
+.755pt x 325.215pt>
+File: CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-9-1.pdf Graphic
+ file (type pdf)
+<use CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-9-1.pdf>
+Package pdftex.def Info: CuartasCuartasUsugaZhang_files/figure-latex/unnamed-ch
+unk-9-1.pdf  used on input line 424.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 424--437
@@ -709,38 +710,39 @@ has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.437 
-       <./T2_PrimeraMitad_files/figure-latex/unnamed-chunk-8-1.pdf>] [8 <./T2_P
-rimeraMitad_files/figure-latex/unnamed-chunk-9-1.pdf>]
+       <./CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-8-1.pdf>] [
+8 <./CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-9-1.pdf>]
 
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 514.
 
 [9]
-<T2_PrimeraMitad_files/figure-latex/unnamed-chunk-11-1.pdf, id=135, 433.62pt x 
-266.9975pt>
-File: T2_PrimeraMitad_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (t
-ype pdf)
-<use T2_PrimeraMitad_files/figure-latex/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: T2_PrimeraMitad_files/figure-latex/unnamed-chunk-11-1.
-pdf  used on input line 549.
+<CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-11-1.pdf, id=135, 43
+3.62pt x 266.9975pt>
+File: CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-11-1.pdf Graphi
+c file (type pdf)
+<use CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-11-1.pdf>
+Package pdftex.def Info: CuartasCuartasUsugaZhang_files/figure-latex/unnamed-ch
+unk-11-1.pdf  used on input line 549.
 (pdftex.def)             Requested size: 433.63878pt x 267.00903pt.
-[10 <./T2_PrimeraMitad_files/figure-latex/unnamed-chunk-11-1.pdf>]
+[10 <./CuartasCuartasUsugaZhang_files/figure-latex/unnamed-chunk-11-1.pdf>]
 
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 605.
 
-[11] [12] [13] (./T2_PrimeraMitad.aux)
-Package rerunfilecheck Info: File `T2_PrimeraMitad.out' has not changed.
+[11] [12] [13] (./CuartasCuartasUsugaZhang.aux)
+Package rerunfilecheck Info: File `CuartasCuartasUsugaZhang.out' has not change
+d.
 (rerunfilecheck)             Checksum: 88DCC76224D7906202BE7FAFD1DF0331;2895.
  ) 
 Here is how much of TeX's memory you used:
  11976 strings out of 480247
- 198118 string characters out of 5894392
- 493106 words of memory out of 5000000
+ 198676 string characters out of 5894392
+ 493151 words of memory out of 5000000
  29647 multiletter control sequences out of 15000+600000
  548836 words of font info for 84 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,63p,830b,438s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,63p,839b,438s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.
 enc}{c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-m
 athsy.enc}{c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/l
@@ -765,7 +767,7 @@ c/lm/lmri10.pfb><c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
 /type1/public/lm/lmsy10.pfb><c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf-dist
 /fonts/type1/public/lm/lmsy7.pfb><c:/Users/lenovo/AppData/Roaming/TinyTeX/texmf
 -dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on T2_PrimeraMitad.pdf (13 pages, 358239 bytes).
+Output written on CuartasCuartasUsugaZhang.pdf (13 pages, 358289 bytes).
 PDF statistics:
  251 PDF objects out of 1000 (max. 8388607)
  187 compressed objects within 2 object streams
